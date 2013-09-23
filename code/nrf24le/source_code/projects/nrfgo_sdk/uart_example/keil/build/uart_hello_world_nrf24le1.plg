@@ -1,0 +1,17 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Project:</h2>
+C:\working\rf\rf-nordic\code\nrf24le\source_code\projects\nrfgo_sdk\uart_example\keil\uart_hello_world_nrf24le1.uvproj
+Project File Date:  09/20/2013
+
+<h2>Output:</h2>
+Rebuild target 'uart_hello_world'
+compiling main.c...
+compiling hal_clk.c...
+compiling hal_uart.c...
+linking...
+Program Size: data=34.0 xdata=0 code=465
+creating hex file from ".\build\uart_hello_world_nrf24le1"...
+".\build\uart_hello_world_nrf24le1" - 0 Error(s), 0 Warning(s).

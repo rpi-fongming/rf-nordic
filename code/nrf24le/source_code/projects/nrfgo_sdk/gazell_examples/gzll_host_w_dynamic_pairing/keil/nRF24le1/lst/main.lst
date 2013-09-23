@@ -1,0 +1,128 @@
+C51 COMPILER V9.51   MAIN                                                                  09/06/2013 01:48:06 PAGE 1   
+
+
+C51 COMPILER V9.51, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN .\build\main.obj
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE ..\..\main.c LARGE OBJECTADVANCED ROM(COMPACT) REGFILE(.\build\gzll_host_w_
+                    -dyn_pair_nrf24le1.ORC) BROWSE NOINTPROMOTE MODC2 INCDIR(..\..\..\..\..\..\hal;..\..\..\..\..\..\hal\nrf24l01p;..\..\..\.
+                    -.\..\..\gazell\common;..\..\..\..\..\..\gazell\nrf24le1;..\..\..\params;..\..\..\..\..\..\hal\nrf24le1;..\..\..\..\..\..
+                    -\lib\assertions;..\..\..\..\..\..\compiler\c51;..\..\..\..\..\..\compiler\common) DEFINE(EX_PROJ_LE1) DEBUG PRINT(.\lst\
+                    -main.lst) TABS(2) OBJECT(.\build\main.obj)
+
+line level    source
+
+   1          /* Copyright (c) 2009 Nordic Semiconductor. All Rights Reserved.
+   2           *
+   3           * The information contained herein is confidential property of Nordic 
+   4           * Semiconductor ASA.Terms and conditions of usage are described in detail 
+   5           * in NORDIC SEMICONDUCTOR STANDARD SOFTWARE LICENSE AGREEMENT. 
+   6           *
+   7           * Licensees are granted free, non-transferable use of the information. NO
+   8           * WARRENTY of ANY KIND is provided. This heading must NOT be removed from
+   9           * the file.
+  10           *              
+  11           * $LastChangedRevision: 133 $
+  12           */
+  13          
+  14          /** @file
+  15           * @brief Gazell pairing library Host example 
+  16           * @defgroup gzll_host_w_dyn_pair_example Gazell pairing library Host example 
+  17           * @{
+  18           * @ingroup nrf_examples
+  19           *
+  20           * @brief Gazell Link Layer Host using the Gazell Pairing Library for adding 
+  21           * dynamic pairing functionality. 
+  22           *
+  23           * The example is monitoring for pairing requests as well as normal user data. 
+  24           * Pairing will be granted to any device sending a pairing request. 
+  25           * If user data is received the first payload byte (byte 0) is written to P0. 
+  26           *
+  27           * The project @ref gzll_device_w_dyn_pair_example can be used as a counterpart 
+  28           * for transmitting data.
+  29           *
+  30           */
+  31          
+  32          //lint -e534
+  33          //lint -e830
+  34          
+  35          #include "gzll_mcu.h"
+  36          #include "gzll.h"
+  37          #include "gzp.h"
+  38          
+  39          #ifdef GZP_CRYPT_DISABLE
+              #error This example project uses gzp_crypt, please remove the definition "GZP_CRYPT_DISABLE".
+              #endif
+  42          
+  43          void main(void)
+  44          {
+  45   1        uint8_t payload[GZLL_MAX_PAYLOAD_LENGTH];
+  46   1      
+  47   1        mcu_init();
+  48   1        gzll_init();
+  49   1        gzp_init();
+  50   1        gzp_pairing_enable(true);
+  51   1      
+C51 COMPILER V9.51   MAIN                                                                  09/06/2013 01:48:06 PAGE 2   
+
+  52   1        // Open pipe 2. (Pipe 0 and 1 are reserved by pairing library).
+  53   1        gzll_set_param(GZLL_PARAM_RX_PIPES, gzll_get_param(GZLL_PARAM_RX_PIPES) | (1 << 2));
+  54   1        
+  55   1        // Set P0 as output
+  56   1        P0DIR = 0;                                          
+  57   1      
+  58   1        EA = 1;
+  59   1      
+  60   1        // Enter host mode (start monitoring for data)
+  61   1        gzll_rx_start();                                          
+  62   1        
+  63   1        for(;;)
+  64   1        { 
+  65   2          // If gzpair_host_execute() returns true, a pairing request has been received
+  66   2          gzp_host_execute();
+  67   2      
+  68   2          // If Host ID request received
+  69   2          if(gzp_id_req_received())
+  70   2          {
+  71   3            // Always grant request
+  72   3            gzp_id_req_grant();
+  73   3          }
+  74   2         
+  75   2          // If any data received (plaintext on pipe 2 or encrypted through Gazell pairing library)
+  76   2          if((gzll_get_rx_data_ready_pipe_number() == 2) || (gzp_crypt_user_data_received()))
+  77   2          {
+  78   3            // Plaintext data received? 
+  79   3            if(gzll_rx_fifo_read(payload, NULL, NULL))
+  80   3            {
+  81   4              // Write received payload[0] to port 0
+  82   4              P0 = payload[0];
+  83   4            }
+  84   3            else
+  85   3            {
+  86   4              // Read data from Gazell pairing library
+  87   4              gzp_crypt_user_data_read(payload, NULL);
+  88   4              // Write received payload[0] to port 0
+  89   4              P0 = payload[0];
+  90   4            }
+  91   3          }   
+  92   2        }          
+  93   1      }
+  94          
+  95          /** @} */
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    142    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----      27
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+   EDATA SIZE       =   ----    ----
+   HDATA SIZE       =   ----    ----
+   XDATA CONST SIZE =   ----    ----
+   FAR CONST SIZE   =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

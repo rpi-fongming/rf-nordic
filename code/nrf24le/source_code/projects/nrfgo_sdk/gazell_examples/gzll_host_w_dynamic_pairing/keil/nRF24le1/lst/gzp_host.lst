@@ -1,0 +1,583 @@
+C51 COMPILER V9.51   GZP_HOST                                                              09/06/2013 01:48:07 PAGE 1   
+
+
+C51 COMPILER V9.51, COMPILATION OF MODULE GZP_HOST
+OBJECT MODULE PLACED IN .\build\gzp_host.obj
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE ..\..\..\..\..\..\gazell\common\gzp_host.c LARGE OBJECTADVANCED ROM(COMPACT
+                    -) REGFILE(.\build\gzll_host_w_dyn_pair_nrf24le1.ORC) BROWSE NOINTPROMOTE MODC2 INCDIR(..\..\..\..\..\..\hal;..\..\..\..\
+                    -..\..\hal\nrf24l01p;..\..\..\..\..\..\gazell\common;..\..\..\..\..\..\gazell\nrf24le1;..\..\..\params;..\..\..\..\..\..\
+                    -hal\nrf24le1;..\..\..\..\..\..\lib\assertions;..\..\..\..\..\..\compiler\c51;..\..\..\..\..\..\compiler\common) DEFINE(E
+                    -X_PROJ_LE1) DEBUG PRINT(.\lst\gzp_host.lst) TABS(2) OBJECT(.\build\gzp_host.obj)
+
+line level    source
+
+   1          /* Copyright (c) 2009 Nordic Semiconductor. All Rights Reserved.
+   2           *
+   3           * The information contained herein is confidential property of Nordic
+   4           * Semiconductor ASA.Terms and conditions of usage are described in detail
+   5           * in NORDIC SEMICONDUCTOR STANDARD SOFTWARE LICENSE AGREEMENT.
+   6           *
+   7           * Licensees are granted free, non-transferable use of the information. NO
+   8           * WARRENTY of ANY KIND is provided. This heading must NOT be removed from
+   9           * the file.
+  10           *
+  11           * $LastChangedRevision: 230 $
+  12           */
+  13          
+  14          /** @file
+  15           * @brief
+  16           * Implementation of Gazell Pairing Library (gzp), Host functions.
+  17          */
+  18          
+  19          #include "gzp.h"
+  20          #include "gzll.h"
+  21          #include "string.h"
+  22          #include "stdint.h"
+  23          #include "stdbool.h"
+  24          #include "hal_aes.h"
+  25          #include "hal_flash.h"
+  26          #include "memdefs.h"
+  27          
+  28          //lint -esym(40, GZP_PARAMS_STORAGE_ADR) "Undeclared identifier"
+  29          
+  30          //-----------------------------------------------------------------------------
+  31          // Typedefs
+  32          //-----------------------------------------------------------------------------
+  33          
+  34          /**
+  35            Definition of internal states.
+  36          */
+  37          typedef enum
+  38          {
+  39            GZP_ID_REQ_IDLE,
+  40            GZP_ID_REQ_PENDING,
+  41            GZP_ID_REQ_PENDING_AND_GRANTED,
+  42            GZP_ID_REQ_PENDING_AND_REJECTED,
+  43          } gzp_id_req_stat_t;
+  44          
+  45          //-----------------------------------------------------------------------------
+  46          // Internal (static) functions
+  47          //-----------------------------------------------------------------------------
+  48          
+  49          /**
+  50            Function for incrementing internal session counter.
+  51          */
+C51 COMPILER V9.51   GZP_HOST                                                              09/06/2013 01:48:07 PAGE 2   
+
+  52          static void gzp_session_counter_inc();
+  53          
+  54          /**
+  55            Function for reading value of internal session counter.
+  56          */
+  57          static void gzp_get_session_counter(uint8_t* dst);
+  58          
+  59          /**
+  60            Function for reading "Host ID" from non volatile (NV) memory.
+  61          
+  62            Returns false if "Host ID" has not been set and no ID has been
+  63            returned to *dst.
+  64          */
+  65          static bool gzp_set_host_id(const uint8_t* dst);
+  66          
+  67          /**
+  68            Function processing received "system address request" from Device.
+  69          */
+  70          static void gzp_process_address_req(uint8_t* gzp_req);
+  71          
+  72          /**
+  73            Functions processing various command packets received from a Device.
+  74          */
+  75          static void gzp_process_id_req(uint8_t* rx_payload);
+  76          static void gzp_process_id_fetch(uint8_t* rx_payload);
+  77          static void gzp_process_key_update_prepare();
+  78          static void gzp_process_key_update(uint8_t* rx_payload);
+  79          static void gzp_process_encrypted_user_data(uint8_t* rx_payload, uint8_t length);
+  80          
+  81          /**
+  82            Functions processing various command packets received from a Device.
+  83          */
+  84          static void gzp_preload_ack(uint8_t* src, uint8_t length, uint8_t pipe);
+  85          
+  86          /**
+  87            Function for reading unique chip ID.
+  88          */
+  89          void gzp_host_chip_id_read(uint8_t *dst, uint8_t n);
+  90          
+  91          //-----------------------------------------------------------------------------
+  92          // Global variables
+  93          //-----------------------------------------------------------------------------
+  94          
+  95          static gzp_id_req_stat_t gzp_id_req_stat;
+  96          static xdata bool gzp_pairing_enabled_f;
+  97          static xdata bool gzp_address_exchanged_f;
+  98          static xdata uint8_t gzp_session_counter[GZP_SESSION_TOKEN_LENGTH];
+  99          static xdata uint8_t gzp_encrypted_user_data_length;
+ 100          static xdata bool gzp_encrypted_user_data[GZP_ENCRYPTED_USER_DATA_MAX_LENGTH];
+ 101          extern __no_init uint8_t gzp_dyn_key[GZP_DYN_KEY_LENGTH];
+ 102          
+ 103          //-----------------------------------------------------------------------------
+ 104          // Implementation: Application programming interface (API)
+ 105          //-----------------------------------------------------------------------------
+ 106          
+ 107          void gzp_init()
+ 108          {
+ 109   1        uint8_t system_address[GZP_SYSTEM_ADDRESS_WIDTH];
+ 110   1      
+ 111   1        // Read "chip id", of which 4 bytes (GZP_SYSTEM_ADDRESS_WIDTH)
+ 112   1        // are used as system address
+ 113   1        gzp_host_chip_id_read(system_address, GZP_SYSTEM_ADDRESS_WIDTH);
+C51 COMPILER V9.51   GZP_HOST                                                              09/06/2013 01:48:07 PAGE 3   
+
+ 114   1      
+ 115   1        // Set up radio parameters (addresses and channel subset) from system_address
+ 116   1        gzp_update_radio_params(system_address);
+ 117   1      
+ 118   1        // Only "data pipe" enabled by default
+ 119   1        gzll_set_param(GZLL_PARAM_RX_PIPES, gzll_get_param(GZLL_PARAM_RX_PIPES) | (1 << GZP_DATA_PIPE));
+ 120   1      
+ 121   1        gzp_pairing_enabled_f = false;
+ 122   1        gzp_address_exchanged_f = false;
+ 123   1        gzp_id_req_stat = GZP_ID_REQ_IDLE;
+ 124   1        gzp_encrypted_user_data_length = 0;
+ 125   1      
+ 126   1        // Infinite RX timeout
+ 127   1        gzll_set_param(GZLL_PARAM_RX_TIMEOUT, 0);
+ 128   1      }
+ 129          
+ 130          void gzp_pairing_enable(bool enable)
+ 131          {
+ 132   1        gzll_states_t temp_gzll_state;
+ 133   1      
+ 134   1        temp_gzll_state = gzll_get_state();
+ 135   1      
+ 136   1        if(gzp_pairing_enabled_f != enable)
+ 137   1        {
+ 138   2          gzll_goto_idle();
+ 139   2      
+ 140   2          if(enable)
+ 141   2          {
+ 142   3            gzll_set_param(GZLL_PARAM_RX_PIPES, gzll_get_param(GZLL_PARAM_RX_PIPES) | (1 << GZP_PAIRING_PIPE));
+ 143   3          }
+ 144   2          else
+ 145   2          {
+ 146   3            gzll_set_param(GZLL_PARAM_RX_PIPES, gzll_get_param(GZLL_PARAM_RX_PIPES) & ~(1 << GZP_PAIRING_PIPE));
+ 147   3            gzp_id_req_stat = GZP_ID_REQ_IDLE;
+ 148   3          }
+ 149   2      
+ 150   2          gzp_pairing_enabled_f = enable;
+ 151   2      
+ 152   2          if(temp_gzll_state == GZLL_HOST_ACTIVE)
+ 153   2          {
+ 154   3            gzll_rx_start();
+ 155   3          }
+ 156   2        }
+ 157   1      }
+ 158          
+ 159          void gzp_host_execute()
+ 160          {
+ 161   1        uint8_t rx_pipe;
+ 162   1        uint8_t payload_length;
+ 163   1        uint8_t rx_payload[GZLL_MAX_FW_PAYLOAD_LENGTH];
+ 164   1      
+ 165   1        gzp_address_exchanged_f = false;
+ 166   1      
+ 167   1        rx_pipe = gzll_get_rx_data_ready_pipe_number();
+ 168   1      
+ 169   1        if((rx_pipe == GZP_PAIRING_PIPE) || ((rx_pipe == GZP_DATA_PIPE) && (gzp_encrypted_user_data_length == 0)
+             -))
+ 170   1        {
+ 171   2          gzll_rx_fifo_read(rx_payload, &payload_length, NULL);
+ 172   2      
+ 173   2          switch(rx_payload[0])
+ 174   2          {
+C51 COMPILER V9.51   GZP_HOST                                                              09/06/2013 01:48:07 PAGE 4   
+
+ 175   3            case GZP_CMD_HOST_ADDRESS_REQ:
+ 176   3              gzp_process_address_req(rx_payload);
+ 177   3              break;
+ 178   3      
+ 179   3            #ifndef GZP_CRYPT_DISABLE
+ 180   3      
+ 181   3            case GZP_CMD_HOST_ID_REQ:
+ 182   3              gzp_process_id_req(rx_payload);
+ 183   3              break;
+ 184   3            case GZP_CMD_HOST_ID_FETCH:
+ 185   3              gzp_process_id_fetch(rx_payload);
+ 186   3              break;
+ 187   3            case GZP_CMD_KEY_UPDATE_PREPARE:
+ 188   3              gzp_process_key_update_prepare();
+ 189   3              break;
+ 190   3            case GZP_CMD_KEY_UPDATE:
+ 191   3              gzp_process_key_update(rx_payload);
+ 192   3              break;
+ 193   3            case GZP_CMD_ENCRYPTED_USER_DATA:
+ 194   3              gzp_process_encrypted_user_data(rx_payload, payload_length);
+ 195   3              break;
+ 196   3      
+ 197   3            #endif
+ 198   3      
+ 199   3            case GZP_CMD_FETCH_RESP:
+ 200   3            default:
+ 201   3              break;
+ 202   3          }
+ 203   2        }
+ 204   1      
+ 205   1        // Restart reception if "not proximity backoff" period has elapsed
+ 206   1        if(gzll_get_state() == GZLL_IDLE)
+ 207   1        {
+ 208   2          gzll_set_param(GZLL_PARAM_RX_TIMEOUT, 0);
+ 209   2          if(gzp_pairing_enabled_f)
+ 210   2          {
+ 211   3            gzll_set_param(GZLL_PARAM_RX_PIPES, gzll_get_param(GZLL_PARAM_RX_PIPES) | (1 << GZP_PAIRING_PIPE));
+ 212   3          }
+ 213   2          gzll_rx_start();
+ 214   2        }
+ 215   1      
+ 216   1        #ifndef GZP_CRYPT_DISABLE
+ 217   1        gzp_session_counter_inc();
+ 218   1        #endif
+ 219   1      }
+ 220          
+ 221          static void gzp_process_address_req(uint8_t* gzp_req)
+ 222          {
+ 223   1        uint8_t temp_rx_pipes, temp_host_mode;
+ 224   1        uint8_t pairing_resp[GZP_CMD_HOST_ADDRESS_RESP_PAYLOAD_LENGTH];
+ 225   1      
+ 226   1        gzp_address_exchanged_f = false;
+ 227   1      
+ 228   1        gzll_goto_idle();
+ 229   1        temp_rx_pipes = gzll_get_param(GZLL_PARAM_RX_PIPES);
+ 230   1        temp_host_mode =  gzll_get_param(GZLL_PARAM_HOST_MODE);
+ 231   1      
+ 232   1        // If requesting Device within close proximity
+ 233   1        if(gzll_rx_power_high())
+ 234   1        {
+ 235   2          gzll_set_param(GZLL_PARAM_RX_PIPES, 0);
+ 236   2          gzll_set_param(GZLL_PARAM_HOST_MODE, 0);
+C51 COMPILER V9.51   GZP_HOST                                                              09/06/2013 01:48:07 PAGE 5   
+
+ 237   2          gzll_set_param(GZLL_PARAM_RX_TIMEOUT, GZP_CLOSE_PROXIMITY_BACKOFF_RX_TIMEOUT);
+ 238   2          gzll_rx_fifo_flush();
+ 239   2      
+ 240   2          // Start "proximity" back off period
+ 241   2          gzll_rx_start();
+ 242   2      
+ 243   2          while(gzll_get_state() != GZLL_IDLE)
+ 244   2          ;
+ 245   2      
+ 246   2          // Build pairing response packet
+ 247   2          pairing_resp[0] = GZP_CMD_HOST_ADDRESS_RESP;
+ 248   2          gzp_host_chip_id_read(&pairing_resp[GZP_CMD_HOST_ADDRESS_RESP_ADDRESS], GZP_SYSTEM_ADDRESS_WIDTH);
+ 249   2          gzll_ack_payload_write(&pairing_resp[0], GZP_CMD_HOST_ADDRESS_RESP_PAYLOAD_LENGTH, 0);
+ 250   2          gzll_set_param(GZLL_PARAM_RX_TIMEOUT, GZP_STEP1_RX_TIMEOUT);
+ 251   2      
+ 252   2          // Enable only pairing pipe when waiting for pairing request step 1
+ 253   2          gzll_set_param(GZLL_PARAM_RX_PIPES, (1 << GZP_PAIRING_PIPE));
+ 254   2          gzll_rx_start();
+ 255   2      
+ 256   2          while(gzll_get_state() != GZLL_IDLE)
+ 257   2          {
+ 258   3            if(gzll_rx_fifo_read(&gzp_req[0], NULL, NULL))
+ 259   3            {
+ 260   4              // Validate step 1 of pairing request
+ 261   4              if(gzp_req[0] == GZP_CMD_HOST_ADDRESS_FETCH)
+ 262   4              {
+ 263   5                gzp_address_exchanged_f = true;
+ 264   5              }
+ 265   4            }
+ 266   3          }
+ 267   2      
+ 268   2          gzll_tx_fifo_flush();
+ 269   2          gzll_rx_fifo_flush();
+ 270   2          gzll_set_param(GZLL_PARAM_RX_TIMEOUT, 0);
+ 271   2          gzll_set_param(GZLL_PARAM_RX_PIPES, temp_rx_pipes);
+ 272   2          gzll_set_param(GZLL_PARAM_HOST_MODE, temp_host_mode);
+ 273   2      
+ 274   2          // Return to normal operation
+ 275   2          gzll_rx_start();
+ 276   2        }
+ 277   1        else
+ 278   1        {
+ 279   2          gzll_set_param(GZLL_PARAM_RX_PIPES, temp_rx_pipes & ~(1 << GZP_PAIRING_PIPE));
+ 280   2          gzll_set_param(GZLL_PARAM_RX_TIMEOUT, GZP_NOT_PROXIMITY_BACKOFF_RX_TIMEOUT);
+ 281   2          // Start "not proximity" backoff period
+ 282   2          gzll_rx_start();
+ 283   2        }
+ 284   1      }
+ 285          
+ 286          static void gzp_preload_ack(uint8_t* src, uint8_t length, uint8_t pipe)
+ 287          {
+ 288   1        gzll_goto_idle();
+ 289   1        gzll_tx_fifo_flush();
+ 290   1        gzll_ack_payload_write(src, length, pipe);
+ 291   1        gzll_rx_start();
+ 292   1      }
+ 293          
+ 294          bool gzp_address_exchanged()
+ 295          {
+ 296   1        return gzp_address_exchanged_f;
+ 297   1      }
+ 298          
+C51 COMPILER V9.51   GZP_HOST                                                              09/06/2013 01:48:07 PAGE 6   
+
+ 299          #ifndef GZP_CRYPT_DISABLE
+ 300          
+ 301          bool gzp_crypt_user_data_received()
+ 302          {
+ 303   1        return (gzp_encrypted_user_data_length > 0);
+ 304   1      }
+ 305          
+ 306          bool gzp_crypt_user_data_read(uint8_t* dst, uint8_t* length)
+ 307          {
+ 308   1        if(gzp_encrypted_user_data_length > 0)
+ 309   1        {
+ 310   2          memcpy(dst, (void*)gzp_encrypted_user_data, gzp_encrypted_user_data_length);
+ 311   2      
+ 312   2          if(length != NULL)
+ 313   2          {
+ 314   3            *length = gzp_encrypted_user_data_length;
+ 315   3          }
+ 316   2          gzp_encrypted_user_data_length = 0;
+ 317   2      
+ 318   2          return true;
+ 319   2        }
+ 320   1        else
+ 321   1        {
+ 322   2          return false;
+ 323   2        }
+ 324   1      }
+ 325          
+ 326          bool gzp_id_req_received()
+ 327          {
+ 328   1        return (gzp_id_req_stat != GZP_ID_REQ_IDLE);
+ 329   1      }
+ 330          
+ 331          void gzp_id_req_reject()
+ 332          {
+ 333   1        if(gzp_id_req_received())
+ 334   1        {
+ 335   2          gzp_id_req_stat = GZP_ID_REQ_PENDING_AND_REJECTED;
+ 336   2        }
+ 337   1      }
+ 338          
+ 339          void gzp_id_req_grant()
+ 340          {
+ 341   1        if(gzp_id_req_received())
+ 342   1        {
+ 343   2          gzp_id_req_stat = GZP_ID_REQ_PENDING_AND_GRANTED;
+ 344   2        }
+ 345   1      }
+ 346          
+ 347          void gzp_id_req_cancel()
+ 348          {
+ 349   1        if(gzp_id_req_received())
+ 350   1        {
+ 351   2          gzp_id_req_stat = GZP_ID_REQ_IDLE;
+ 352   2        }
+ 353   1      }
+ 354          
+ 355          static void gzp_session_counter_inc()
+ 356          {
+ 357   1        uint8_t i;
+ 358   1      
+ 359   1        for(i = 0; i < GZP_SESSION_TOKEN_LENGTH; i++)
+ 360   1        {
+C51 COMPILER V9.51   GZP_HOST                                                              09/06/2013 01:48:07 PAGE 7   
+
+ 361   2          gzp_session_counter[i]++;
+ 362   2          if(gzp_session_counter[i] != 0)
+ 363   2          {
+ 364   3            break;
+ 365   3          }
+ 366   2        }
+ 367   1      }
+ 368          
+ 369          static void gzp_get_session_counter(uint8_t* dst)
+ 370          {
+ 371   1        memcpy(dst, (void*)gzp_session_counter, GZP_SESSION_TOKEN_LENGTH);
+ 372   1      }
+ 373          
+ 374          static bool gzp_set_host_id(const uint8_t* src)
+ 375          {
+ 376   1        if(hal_flash_byte_read(GZP_PARAMS_STORAGE_ADR) == 0xff)
+ 377   1        {
+ 378   2          hal_flash_byte_write(GZP_PARAMS_STORAGE_ADR, 0x00);
+ 379   2          hal_flash_bytes_write(GZP_PARAMS_STORAGE_ADR + 1, src, GZP_HOST_ID_LENGTH);
+ 380   2          return true;
+ 381   2        }
+ 382   1        else
+ 383   1        {
+ 384   2          return false;
+ 385   2        }
+ 386   1      }
+ 387          
+ 388          bool gzp_get_host_id(uint8_t* dst)
+ 389          {
+ 390   1        if(hal_flash_byte_read(GZP_PARAMS_STORAGE_ADR) == 0)
+ 391   1        {
+ 392   2          hal_flash_bytes_read(GZP_PARAMS_STORAGE_ADR + 1, dst, GZP_HOST_ID_LENGTH);
+ 393   2          return true;
+ 394   2        }
+ 395   1        else
+ 396   1        {
+ 397   2          return false;
+ 398   2        }
+ 399   1      }
+ 400          
+ 401          static void gzp_process_id_req(uint8_t* rx_payload)
+ 402          {
+ 403   1        uint8_t temp_host_id[GZP_HOST_ID_LENGTH];
+ 404   1      
+ 405   1        if(gzp_pairing_enabled_f)
+ 406   1        {
+ 407   2          if(!gzp_id_req_received())
+ 408   2          {
+ 409   3            gzp_crypt_set_session_token(&rx_payload[GZP_CMD_HOST_ID_REQ_SESSION_TOKEN]);
+ 410   3            gzp_id_req_stat = GZP_ID_REQ_PENDING;
+ 411   3          }
+ 412   2      
+ 413   2          // If host ID not generated yet
+ 414   2          if(!gzp_get_host_id(temp_host_id))
+ 415   2          {
+ 416   3            // Generate new host ID from "session counter" and received "session token"
+ 417   3            gzp_get_session_counter(temp_host_id);
+ 418   3            if(GZP_HOST_ID_LENGTH > GZP_SESSION_TOKEN_LENGTH)
+ 419   3            {
+ 420   4              gzp_xor_cipher(temp_host_id, temp_host_id, &rx_payload[GZP_CMD_HOST_ID_REQ_SESSION_TOKEN], GZP_SES
+             -SION_TOKEN_LENGTH);
+ 421   4            }
+C51 COMPILER V9.51   GZP_HOST                                                              09/06/2013 01:48:07 PAGE 8   
+
+ 422   3            else
+ 423   3            {
+ 424   4              gzp_xor_cipher(temp_host_id, temp_host_id, &rx_payload[GZP_CMD_HOST_ID_REQ_SESSION_TOKEN], GZP_HOS
+             -T_ID_LENGTH);
+ 425   4            }
+ 426   3      
+ 427   3            gzp_set_host_id(temp_host_id);
+ 428   3          }
+ 429   2        }
+ 430   1      }
+ 431          
+ 432          static void gzp_process_id_fetch(uint8_t* rx_payload)
+ 433          {
+ 434   1        uint8_t tx_payload[GZP_CMD_HOST_ID_FETCH_RESP_PAYLOAD_LENGTH];
+ 435   1      
+ 436   1        if(gzp_id_req_received())
+ 437   1        {
+ 438   2          gzp_crypt_select_key(GZP_ID_EXCHANGE);
+ 439   2          gzp_crypt(&rx_payload[1], &rx_payload[1], GZP_CMD_HOST_ID_FETCH_PAYLOAD_LENGTH - 1);
+ 440   2          if(gzp_validate_id(&rx_payload[GZP_CMD_HOST_ID_FETCH_VALIDATION_ID]))
+ 441   2          {
+ 442   3            switch(gzp_id_req_stat)
+ 443   3            {
+ 444   4              case GZP_ID_REQ_PENDING_AND_GRANTED:
+ 445   4                tx_payload[GZP_CMD_HOST_ID_FETCH_RESP_STATUS] = GZP_ID_RESP_GRANTED;
+ 446   4                gzp_get_host_id(&tx_payload[GZP_CMD_HOST_ID_FETCH_RESP_HOST_ID]);
+ 447   4                gzp_id_req_stat = GZP_ID_REQ_IDLE;
+ 448   4                break;
+ 449   4              case GZP_ID_REQ_PENDING_AND_REJECTED:
+ 450   4                tx_payload[GZP_CMD_HOST_ID_FETCH_RESP_STATUS] = GZP_ID_RESP_REJECTED;
+ 451   4                gzp_id_req_stat = GZP_ID_REQ_IDLE;
+ 452   4                break;
+ 453   4              case GZP_ID_REQ_PENDING:
+ 454   4              default:
+ 455   4                tx_payload[GZP_CMD_HOST_ID_FETCH_RESP_STATUS] = GZP_ID_RESP_PENDING;
+ 456   4                break;
+ 457   4            }
+ 458   3      
+ 459   3            tx_payload[0] = GZP_CMD_HOST_ID_FETCH_RESP;
+ 460   3            gzp_add_validation_id(&tx_payload[GZP_CMD_HOST_ID_FETCH_RESP_VALIDATION_ID]);
+ 461   3            gzp_crypt(&tx_payload[1], &tx_payload[1], GZP_CMD_HOST_ID_FETCH_RESP_PAYLOAD_LENGTH - 1);
+ 462   3            gzp_preload_ack(tx_payload, GZP_CMD_HOST_ID_FETCH_RESP_PAYLOAD_LENGTH, GZP_DATA_PIPE);
+ 463   3          }
+ 464   2        }
+ 465   1      }
+ 466          
+ 467          static void gzp_process_key_update_prepare()
+ 468          {
+ 469   1        uint8_t tx_payload[GZP_CMD_KEY_UPDATE_PREPARE_RESP_PAYLOAD_LENGTH];
+ 470   1      
+ 471   1        tx_payload[0] = GZP_CMD_KEY_UPDATE_PREPARE_RESP;
+ 472   1      
+ 473   1        gzp_get_session_counter(&tx_payload[GZP_CMD_KEY_UPDATE_PREPARE_RESP_SESSION_TOKEN]);
+ 474   1      
+ 475   1        // Update session token if no ID request is pending
+ 476   1        if(!gzp_id_req_received())
+ 477   1        {
+ 478   2          gzp_crypt_set_session_token(&tx_payload[GZP_CMD_KEY_UPDATE_PREPARE_RESP_SESSION_TOKEN]);
+ 479   2        }
+ 480   1      
+ 481   1        gzp_preload_ack(tx_payload, GZP_CMD_KEY_UPDATE_PREPARE_RESP_PAYLOAD_LENGTH, GZP_DATA_PIPE);
+ 482   1      }
+C51 COMPILER V9.51   GZP_HOST                                                              09/06/2013 01:48:07 PAGE 9   
+
+ 483          
+ 484          static void gzp_process_key_update(uint8_t* rx_payload)
+ 485          {
+ 486   1        gzp_crypt_select_key(GZP_KEY_EXCHANGE);
+ 487   1        gzp_crypt(&rx_payload[1], &rx_payload[1], GZP_CMD_KEY_UPDATE_PAYLOAD_LENGTH - 1);
+ 488   1        if(gzp_validate_id(&rx_payload[GZP_CMD_KEY_UPDATE_VALIDATION_ID]))
+ 489   1        {
+ 490   2          gzp_crypt_set_dyn_key(&rx_payload[GZP_CMD_KEY_UPDATE_NEW_KEY]);
+ 491   2        }
+ 492   1      }
+ 493          
+ 494          static void gzp_process_encrypted_user_data(uint8_t* rx_payload, uint8_t length)
+ 495          {
+ 496   1        uint8_t tx_payload[GZP_CMD_ENCRYPTED_USER_DATA_RESP_PAYLOAD_LENGTH];
+ 497   1      
+ 498   1        if(gzp_id_req_received())
+ 499   1        {
+ 500   2          gzp_crypt_select_key(GZP_ID_EXCHANGE);
+ 501   2        }
+ 502   1        else
+ 503   1        {
+ 504   2          gzp_crypt_select_key(GZP_DATA_EXCHANGE);
+ 505   2        }
+ 506   1      
+ 507   1        gzp_crypt(&rx_payload[1], &rx_payload[1], length - 1);
+ 508   1        if(gzp_validate_id(&rx_payload[GZP_CMD_ENCRYPTED_USER_DATA_VALIDATION_ID]))
+ 509   1        {
+ 510   2          gzp_encrypted_user_data_length = length - GZP_USER_DATA_PACKET_OVERHEAD;
+ 511   2          memcpy((void*)gzp_encrypted_user_data, &rx_payload[GZP_CMD_ENCRYPTED_USER_DATA_PAYLOAD], gzp_encrypted
+             -_user_data_length);
+ 512   2        }
+ 513   1      
+ 514   1        // Build response packet
+ 515   1        tx_payload[0] = GZP_CMD_ENCRYPTED_USER_DATA_RESP;
+ 516   1        gzp_add_validation_id(&tx_payload[GZP_CMD_ENCRYPTED_USER_DATA_RESP_VALIDATION_ID]);
+ 517   1        gzp_crypt(&tx_payload[GZP_CMD_ENCRYPTED_USER_DATA_RESP_VALIDATION_ID], &tx_payload[GZP_CMD_ENCRYPTED_USE
+             -R_DATA_RESP_VALIDATION_ID], GZP_VALIDATION_ID_LENGTH);
+ 518   1        gzp_get_session_counter(&tx_payload[GZP_CMD_ENCRYPTED_USER_DATA_RESP_SESSION_TOKEN]);
+ 519   1      
+ 520   1        // Update "session token" only if no ID request is pending
+ 521   1        if(!gzp_id_req_received())
+ 522   1        {
+ 523   2          gzp_crypt_set_session_token(&tx_payload[GZP_CMD_ENCRYPTED_USER_DATA_RESP_SESSION_TOKEN]);
+ 524   2        }
+ 525   1      
+ 526   1        gzp_preload_ack(tx_payload, GZP_CMD_ENCRYPTED_USER_DATA_RESP_PAYLOAD_LENGTH, GZP_DATA_PIPE);
+ 527   1      }
+ 528          
+ 529          #endif
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =   1876    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =     22     107
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+   EDATA SIZE       =   ----    ----
+   HDATA SIZE       =   ----    ----
+   XDATA CONST SIZE =   ----    ----
+C51 COMPILER V9.51   GZP_HOST                                                              09/06/2013 01:48:07 PAGE 10  
+
+   FAR CONST SIZE   =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

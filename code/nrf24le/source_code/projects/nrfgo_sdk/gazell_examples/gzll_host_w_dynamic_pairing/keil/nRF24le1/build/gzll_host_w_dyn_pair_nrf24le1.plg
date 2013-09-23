@@ -1,0 +1,78 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Project:</h2>
+C:\Nordic Semiconductor\nRFgo SDK 2.3.0.10040\source_code\projects\nrfgo_sdk\gazell_examples\gzll_host_w_dynamic_pairing\keil\nRF24le1\gzll_host_w_dynamic_pairing_nrf24le1.uvproj
+Project File Date:  04/20/2012
+
+<h2>Output:</h2>
+Rebuild target 'gazell host'
+compiling main.c...
+compiling gzll_timer_isr.c...
+compiling gzll_mcu.c...
+compiling gzll_radio_isr.c...
+compiling gzll.c...
+compiling gzp_host.c...
+compiling gzp.c...
+compiling gzp_host_le1.c...
+compiling hal_nrf_hw.c...
+compiling hal_rtc.c...
+compiling hal_nrf.c...
+compiling hal_clk.c...
+compiling hal_aes.c...
+compiling hal_flash.c...
+compiling hal_rng.c...
+compiling hal_delay.c...
+linking...
+LX51 LINKER/LOCATER V4.64.0.0 - SN: Eval Version
+COPYRIGHT ARM Germany GmbH 1995 - 2013
+@.\build\GZLL_H~1.LNP ".\build\main.obj",
+".\build\gzll_timer_isr.obj",
+".\build\gzll_mcu.obj",
+".\build\gzll_radio_isr.obj",
+".\build\gzll.obj",
+".\build\gzp_host.obj",
+".\build\gzp.obj",
+".\build\gzp_host_le1.obj",
+".\build\hal_nrf_hw.obj",
+".\build\hal_rtc.obj",
+".\build\hal_nrf.obj",
+".\build\hal_clk.obj",
+".\build\hal_aes.obj",
+".\build\hal_flash.obj",
+".\build\hal_rng.obj",
+".\build\hal_delay.obj" 
+TO ".\build\gzll_host_w_dyn_pair_nrf24le1" 
+REGFILE (.\build\gzll_host_w_dyn_pair_nrf24le1.ORC) 
+PRINT(".\lst\gzll_host_w_dyn_pair_nrf24le1.map") WARNINGLEVEL (0) 
+REMOVEUNUSED 
+OVERLAY( ?PR?_HAL_NRF_WRITE_REG?HAL_NRF !*,
+?PR?_HAL_NRF_READ_MULTIBYTE_REG?HAL_NRF !*,
+?PR?_GZLL_SET_TIMER_PERIOD?GZLL_MCU !*,
+?PR?_HAL_NRF_SET_POWER_MODE?HAL_NRF !*,
+?PR?_HAL_NRF_SET_RF_CHANNEL?HAL_NRF !*,
+?PR?_HAL_NRF_SET_AUTO_RETR?HAL_NRF !*,
+?PR?_GZLL_START_NEW_TX?GZLL !*,
+?PR?_GZLL_LFSR_GET?GZLL !* )
+CLASSES (XDATA (X:0x0-X:0x3FF), HDATA (X:0x0-X:0x3FF), CODE (C:0x0-C:0x3FFF), CONST (C:0x0-C:0x3FFF), 
+ECODE (C:0x0-C:0x3FFF), HCONST (C:0x0-C:0x3FFF)) 
+*** WARNING L30: MEMORY SPACE OVERLAP
+    FROM:    C:0017F0H   
+    TO:      C:0017FAH   
+*** WARNING L30: MEMORY SPACE OVERLAP
+    FROM:    C:0017FAH   
+    TO:      C:0017FBH   
+******************************************************************************
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 2483H BYTE (456%) *
+******************************************************************************
+Program Size: data=27.0 xdata=319 const=328 code=10970
+*** WARNING L30: MEMORY SPACE OVERLAP
+    FROM:    C:0017F0H   
+    TO:      C:0017FAH   
+*** WARNING L30: MEMORY SPACE OVERLAP
+    FROM:    C:0017FAH   
+    TO:      C:0017FBH   
+*** ERROR L250: CODE SIZE LIMIT IN RESTRICTED VERSION EXCEEDED
+    LIMIT:   0800H BYTES
+Target not created
