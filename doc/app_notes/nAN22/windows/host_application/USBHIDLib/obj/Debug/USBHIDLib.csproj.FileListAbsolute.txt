@@ -1,0 +1,6 @@
+T:\haal\2011\firmware_updater\host_application\USBHIDLib\bin\Debug\UsbLibrary.XML
+T:\haal\2011\firmware_updater\host_application\USBHIDLib\bin\Debug\UsbLibrary.dll
+T:\haal\2011\firmware_updater\host_application\USBHIDLib\bin\Debug\UsbLibrary.pdb
+T:\haal\2011\firmware_updater\host_application\USBHIDLib\obj\Debug\ResolveAssemblyReference.cache
+T:\haal\2011\firmware_updater\host_application\USBHIDLib\obj\Debug\UsbLibrary.dll
+T:\haal\2011\firmware_updater\host_application\USBHIDLib\obj\Debug\UsbLibrary.pdb
