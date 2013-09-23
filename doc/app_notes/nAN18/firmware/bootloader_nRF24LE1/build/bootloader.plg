@@ -1,0 +1,35 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Project:</h2>
+C:\working\rf\rf-nordic\doc\app_notes\nAN18\firmware\bootloader_nRF24LE1\bootloader.uvproj
+Project File Date:  09/22/2013
+
+<h2>Output:</h2>
+Rebuild target 'Bootloader'
+assembling STARTUP.A51...
+compiling main.c...
+main.h(6): warning C318: can't open file 'nrf24le1.h'
+main.h(7): warning C318: can't open file 'hal_nrf.h'
+main.h(8): warning C318: can't open file 'hal_flash.h'
+main.h(9): warning C318: can't open file 'hal_clk.h'
+main.c(60): error C202: 'RF': undefined identifier
+main.c(61): error C202: 'RF': undefined identifier
+main.c(63): error C202: 'EA': undefined identifier
+main.c(64): error C202: 'EA': undefined identifier
+main.c(70): error C202: 'P0DIR': undefined identifier
+main.c(71): error C202: 'P0': undefined identifier
+main.c(81): error C202: 'RFF': undefined identifier
+main.c(82): error C202: 'RFF': undefined identifier
+main.c(109): error C202: 'P0': undefined identifier
+main.c(120): error C202: 'P0': undefined identifier
+compiling hal_flash.c...
+..\..\..\..\hal\nrf24le1\hal_flash.c(1): error C318: can't open file '..\..\..\..\hal\nrf24le1\hal_flash.c'
+compiling hal_nrf.c...
+..\..\..\..\hal\nrf24l01p\hal_nrf.c(1): error C318: can't open file '..\..\..\..\hal\nrf24l01p\hal_nrf.c'
+compiling hal_clk.c...
+..\..\..\..\hal\nrf24le1\hal_clk.c(1): error C318: can't open file '..\..\..\..\hal\nrf24le1\hal_clk.c'
+compiling hal_nrf_hw.c...
+..\..\..\..\hal\nrf24le1\hal_nrf_hw.c(1): error C318: can't open file '..\..\..\..\hal\nrf24le1\hal_nrf_hw.c'
+Target not created

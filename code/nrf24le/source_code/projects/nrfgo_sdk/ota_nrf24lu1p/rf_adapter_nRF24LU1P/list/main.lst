@@ -1,0 +1,535 @@
+C51 COMPILER V9.51   MAIN                                                                  09/23/2013 16:52:12 PAGE 1   
+
+
+C51 COMPILER V9.51, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN .\build\main.obj
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE main.c OMF2 BROWSE INCDIR(..\..\..\..\hal;..\..\..\..\hal\nrf24l01p;..\..\.
+                    -.\..\hal\nrf24lu1p;..\..\..\..\compiler\c51;..\..\..\..\compiler\common;..\common) PRINT(.\list\main.lst) TABS(2) OBJECT
+                    -(.\build\main.obj)
+
+line level    source
+
+   1          #include "nrf24lu1p.h"
+   2          #include <stdint.h>
+   3          #include <stdbool.h>
+   4          #include <string.h>
+   5          #include "hal_nrf.h"
+   6          #include "hal_usb.h"
+   7          #include "hal_usb_hid.h"
+   8          #include "usb_map.h"
+   9          #include "hal_flash.h"
+  10          #include "protocol.h"
+  11          #include "hal_delay.h"
+  12          
+  13          
+  14          //-----------------------------------------------------------------------------
+  15          // Application specific constants
+  16          //-----------------------------------------------------------------------------
+  17          
+  18          #define RF_SEARCHING_AUTO_RETRIES 2 // Auto-retries when searching for remote device
+  19          #define RF_SEARCHING_AUTO_RETRY_DELAY 250 // us between auto-retries when searching
+  20          #define RF_CONNECTED_AUTO_RETRIES 8 // Increased retries as transactions become more critical
+  21          #define RF_CONNECTED_AUTO_RETRY_DELAY 500
+  22          
+  23          #define LINE_SIZE 24 // Maximum Hex Line size
+  24          #define PING_INTERVAL 20000
+  25          #define RETRIES 4
+  26          
+  27          #define USB_IN_CMD usb_in_buf[0]
+  28          #define USB_OUT_CMD usb_out_buf[0]
+  29          #define ERROR_CODE usb_in_buf[1]
+  30          
+  31          #define RF_OUT_CMD rf_out_buf[0]
+  32          #define RF_IN_CMD rf_in_buf[0]
+  33          
+  34          #define SEND_USB() app_send_usb_in_data(0, 0)
+  35          #define FORWARD_RF_TO_USB() app_send_usb_in_data(rf_in_buf, 32)
+  36          
+  37          //-----------------------------------------------------------------------------
+  38          // Enumerators
+  39          //-----------------------------------------------------------------------------
+  40          
+  41          typedef enum
+  42          {
+  43            APP_IDLE = 0,
+  44            APP_SEARCHING,
+  45            APP_CONNECTED,  
+  46            APP_WAIT_ACK,
+  47            APP_AWAITING_LINE,
+  48            APP_FORWARD,
+  49            APP_EXIT
+  50          } app_states_t;
+  51          
+  52          //-----------------------------------------------------------------------------
+  53          // Global variables
+C51 COMPILER V9.51   MAIN                                                                  09/23/2013 16:52:12 PAGE 2   
+
+  54          //-----------------------------------------------------------------------------
+  55          app_states_t xdata app_state;
+  56          uint8_t xdata lineBuffer[LINE_SIZE];
+  57          
+  58          //-----------------------------------------------------------------------------
+  59          // USB variables
+  60          //-----------------------------------------------------------------------------
+  61          xdata uint8_t usb_in_buf[EP1_2_PACKET_SIZE];
+  62          xdata uint8_t usb_out_buf[EP1_2_PACKET_SIZE];
+  63          bool xdata app_usb_out_data_ready = false;
+  64          extern code usb_string_desc_templ_t g_usb_string_desc;
+  65          bool xdata app_pending_usb_write = false;
+  66          
+  67          //-----------------------------------------------------------------------------
+  68          // RF variables
+  69          //-----------------------------------------------------------------------------
+  70          uint8_t xdata rf_in_buf[32];
+  71          uint8_t xdata rf_out_buf[32];
+  72          bool xdata packet_received = false;
+  73          bool xdata radio_busy = false;
+  74          bool xdata transmitted = false;
+  75          uint16_t xdata rf_ping_timer = PING_INTERVAL;
+  76          uint8_t xdata retry_counter = RETRIES;
+  77          uint8_t xdata default_channels[CHANNELS_SIZE] = CHANNELS;
+  78          uint8_t xdata default_pipe_address[5] = PIPE_ADDRESS;
+  79          uint8_t xdata channel_index;
+  80          
+  81          //-----------------------------------------------------------------------------
+  82          // Internal function prototypes
+  83          //-----------------------------------------------------------------------------
+  84          void app_send_usb_in_data(uint8_t * buf, uint8_t size);
+  85          void app_parse_usb_out_packet();
+  86          void app_wait_while_usb_pending();
+  87          void forward_usb_to_rf(); 
+  88          void rf_send_buffer();
+  89          void rf_receive_ms(uint16_t ms);
+  90          void rf_init();
+  91          
+  92          
+  93          //-----------------------------------------------------------------------------
+  94          // USB callback function prototypes
+  95          //-----------------------------------------------------------------------------
+  96          static hal_usb_dev_req_resp_t device_req_cb(hal_usb_device_req* req, uint8_t** data_ptr, uint8_t* size) re
+             -entrant;
+  97          static void suspend_cb(uint8_t allow_remote_wu) reentrant;
+  98          static void resume_cb() reentrant;
+  99          static void reset_cb() reentrant;
+ 100          static uint8_t ep_1_in_cb(uint8_t *adr_ptr, uint8_t* size) reentrant;
+ 101          static uint8_t ep_2_out_cb(uint8_t *adr_ptr, uint8_t* size) reentrant;
+ 102          
+ 103          //-----------------------------------------------------------------------------
+ 104          // Main routine
+ 105          //-----------------------------------------------------------------------------
+ 106          void main()
+ 107          {
+ 108   1        // USB HAL initialization
+ 109   1        hal_usb_init(true, device_req_cb, reset_cb, resume_cb, suspend_cb);   
+ 110   1        hal_usb_endpoint_config(0x81, EP1_2_PACKET_SIZE, ep_1_in_cb);  // Configure 32 byte IN endpoint 1
+ 111   1        hal_usb_endpoint_config(0x02, EP1_2_PACKET_SIZE, ep_2_out_cb); // Configure 32 byte OUT endpoint 2
+ 112   1      
+ 113   1        // Initialize RF device
+ 114   1        rf_init();
+C51 COMPILER V9.51   MAIN                                                                  09/23/2013 16:52:12 PAGE 3   
+
+ 115   1      
+ 116   1        // Set initial state
+ 117   1        app_state = APP_IDLE;
+ 118   1        // Enable global interrupt
+ 119   1        EA = 1;
+ 120   1        
+ 121   1        #ifdef DEBUG
+                P0DIR = 0x00;
+                #endif
+ 124   1      
+ 125   1        while(true)                                                                               
+ 126   1        {
+ 127   2          
+ 128   2          if(hal_usb_get_state() == CONFIGURED)
+ 129   2          { 
+ 130   3            // If "vendor specific" data received on USB
+ 131   3            if(app_usb_out_data_ready)
+ 132   3            {
+ 133   4              app_parse_usb_out_packet();
+ 134   4              app_usb_out_data_ready = false;
+ 135   4            }
+ 136   3      
+ 137   3            switch (app_state) 
+ 138   3            {
+ 139   4                      
+ 140   4              case APP_IDLE:
+ 141   4                // Do nothing. Waiting for Commands from Host
+ 142   4                break;
+ 143   4                  
+ 144   4              // In the SEARCHING state the USB dongle will send INIT commands
+ 145   4              // to the remote device on the specified channels.
+ 146   4              // If it receives an ACK from the remote device it will enter CONNECTED
+ 147   4              // state.
+ 148   4              case APP_SEARCHING:
+ 149   4                // Start searching for a compatible device
+ 150   4                if (!radio_busy)
+ 151   4                {
+ 152   5                  // Go to the next channel and send INIT command
+ 153   5                  (channel_index > 1) ? channel_index = 0 : channel_index++;
+ 154   5                  hal_nrf_set_rf_channel(default_channels[channel_index]);
+ 155   5                  RF_OUT_CMD = CMD_INIT;
+ 156   5                  rf_send_buffer();
+ 157   5                  if (transmitted)
+ 158   5                  {
+ 159   6                    // On successful INIT transmit, wait for ACK and send it to app. 
+ 160   6                    rf_receive_ms(10);
+ 161   6                    if (packet_received && RF_IN_CMD == (uint8_t)CMD_ACK)
+ 162   6                    {
+ 163   7                      hal_nrf_set_auto_retr(RF_CONNECTED_AUTO_RETRIES, RF_CONNECTED_AUTO_RETRY_DELAY);
+ 164   7                      FORWARD_RF_TO_USB();
+ 165   7                      rf_ping_timer = PING_INTERVAL;
+ 166   7                      retry_counter = RETRIES;
+ 167   7                      app_state = APP_CONNECTED;
+ 168   7                    }
+ 169   6                  }
+ 170   5                }
+ 171   4                break;
+ 172   4                  
+ 173   4              // In the CONNECTED state the USB Dongle will periodically send PING
+ 174   4              // commands to the remote device, to make sure they are still
+ 175   4              // connected. Remote device should respond with PONG. After sending
+ 176   4              // a RETRIES number of PING without getting PONG, the connection
+C51 COMPILER V9.51   MAIN                                                                  09/23/2013 16:52:12 PAGE 4   
+
+ 177   4              // is considered lost, and it notify the host with a NACK and enter 
+ 178   4              // IDLE state.
+ 179   4              case APP_CONNECTED:
+ 180   4                if (rf_ping_timer == 0)
+ 181   4                {
+ 182   5                  rf_ping_timer = PING_INTERVAL;
+ 183   5                  // Send PING to remote device.
+ 184   5                  RF_OUT_CMD = CMD_PING;
+ 185   5                  rf_send_buffer();   
+ 186   5                  if (transmitted)
+ 187   5                  {
+ 188   6                    // Wait for PONG
+ 189   6                    rf_receive_ms(10);
+ 190   6                    if (packet_received && RF_IN_CMD == (uint8_t)CMD_PONG)
+ 191   6                    {
+ 192   7                      break;
+ 193   7                    }
+ 194   6                  }
+ 195   5                  // Did not receive PONG.
+ 196   5                  if (retry_counter == 0)
+ 197   5                  {
+ 198   6                    // Connection is considered lost, enter IDLE state.
+ 199   6                    retry_counter = RETRIES;
+ 200   6                    USB_IN_CMD = CMD_NACK;
+ 201   6                    ERROR_CODE = ERROR_LOST_CONNECTION;
+ 202   6                    SEND_USB();
+ 203   6                    app_state = APP_IDLE;
+ 204   6                  }
+ 205   5                  else
+ 206   5                    retry_counter--;
+ 207   5                }
+ 208   4                else
+ 209   4                  rf_ping_timer--;
+ 210   4                break;
+ 211   4                 
+ 212   4              // In the FORWARD state the USB Dongle just forward whatever
+ 213   4              // commands and data it receives from the PC application to
+ 214   4              // the remote device. It will enter the WAIT_ACK state on 
+ 215   4              // successful transmit.
+ 216   4              case APP_FORWARD:
+ 217   4                forward_usb_to_rf();
+ 218   4                if (transmitted)
+ 219   4                {
+ 220   5                  retry_counter = RETRIES;
+ 221   5                  app_state = APP_WAIT_ACK;
+ 222   5                }
+ 223   4                else 
+ 224   4                {
+ 225   5                  USB_IN_CMD = CMD_NACK;
+ 226   5                  ERROR_CODE = ERROR_LOST_CONNECTION;
+ 227   5                  SEND_USB();
+ 228   5                  app_state = APP_IDLE;
+ 229   5                }
+ 230   4                break;
+ 231   4          
+ 232   4              // Forward command received on USB to remote device and enter IDLE
+ 233   4              // state.
+ 234   4              case APP_EXIT:
+ 235   4                forward_usb_to_rf();
+ 236   4                app_state = APP_IDLE;
+ 237   4                break;
+ 238   4                  
+C51 COMPILER V9.51   MAIN                                                                  09/23/2013 16:52:12 PAGE 5   
+
+ 239   4      
+ 240   4              // Wait for ACK or NACK and send it over USB to PC application.
+ 241   4              case APP_WAIT_ACK: 
+ 242   4                rf_receive_ms(500); 
+ 243   4                if (packet_received && (RF_IN_CMD == (uint8_t)CMD_ACK || 
+ 244   4                                        RF_IN_CMD == (uint8_t)CMD_NACK))
+ 245   4                {
+ 246   5                  FORWARD_RF_TO_USB();
+ 247   5                  rf_ping_timer = PING_INTERVAL;
+ 248   5                  retry_counter = RETRIES;
+ 249   5                  app_state = APP_CONNECTED;
+ 250   5                }
+ 251   4                else 
+ 252   4                {
+ 253   5                  if (retry_counter > 0)
+ 254   5                  {
+ 255   6                    retry_counter--;
+ 256   6                  }
+ 257   5                  else
+ 258   5                  {
+ 259   6                    // Did not receive ACK or NACK after 4 listening periods, 
+ 260   6                    // connection lost.
+ 261   6                    USB_IN_CMD = CMD_NACK;
+ 262   6                    ERROR_CODE = ERROR_LOST_CONNECTION;
+ 263   6                    SEND_USB();
+ 264   6                    app_state = APP_IDLE;
+ 265   6                  }
+ 266   5                }
+ 267   4                break;
+ 268   4      
+ 269   4            }
+ 270   3            #ifdef DEBUG
+                    P0 = app_state;
+                    #endif
+ 273   3          }
+ 274   2          else
+ 275   2          {
+ 276   3            #ifdef DEBUG
+                    P0 = 0xF0;
+                    #endif
+ 279   3          }
+ 280   2        }
+ 281   1      }
+ 282          
+ 283          //-----------------------------------------------------------------------------
+ 284          // Handle commands from Host application
+ 285          //-----------------------------------------------------------------------------
+ 286          void app_parse_usb_out_packet()
+ 287          {
+ 288   1        switch(USB_OUT_CMD)
+ 289   1        {
+ 290   2          case CMD_INIT:
+ 291   2            hal_nrf_set_auto_retr(RF_CONNECTED_AUTO_RETRY_DELAY, RF_CONNECTED_AUTO_RETRY_DELAY);
+ 292   2            app_state = APP_SEARCHING;
+ 293   2            break;
+ 294   2      
+ 295   2          case CMD_EXIT:
+ 296   2            app_state = APP_EXIT;
+ 297   2            break;
+ 298   2          
+ 299   2          case CMD_UPDATE_START:
+ 300   2          case CMD_UPDATE_COMPLETE:
+C51 COMPILER V9.51   MAIN                                                                  09/23/2013 16:52:12 PAGE 6   
+
+ 301   2          case CMD_WRITE:
+ 302   2          case CMD_READ:
+ 303   2            app_state = APP_FORWARD;
+ 304   2            break;
+ 305   2        }
+ 306   1      }
+ 307          
+ 308          //-----------------------------------------------------------------------------
+ 309          // RF helper functions
+ 310          //-----------------------------------------------------------------------------
+ 311          
+ 312          // Initialize radio module
+ 313          void rf_init()
+ 314          {
+ 315   1        // Enable radio SPI and clock
+ 316   1        RFCTL = 0x10;
+ 317   1        RFCKEN = 1;
+ 318   1        // Set payload width to 32 bytes
+ 319   1        hal_nrf_set_rx_payload_width((int)HAL_NRF_PIPE0, 32);
+ 320   1        // Set pipe address
+ 321   1        hal_nrf_set_address(HAL_NRF_PIPE0, default_pipe_address);
+ 322   1        hal_nrf_set_address(HAL_NRF_TX, default_pipe_address);
+ 323   1        // Clear and flush radio state
+ 324   1        hal_nrf_get_clear_irq_flags();
+ 325   1        hal_nrf_flush_rx();
+ 326   1        hal_nrf_flush_tx();
+ 327   1        CE_LOW();
+ 328   1        transmitted = false;
+ 329   1        packet_received = false;
+ 330   1        // Power up radio
+ 331   1        hal_nrf_set_power_mode(HAL_NRF_PWR_UP);
+ 332   1        // Enable RF interrupt
+ 333   1        RF = 1;
+ 334   1      }
+ 335          
+ 336          // Start transmission of the RF buffer
+ 337          void rf_send_buffer()
+ 338          {
+ 339   1        CE_LOW();
+ 340   1        // Configure radio as primary transmitter (PTX)
+ 341   1        hal_nrf_set_operation_mode(HAL_NRF_PTX);
+ 342   1        transmitted = false;
+ 343   1        // Write payload to radio TX FIFO
+ 344   1        hal_nrf_write_tx_payload(rf_out_buf, 32);
+ 345   1        // Toggle radio CE signal to start transmission
+ 346   1        CE_PULSE();
+ 347   1        radio_busy = true;
+ 348   1        while(radio_busy) ; 
+ 349   1      }
+ 350          
+ 351          // Wait for a RF packet the specified amount of time
+ 352          void rf_receive_ms(uint16_t time_ms)
+ 353          {
+ 354   1        packet_received = false;
+ 355   1        // Configure radio as primary receiver (PRX)
+ 356   1        hal_nrf_set_operation_mode(HAL_NRF_PRX);
+ 357   1        CE_HIGH();
+ 358   1        //P0 = 0xFF;
+ 359   1        while(time_ms--)
+ 360   1        {
+ 361   2          if(packet_received)
+ 362   2          {
+C51 COMPILER V9.51   MAIN                                                                  09/23/2013 16:52:12 PAGE 7   
+
+ 363   3            break;
+ 364   3          }
+ 365   2          delay_ms(1);
+ 366   2        } 
+ 367   1        CE_LOW();
+ 368   1      }
+ 369          
+ 370          // Interrupt handler for RF module
+ 371          NRF_ISR()
+ 372          {
+ 373   1        uint8_t irq_flags;
+ 374   1        // Read and clear IRQ flags from radio
+ 375   1        irq_flags = hal_nrf_get_clear_irq_flags();
+ 376   1      
+ 377   1        switch (irq_flags) 
+ 378   1        {
+ 379   2          // Transmission success.
+ 380   2          case (1 << (uint8_t)HAL_NRF_TX_DS):
+ 381   2            radio_busy = false;
+ 382   2            transmitted = true;
+ 383   2            break;
+ 384   2      
+ 385   2          // Transmission failed (maximum re-transmits)
+ 386   2          case (1 << (uint8_t)HAL_NRF_MAX_RT):
+ 387   2            hal_nrf_flush_tx();
+ 388   2            radio_busy = false;
+ 389   2            transmitted = false;
+ 390   2            break;
+ 391   2      
+ 392   2          // Data received 
+ 393   2          case (1 << (uint8_t)HAL_NRF_RX_DR):
+ 394   2            // Read payload
+ 395   2            while (!hal_nrf_rx_fifo_empty()) { 
+ 396   3              hal_nrf_read_rx_payload(rf_in_buf);
+ 397   3            }
+ 398   2            packet_received = true;
+ 399   2            break;
+ 400   2      
+ 401   2        }
+ 402   1      }
+ 403          
+ 404          //-----------------------------------------------------------------------------
+ 405          // USB Helper functions
+ 406          //-----------------------------------------------------------------------------  
+ 407          
+ 408          // Send data to host  
+ 409          void app_send_usb_in_data(uint8_t * buf, uint8_t size)
+ 410          {
+ 411   1        app_wait_while_usb_pending();
+ 412   1        app_pending_usb_write = true;  
+ 413   1        memcpy(usb_in_buf, buf, size);
+ 414   1        hal_usb_send_data(1, usb_in_buf, EP1_2_PACKET_SIZE);
+ 415   1      }
+ 416          
+ 417          void forward_usb_to_rf()
+ 418          {
+ 419   1        memcpy(rf_out_buf, usb_out_buf, 32);
+ 420   1        rf_send_buffer();
+ 421   1      }
+ 422          
+ 423          void app_wait_while_usb_pending()
+ 424          {    
+C51 COMPILER V9.51   MAIN                                                                  09/23/2013 16:52:12 PAGE 8   
+
+ 425   1        uint16_t timeout = 50000;   // Will equal ~ 50-100 ms timeout 
+ 426   1        while(timeout--)
+ 427   1        {
+ 428   2          if(!app_pending_usb_write)
+ 429   2          {
+ 430   3            break;
+ 431   3          }
+ 432   2        }    
+ 433   1      }
+ 434          
+ 435          //-----------------------------------------------------------------------------
+ 436          // USB Callbacks
+ 437          //-----------------------------------------------------------------------------  
+ 438          
+ 439          static hal_usb_dev_req_resp_t device_req_cb(hal_usb_device_req* req, uint8_t** data_ptr, uint8_t* size) re
+             -entrant
+ 440          {
+ 441   1        hal_usb_dev_req_resp_t retval;
+ 442   1      
+ 443   1        if( hal_usb_hid_device_req_proc(req, data_ptr, size, &retval) == true ) 
+ 444   1        {
+ 445   2          // The request was processed with the result stored in the retval variable
+ 446   2          return retval;
+ 447   2        }
+ 448   1        else
+ 449   1        {
+ 450   2          // The request was *not* processed by the HID subsystem
+ 451   2          return STALL;
+ 452   2        }
+ 453   1      }
+ 454          
+ 455          static void suspend_cb(uint8_t allow_remote_wu) reentrant
+ 456          {
+ 457   1        USBSLP = 1; // Disable USB clock (auto clear)
+ 458   1        allow_remote_wu = 0;  
+ 459   1      }
+ 460          
+ 461          static void resume_cb() reentrant
+ 462          {
+ 463   1      }
+ 464          
+ 465          static void reset_cb() reentrant
+ 466          {
+ 467   1      }
+ 468          
+ 469          //-----------------------------------------------------------------------------
+ 470          // USB Endpoint Callbacks
+ 471          //-----------------------------------------------------------------------------  
+ 472          uint8_t ep_1_in_cb(uint8_t *adr_ptr, uint8_t* size) reentrant
+ 473          {  
+ 474   1        app_pending_usb_write = false;
+ 475   1        return 0x60; // NAK
+ 476   1        adr_ptr = adr_ptr;
+ 477   1        size = size;
+ 478   1      }
+ 479          
+ 480          uint8_t ep_2_out_cb(uint8_t *adr_ptr, uint8_t* size) reentrant
+ 481          {
+ 482   1        memcpy(usb_out_buf, adr_ptr, *size);
+ 483   1        app_usb_out_data_ready = true;
+ 484   1        //P0 = *size;
+ 485   1        return 0xff; // ACK
+C51 COMPILER V9.51   MAIN                                                                  09/23/2013 16:52:12 PAGE 9   
+
+ 486   1      }
+ 487          
+ 488          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =   1111    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =    170    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----       7
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+   EDATA SIZE       =   ----    ----
+   HDATA SIZE       =   ----    ----
+   XDATA CONST SIZE =   ----    ----
+   FAR CONST SIZE   =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

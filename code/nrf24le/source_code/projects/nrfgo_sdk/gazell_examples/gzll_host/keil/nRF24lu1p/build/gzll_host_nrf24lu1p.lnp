@@ -1,0 +1,25 @@
+".\build\main.obj",
+".\build\gzll_timer_isr.obj",
+".\build\gzll_radio_isr.obj",
+".\build\gzll_mcu.obj",
+".\build\gzll.obj",
+".\build\hal_nrf_hw.obj",
+".\build\hal_aes.obj",
+".\build\hal_nrf.obj",
+".\build\hal_delay.obj",
+".\build\lib_crypt_lu1.obj",
+".\build\lib_crypt.obj" 
+TO ".\build\gzll_host_nrf24lu1p" 
+REGFILE (.\build\gzll_host_nrf24lu1p.ORC) 
+PRINT(".\lst\gzll_host_nrf24lu1p.map") WARNINGLEVEL (0) 
+REMOVEUNUSED 
+OVERLAY( ?PR?_HAL_NRF_WRITE_REG?HAL_NRF !*,
+?PR?_HAL_NRF_READ_MULTIBYTE_REG?HAL_NRF !*,
+?PR?_GZLL_SET_TIMER_PERIOD?GZLL_MCU !*,
+?PR?_HAL_NRF_SET_POWER_MODE?HAL_NRF !*,
+?PR?_HAL_NRF_SET_RF_CHANNEL?HAL_NRF !*,
+?PR?_HAL_NRF_SET_AUTO_RETR?HAL_NRF !*,
+?PR?_GZLL_START_NEW_TX?GZLL !*,
+?PR?_GZLL_LFSR_GET?GZLL !* )
+CLASSES (XDATA (X:0x8000-X:0x87FF), HDATA (X:0x8000-X:0x87FF), CODE (C:0x0-C:0x3FFF), CONST (C:0x0-C:0x3FFF), 
+ECODE (C:0x0-C:0x3FFF), HCONST (C:0x0-C:0x3FFF)) 

@@ -1,0 +1,68 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Project:</h2>
+C:\working\rf\rf-nordic\code\nrf24le\source_code\projects\nrfgo_sdk\bootloader_nRF24LE1\bootloader.uvproj
+Project File Date:  09/23/2013
+
+<h2>Output:</h2>
+Rebuild target 'Bootloader'
+assembling STARTUP.A51...
+compiling main.c...
+main.h(6): warning C318: can't open file 'nrf24le1.h'
+main.h(7): warning C318: can't open file 'hal_nrf.h'
+main.h(8): warning C318: can't open file 'hal_flash.h'
+main.h(9): warning C318: can't open file 'hal_clk.h'
+main.h(10): warning C318: can't open file 'protocol.h'
+main.h(31): error C141: syntax error near 'command', expected ')'
+main.c(25): error C202: 'CHANNELS_SIZE': undefined identifier
+main.c(25): error C136: invalid dimension size: [0]
+main.c(27): error C202: 'PIPE_ADDRESS': undefined identifier
+main.c(47): error C202: 'command_t': undefined identifier
+main.c(47): error C141: syntax error near 'cmd'
+main.c(48): error C141: syntax error near 'firmware_start'
+main.c(48): error C202: 'firmware': undefined identifier
+main.c(50): error C141: syntax error near 'uint16_t'
+main.c(50): error C202: 'channel_timer': undefined identifier
+main.c(51): error C141: syntax error near 'uint8_t'
+main.c(51): error C202: 'ch_i': undefined identifier
+main.c(52): error C141: syntax error near '_Bool'
+main.c(52): error C202: 'running': undefined identifier
+main.c(54): error C141: syntax error near 'uint16_t'
+main.c(54): error C202: 'bytes_received': undefined identifier
+main.c(55): error C141: syntax error near 'uint16_t'
+main.c(55): error C202: 'bytes_total': undefined identifier
+main.c(57): error C141: syntax error near 'uint8_t'
+main.c(57): error C202: 'ea_default': undefined identifier
+main.c(60): error C202: 'rf_default': undefined identifier
+main.c(61): error C202: 'RF': undefined identifier
+main.c(63): error C202: 'ea_default': undefined identifier
+main.c(64): error C202: 'EA': undefined identifier
+main.c(70): error C202: 'P0DIR': undefined identifier
+main.c(71): error C202: 'P0': undefined identifier
+main.c(74): error C202: 'running': undefined identifier
+main.c(78): error C202: 'running': undefined identifier
+main.c(81): error C202: 'RFF': undefined identifier
+main.c(82): error C202: 'RFF': undefined identifier
+main.c(87): error C202: 'connection_timer': undefined identifier
+main.c(88): error C202: 'cmd': undefined identifier
+main.c(90): error C202: 'cmd': undefined identifier
+main.c(92): error C202: 'CMD_INIT': undefined identifier
+main.c(96): error C202: 'channel_timer': undefined identifier
+main.c(100): error C202: 'CMD_UPDATE_START': undefined identifier
+main.c(104): error C202: 'bytes_total': undefined identifier
+main.c(109): error C202: 'P0': undefined identifier
+main.c(114): error C202: 'CMD_WRITE': undefined identifier
+main.c(116): error C202: 'bytes_received': undefined identifier
+main.c(120): error C202: 'P0': undefined identifier
+main.c(125): error C202: 'CMD_UPDATE_COMPLETE': undefined identifier
+compiling hal_flash.c...
+..\..\..\..\hal\nrf24le1\hal_flash.c(1): error C318: can't open file '..\..\..\..\hal\nrf24le1\hal_flash.c'
+compiling hal_nrf.c...
+..\..\..\..\hal\nrf24l01p\hal_nrf.c(1): error C318: can't open file '..\..\..\..\hal\nrf24l01p\hal_nrf.c'
+compiling hal_clk.c...
+..\..\..\..\hal\nrf24le1\hal_clk.c(1): error C318: can't open file '..\..\..\..\hal\nrf24le1\hal_clk.c'
+compiling hal_nrf_hw.c...
+..\..\..\..\hal\nrf24le1\hal_nrf_hw.c(1): error C318: can't open file '..\..\..\..\hal\nrf24le1\hal_nrf_hw.c'
+Target not created

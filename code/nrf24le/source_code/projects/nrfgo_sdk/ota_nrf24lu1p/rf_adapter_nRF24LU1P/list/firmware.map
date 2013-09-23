@@ -1,0 +1,1387 @@
+LX51 LINKER/LOCATER V4.64.0.0                                                           09/23/2013  16:52:14  PAGE 1
+
+
+LX51 LINKER/LOCATER V4.64.0.0, INVOKED BY:
+C:\KEIL\C51\BIN\LX51.EXE .\build\STARTUP.obj, .\build\main.obj, .\build\usb_desc.obj, .\build\hal_flash.obj, .\build\hal
+>> _usb.obj, .\build\hal_usb_hid.obj, .\build\hal_nrf_hw.obj, .\build\hal_spi.obj, .\build\hal_nrf.obj, .\build\hal_dela
+>> y.obj TO .\build\firmware PRINT (.\list\firmware.map) DISABLEWARNING (15, 16) REMOVEUNUSED CLASSES (XDATA (X:0X8000-X
+>> :0X87FF), HDATA (X:0X8000-X:0X87FF), CODE (C:0X0-C:0X7FFF), CONST (C:0X0-C:0X7FFF), ECODE (C:0X0-C:0X7FFF), HCONST (C
+>> :0X0-C:0X7FFF))
+
+
+CPU MODE:     8051 MODE
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  .\build\STARTUP.obj (?C_STARTUP)
+         COMMENT TYPE 0: AX51 V3.07d
+  .\build\main.obj (MAIN)
+         COMMENT TYPE 0: C51 V9.51
+  .\build\usb_desc.obj (USB_DESC)
+         COMMENT TYPE 0: C51 V9.51
+  .\build\hal_flash.obj (HAL_FLASH)
+         COMMENT TYPE 0: C51 V9.51
+  .\build\hal_usb.obj (HAL_USB)
+         COMMENT TYPE 0: C51 V9.51
+  .\build\hal_usb_hid.obj (HAL_USB_HID)
+         COMMENT TYPE 0: C51 V9.51
+  .\build\hal_nrf_hw.obj (HAL_NRF_HW)
+         COMMENT TYPE 0: C51 V9.51
+  .\build\hal_spi.obj (HAL_SPI)
+         COMMENT TYPE 0: C51 V9.51
+  .\build\hal_nrf.obj (HAL_NRF)
+         COMMENT TYPE 0: C51 V9.51
+  .\build\hal_delay.obj (HAL_DELAY)
+         COMMENT TYPE 0: C51 V9.51
+  C:\KEIL\C51\LIB\C51S.LIB (?C_INIT)
+         COMMENT TYPE 1: A51 / ASM51 Assembler
+  C:\KEIL\C51\LIB\C51S.LIB (?C?COPY)
+         COMMENT TYPE 1: A51 / ASM51 Assembler
+  C:\KEIL\C51\LIB\C51S.LIB (?C?CLDPTR)
+         COMMENT TYPE 1: A51 / ASM51 Assembler
+  C:\KEIL\C51\LIB\C51S.LIB (?C?CLDOPTR)
+         COMMENT TYPE 1: A51 / ASM51 Assembler
+  C:\KEIL\C51\LIB\C51S.LIB (?C?CSTPTR)
+         COMMENT TYPE 1: A51 / ASM51 Assembler
+  C:\KEIL\C51\LIB\C51S.LIB (?C?PSTPTR)
+         COMMENT TYPE 1: A51 / ASM51 Assembler
+  C:\KEIL\C51\LIB\C51S.LIB (?C?PLDOPTR)
+         COMMENT TYPE 1: A51 / ASM51 Assembler
+  C:\KEIL\C51\LIB\C51S.LIB (?C?CCASE)
+         COMMENT TYPE 1: A51 / ASM51 Assembler
+  C:\KEIL\C51\LIB\C51S.LIB (?C?ICALL)
+         COMMENT TYPE 1: A51 / ASM51 Assembler
+  C:\KEIL\C51\LIB\C51S.LIB (?C_XBP)
+         COMMENT TYPE 1: A51 / ASM51 Assembler
+  C:\KEIL\C51\LIB\C51S.LIB (?C_IBP)
+         COMMENT TYPE 1: A51 / ASM51 Assembler
+  C:\KEIL\C51\LIB\C51S.LIB (?C?ADDXBP)
+         COMMENT TYPE 1: A51 / ASM51 Assembler
+  C:\KEIL\C51\LIB\C51S.LIB (?C?XBPOFF)
+         COMMENT TYPE 1: A51 / ASM51 Assembler
+  C:\KEIL\C51\LIB\C51S.LIB (?C?PLDIDATA)
+         COMMENT TYPE 1: A51 / ASM51 Assembler
+  C:\KEIL\C51\LIB\C51S.LIB (?C?PSTIDATA)
+         COMMENT TYPE 1: A51 / ASM51 Assembler
+  C:\KEIL\C51\LIB\C51S.LIB (?C?PLDXDATA)
+         COMMENT TYPE 1: A51 / ASM51 Assembler
+  C:\KEIL\C51\LIB\C51S.LIB (?C?PSTXDATA)
+LX51 LINKER/LOCATER V4.64.0.0                                                         09/23/2013  16:52:14  PAGE 2
+
+
+         COMMENT TYPE 1: A51 / ASM51 Assembler
+  C:\KEIL\C51\LIB\C51S.LIB (?C?PLDPDATA)
+         COMMENT TYPE 1: A51 / ASM51 Assembler
+  C:\KEIL\C51\LIB\C51S.LIB (?C?PSTPDATA)
+         COMMENT TYPE 1: A51 / ASM51 Assembler
+  C:\KEIL\C51\LIB\C51S.LIB (?C?PLDCODE)
+         COMMENT TYPE 1: A51 / ASM51 Assembler
+
+
+ACTIVE MEMORY CLASSES OF MODULE:  .\build\firmware (?C_STARTUP)
+
+BASE        START       END         USED      MEMORY CLASS
+==========================================================
+X:000000H   X:008000H   X:0087FFH   000278H   XDATA
+X:000000H   X:008000H   X:0087FFH             HDATA
+C:000000H   C:000000H   C:007FFFH   001712H   CODE
+C:000000H   C:000000H   C:007FFFH   0000D2H   CONST
+C:000000H   C:000000H   C:007FFFH             ECODE
+B00:0000H   C:000000H   C:007FFFH             HCONST
+I:000000H   I:000000H   I:0000FFH   000001H   IDATA
+I:000000H   I:000000H   I:00007FH   000079H   DATA
+
+
+MEMORY MAP OF MODULE:  .\build\firmware (?C_STARTUP)
+
+
+START     STOP      LENGTH    ALIGN  RELOC    MEMORY CLASS   SEGMENT NAME
+=========================================================================
+
+* * * * * * * * * * *   D A T A   M E M O R Y   * * * * * * * * * * * * *
+000000H   000007H   000008H   ---    AT..     DATA           "REG BANK 0"
+000008H   00004EH   000047H   BYTE   UNIT     DATA           ?DT?HAL_USB
+00004FH   000074H   000026H   BYTE   UNIT     DATA           _DATA_GROUP_
+000075H   000077H   000003H   BYTE   UNIT     DATA           ?C?LIB_DATA
+000078H   000078H   000001H   BYTE   UNIT     DATA           ?DT?HAL_USB_HID
+000079H   000079H   000001H   BYTE   UNIT     IDATA          ?STACK
+
+* * * * * * * * * * *   C O D E   M E M O R Y   * * * * * * * * * * * * *
+000000H   000002H   000003H   ---    OFFS..   CODE           ?CO?STARTUP?3
+000003H   000047H   000045H   BYTE   UNIT     CODE           ?PR?_?EP_2_OUT_CB?MAIN
+000048H   000048H   000001H   BYTE   UNIT     CODE           ?PR?_?RESUME_CB?MAIN
+000049H   000049H   000001H   BYTE   UNIT     CODE           ?PR?_?RESET_CB?MAIN
+00004AH   00004AH   000001H   ---    ---      **GAP**
+00004BH   00004DH   000003H   BYTE   OFFS..   CODE           ?MAIN?0004B
+00004EH   000059H   00000CH   BYTE   UNIT     CODE           ?PR?HAL_NRF_GET_CLEAR_IRQ_FLAGS?HAL_NRF
+00005AH   00005AH   000001H   ---    ---      **GAP**
+00005BH   00005DH   000003H   BYTE   OFFS..   CODE           ?HAL_USB?0005B
+00005EH   000062H   000005H   ---    ---      **GAP**
+000063H   000065H   000003H   BYTE   OFFS..   CODE           ?HAL_USB?00063
+000066H   0003BCH   000357H   BYTE   UNIT     CODE           ?PR?_?HAL_USB_HID_DEVICE_REQ_PROC?HAL_USB_HID
+0003BDH   000628H   00026CH   BYTE   UNIT     CODE           ?C?LIB_CODE
+000629H   00081BH   0001F3H   BYTE   UNIT     CODE           ?PR?USB_ISR?HAL_USB
+00081CH   0009C8H   0001ADH   BYTE   UNIT     CODE           ?PR?MAIN?MAIN
+0009C9H   000AFAH   000132H   BYTE   UNIT     CODE           ?PR?_HAL_NRF_READ_MULTIBYTE_REG?HAL_NRF
+000AFBH   000C13H   000119H   BYTE   UNIT     CODE           ?PR?ISR_SUDAV?HAL_USB
+000C14H   000CF1H   0000DEH   BYTE   UNIT     CODE           ?PR?USB_PROCESS_GET_DESCRIPTOR?HAL_USB
+000CF2H   000DCEH   0000DDH   BYTE   UNIT     CODE           ?PR?_HAL_USB_INIT?HAL_USB
+000DCFH   000E83H   0000B5H   BYTE   UNIT     CODE           ?PR?USB_PROCESS_GET_STATUS?HAL_USB
+000E84H   000F2AH   0000A7H   BYTE   UNIT     CODE           ?PR?_HAL_USB_ENDPOINT_CONFIG?HAL_USB
+000F2BH   000FCEH   0000A4H   BYTE   UNIT     CODE           ?PR?_HAL_NRF_WRITE_MULTIBYTE_REG?HAL_NRF
+000FCFH   00105AH   00008CH   BYTE   UNIT     CODE           ?C_C51STARTUP
+00105BH   0010E4H   00008AH   BYTE   UNIT     CODE           ?PR?USB_PROCESS_DEV_REQ_CB_RESPONSE?HAL_USB
+0010E5H   001164H   000080H   BYTE   UNIT     CODE           ?PR?USB_WU_ISR?HAL_USB
+001165H   0011E0H   00007CH   BYTE   UNIT     CODE           ?PR?_?DEVICE_REQ_CB?MAIN
+0011E1H   001259H   000079H   BYTE   UNIT     CODE           ?PR?NRF_ISR?MAIN
+LX51 LINKER/LOCATER V4.64.0.0                                                         09/23/2013  16:52:14  PAGE 3
+
+
+00125AH   0012C7H   00006EH   BYTE   UNIT     CODE           ?PR?PACKETIZER_ISR_EP0_IN?HAL_USB
+0012C8H   001331H   00006AH   BYTE   UNIT     CODE           ?PR?_HAL_USB_SEND_DATA?HAL_USB
+001332H   001374H   000043H   BYTE   UNIT     CODE           ?PR?_APP_SEND_USB_IN_DATA?MAIN
+001375H   0013B2H   00003EH   BYTE   UNIT     CODE           ?PR?RF_INIT?MAIN
+0013B3H   0013EFH   00003DH   BYTE   UNIT     CODE           ?PR?_HAL_USB_ENDPOINT_STALL?HAL_USB
+0013F0H   00142CH   00003DH   BYTE   UNIT     CODE           ?PR?_HAL_NRF_SET_ADDRESS?HAL_NRF
+00142DH   00145EH   000032H   BYTE   UNIT     CODE           ?PR?RF_SEND_BUFFER?MAIN
+00145FH   00148EH   000030H   BYTE   UNIT     CODE           ?PR?_USB_PROCESS_EP_RESPONSE?HAL_USB
+00148FH   0014BDH   00002FH   BYTE   UNIT     CODE           ?PR?APP_PARSE_USB_OUT_PACKET?MAIN
+0014BEH   0014ECH   00002FH   BYTE   UNIT     CODE           ?PR?_RF_RECEIVE_MS?MAIN
+0014EDH   001518H   00002CH   BYTE   UNIT     CODE           ?C_INITSEG
+001519H   001544H   00002CH   BYTE   UNIT     CODE           ?PR?ISR_SUSPEND?HAL_USB
+001545H   001566H   000022H   BYTE   UNIT     CODE           ?PR?_HAL_NRF_SET_AUTO_RETR?HAL_NRF
+001567H   001585H   00001FH   BYTE   UNIT     CODE           ?PR?ISR_USBRESET?HAL_USB
+001586H   0015A3H   00001EH   BYTE   UNIT     CODE           ?PR?_?EP_1_IN_CB?MAIN
+0015A4H   0015C0H   00001DH   BYTE   UNIT     CODE           ?PR?_HAL_NRF_SET_OPERATION_MODE?HAL_NRF
+0015C1H   0015DDH   00001DH   BYTE   UNIT     CODE           ?PR?_HAL_NRF_SET_POWER_MODE?HAL_NRF
+0015DEH   0015F8H   00001BH   BYTE   UNIT     CODE           ?PR?_HAL_NRF_WRITE_REG?HAL_NRF
+0015F9H   001612H   00001AH   BYTE   UNIT     CODE           ?PR?_DELAY_US?HAL_DELAY
+001613H   00162AH   000018H   BYTE   UNIT     CODE           ?PR?_HAL_NRF_READ_REG?HAL_NRF
+00162BH   001641H   000017H   BYTE   UNIT     CODE           ?PR?_PACKETIZE?HAL_USB
+001642H   001657H   000016H   BYTE   UNIT     CODE           ?PR?FORWARD_USB_TO_RF?MAIN
+001658H   00166DH   000016H   BYTE   UNIT     CODE           ?PR?APP_WAIT_WHILE_USB_PENDING?MAIN
+00166EH   001682H   000015H   BYTE   UNIT     CODE           ?PR?_HAL_NRF_SET_RF_CHANNEL?HAL_NRF
+001683H   001696H   000014H   BYTE   UNIT     CODE           ?PR?_DELAY_MS?HAL_DELAY
+001697H   0016A6H   000010H   BYTE   UNIT     CODE           ?PR?_?SUSPEND_CB?MAIN
+0016A7H   0016B4H   00000EH   BYTE   UNIT     CODE           ?PR?HAL_USB_GET_STATE?HAL_USB
+0016B5H   0016C2H   00000EH   BYTE   UNIT     CODE           ?PR?HAL_NRF_GET_RX_DATA_SOURCE?HAL_NRF
+0016C3H   0016CCH   00000AH   BYTE   UNIT     CODE           ?PR?_HAL_NRF_RW?HAL_NRF_HW
+0016CDH   0016D6H   00000AH   BYTE   UNIT     CODE           ?PR?HAL_NRF_GET_ADDRESS_WIDTH?HAL_NRF
+0016D7H   0016E0H   00000AH   BYTE   UNIT     CODE           ?PR?HAL_NRF_RX_FIFO_EMPTY?HAL_NRF
+0016E1H   0016EAH   00000AH   BYTE   UNIT     CODE           ?PR?HAL_NRF_FLUSH_RX?HAL_NRF
+0016EBH   0016F4H   00000AH   BYTE   UNIT     CODE           ?PR?HAL_NRF_FLUSH_TX?HAL_NRF
+0016F5H   0016FEH   00000AH   BYTE   UNIT     CODE           ?PR?HAL_NRF_NOP?HAL_NRF
+0016FFH   001705H   000007H   BYTE   UNIT     CODE           ?PR?_HAL_NRF_SET_RX_PAYLOAD_WIDTH?HAL_NRF
+001706H   00170CH   000007H   BYTE   UNIT     CODE           ?PR?_HAL_NRF_WRITE_TX_PAYLOAD?HAL_NRF
+00170DH   001712H   000006H   BYTE   UNIT     CODE           ?PR?HAL_NRF_READ_RX_PAYLOAD_WIDTH?HAL_NRF
+001713H   001718H   000006H   BYTE   UNIT     CODE           ?PR?_HAL_NRF_READ_RX_PAYLOAD?HAL_NRF
+001719H   0017EAH   0000D2H   BYTE   UNIT     CONST          ?CO?USB_DESC
+
+* * * * * * * * * * *  X D A T A   M E M O R Y  * * * * * * * * * * * * *
+008000H   0080A9H   0000AAH   BYTE   UNIT     XDATA          ?XD?MAIN
+0080AAH   0080B1H   000008H   BYTE   UNIT     XDATA          ?XD?HAL_USB_HID
+0080B2H   00C43FH   00438EH   ---    ---      **GAP**
+00C440H   00C45FH   000020H   BYTE   OFFS..   XDATA          ?XD?HAL_USB?42
+00C460H   00C47FH   000020H   ---    ---      **GAP**
+00C480H   00C49FH   000020H   BYTE   OFFS..   XDATA          ?XD?HAL_USB?38
+00C4A0H   00C4BFH   000020H   ---    ---      **GAP**
+00C4C0H   00C4DFH   000020H   BYTE   OFFS..   XDATA          ?XD?HAL_USB?39
+00C4E0H   00C4FFH   000020H   ---    ---      **GAP**
+00C500H   00C51FH   000020H   BYTE   OFFS..   XDATA          ?XD?HAL_USB?36
+00C520H   00C53FH   000020H   ---    ---      **GAP**
+00C540H   00C55FH   000020H   BYTE   OFFS..   XDATA          ?XD?HAL_USB?37
+00C560H   00C57FH   000020H   ---    ---      **GAP**
+00C580H   00C59FH   000020H   BYTE   OFFS..   XDATA          ?XD?HAL_USB?34
+00C5A0H   00C5BFH   000020H   ---    ---      **GAP**
+00C5C0H   00C5DFH   000020H   BYTE   OFFS..   XDATA          ?XD?HAL_USB?35
+00C5E0H   00C5FFH   000020H   ---    ---      **GAP**
+00C600H   00C61FH   000020H   BYTE   OFFS..   XDATA          ?XD?HAL_USB?32
+00C620H   00C63FH   000020H   ---    ---      **GAP**
+00C640H   00C65FH   000020H   BYTE   OFFS..   XDATA          ?XD?HAL_USB?33
+00C660H   00C67FH   000020H   ---    ---      **GAP**
+00C680H   00C69FH   000020H   BYTE   OFFS..   XDATA          ?XD?HAL_USB?30
+00C6A0H   00C6BFH   000020H   ---    ---      **GAP**
+00C6C0H   00C6DFH   000020H   BYTE   OFFS..   XDATA          ?XD?HAL_USB?31
+LX51 LINKER/LOCATER V4.64.0.0                                                         09/23/2013  16:52:14  PAGE 4
+
+
+00C6E0H   00C6FFH   000020H   ---    ---      **GAP**
+00C700H   00C71FH   000020H   BYTE   OFFS..   XDATA          ?XD?HAL_USB?29
+00C720H   00C75FH   000040H   ---    ---      **GAP**
+00C760H   00C760H   000001H   BYTE   OFFS..   XDATA          ?XD?HAL_USB?24
+00C761H   00C767H   000007H   ---    ---      **GAP**
+00C768H   00C768H   000001H   BYTE   OFFS..   XDATA          ?XD?HAL_USB?22
+00C769H   00C76FH   000007H   ---    ---      **GAP**
+00C770H   00C770H   000001H   BYTE   OFFS..   XDATA          ?XD?HAL_USB?27
+00C771H   00C771H   000001H   BYTE   OFFS..   XDATA          ?XD?HAL_USB?28
+00C772H   00C780H   00000FH   ---    ---      **GAP**
+00C781H   00C781H   000001H   BYTE   OFFS..   XDATA          ?XD?HAL_USB?9
+00C782H   00C782H   000001H   BYTE   OFFS..   XDATA          ?XD?HAL_USB?11
+00C783H   00C783H   000001H   BYTE   OFFS..   XDATA          ?XD?HAL_USB?13
+00C784H   00C784H   000001H   BYTE   OFFS..   XDATA          ?XD?HAL_USB?14
+00C785H   00C785H   000001H   BYTE   OFFS..   XDATA          ?XD?HAL_USB?15
+00C786H   00C787H   000002H   ---    ---      **GAP**
+00C788H   00C788H   000001H   BYTE   OFFS..   XDATA          ?XD?HAL_USB?26
+00C789H   00C789H   000001H   BYTE   OFFS..   XDATA          ?XD?HAL_USB?5
+00C78AH   00C78AH   000001H   BYTE   OFFS..   XDATA          ?XD?HAL_USB?7
+00C78BH   00C78BH   000001H   BYTE   OFFS..   XDATA          ?XD?HAL_USB?8
+00C78CH   00C78CH   000001H   BYTE   OFFS..   XDATA          ?XD?HAL_USB?10
+00C78DH   00C78DH   000001H   BYTE   OFFS..   XDATA          ?XD?HAL_USB?12
+00C78EH   00C79FH   000012H   ---    ---      **GAP**
+00C7A0H   00C7A0H   000001H   BYTE   OFFS..   XDATA          ?XD?HAL_USB?17
+00C7A1H   00C7A1H   000001H   ---    ---      **GAP**
+00C7A2H   00C7A2H   000001H   BYTE   OFFS..   XDATA          ?XD?HAL_USB?19
+00C7A3H   00C7A7H   000005H   ---    ---      **GAP**
+00C7A8H   00C7A8H   000001H   BYTE   OFFS..   XDATA          ?XD?HAL_USB?21
+00C7A9H   00C7A9H   000001H   BYTE   OFFS..   XDATA          ?XD?HAL_USB?1
+00C7AAH   00C7AAH   000001H   BYTE   OFFS..   XDATA          ?XD?HAL_USB?3
+00C7ABH   00C7ABH   000001H   BYTE   OFFS..   XDATA          ?XD?HAL_USB?18
+00C7ACH   00C7ACH   000001H   BYTE   OFFS..   XDATA          ?XD?HAL_USB?71
+00C7ADH   00C7ADH   000001H   BYTE   OFFS..   XDATA          ?XD?HAL_USB?72
+00C7AEH   00C7AEH   000001H   BYTE   OFFS..   XDATA          ?XD?HAL_USB?4
+00C7AFH   00C7AFH   000001H   BYTE   OFFS..   XDATA          ?XD?HAL_USB?2
+00C7B0H   00C7B3H   000004H   ---    ---      **GAP**
+00C7B4H   00C7B4H   000001H   BYTE   OFFS..   XDATA          ?XD?HAL_USB?56
+00C7B5H   00C7B5H   000001H   BYTE   OFFS..   XDATA          ?XD?HAL_USB?41
+00C7B6H   00C7B6H   000001H   BYTE   OFFS..   XDATA          ?XD?HAL_USB?57
+00C7B7H   00C7B7H   000001H   BYTE   OFFS..   XDATA          ?XD?HAL_USB?43
+00C7B8H   00C7B8H   000001H   BYTE   OFFS..   XDATA          ?XD?HAL_USB?58
+00C7B9H   00C7B9H   000001H   BYTE   OFFS..   XDATA          ?XD?HAL_USB?46
+00C7BAH   00C7BAH   000001H   BYTE   OFFS..   XDATA          ?XD?HAL_USB?60
+00C7BBH   00C7BBH   000001H   BYTE   OFFS..   XDATA          ?XD?HAL_USB?48
+00C7BCH   00C7BCH   000001H   BYTE   OFFS..   XDATA          ?XD?HAL_USB?62
+00C7BDH   00C7BDH   000001H   BYTE   OFFS..   XDATA          ?XD?HAL_USB?50
+00C7BEH   00C7BEH   000001H   BYTE   OFFS..   XDATA          ?XD?HAL_USB?64
+00C7BFH   00C7BFH   000001H   BYTE   OFFS..   XDATA          ?XD?HAL_USB?53
+00C7C0H   00C7C4H   000005H   ---    ---      **GAP**
+00C7C5H   00C7C5H   000001H   BYTE   OFFS..   XDATA          ?XD?HAL_USB?45
+00C7C6H   00C7C6H   000001H   BYTE   OFFS..   XDATA          ?XD?HAL_USB?59
+00C7C7H   00C7C7H   000001H   BYTE   OFFS..   XDATA          ?XD?HAL_USB?47
+00C7C8H   00C7C8H   000001H   BYTE   OFFS..   XDATA          ?XD?HAL_USB?61
+00C7C9H   00C7C9H   000001H   BYTE   OFFS..   XDATA          ?XD?HAL_USB?49
+00C7CAH   00C7CAH   000001H   BYTE   OFFS..   XDATA          ?XD?HAL_USB?63
+00C7CBH   00C7CBH   000001H   BYTE   OFFS..   XDATA          ?XD?HAL_USB?52
+00C7CCH   00C7CCH   000001H   BYTE   OFFS..   XDATA          ?XD?HAL_USB?65
+00C7CDH   00C7CDH   000001H   BYTE   OFFS..   XDATA          ?XD?HAL_USB?54
+00C7CEH   00C7CEH   000001H   BYTE   OFFS..   XDATA          ?XD?HAL_USB?66
+00C7CFH   00C7CFH   000001H   BYTE   OFFS..   XDATA          ?XD?HAL_USB?55
+00C7D0H   00C7D5H   000006H   ---    ---      **GAP**
+00C7D6H   00C7D6H   000001H   BYTE   OFFS..   XDATA          ?XD?HAL_USB?20
+00C7D7H   00C7D7H   000001H   BYTE   OFFS..   XDATA          ?XD?HAL_USB?16
+00C7D8H   00C7D8H   000001H   BYTE   OFFS..   XDATA          ?XD?HAL_USB?0
+00C7D9H   00C7D9H   000001H   BYTE   OFFS..   XDATA          ?XD?HAL_USB?74
+LX51 LINKER/LOCATER V4.64.0.0                                                         09/23/2013  16:52:14  PAGE 5
+
+
+00C7DAH   00C7DAH   000001H   ---    ---      **GAP**
+00C7DBH   00C7DBH   000001H   BYTE   OFFS..   XDATA          ?XD?HAL_USB?69
+00C7DCH   00C7DCH   000001H   ---    ---      **GAP**
+00C7DDH   00C7DDH   000001H   BYTE   OFFS..   XDATA          ?XD?HAL_USB?73
+00C7DEH   00C7DEH   000001H   BYTE   OFFS..   XDATA          ?XD?HAL_USB?40
+00C7DFH   00C7DFH   000001H   BYTE   OFFS..   XDATA          ?XD?HAL_USB?44
+00C7E0H   00C7E0H   000001H   BYTE   OFFS..   XDATA          ?XD?HAL_USB?67
+00C7E1H   00C7E1H   000001H   BYTE   OFFS..   XDATA          ?XD?HAL_USB?68
+00C7E2H   00C7E2H   000001H   BYTE   OFFS..   XDATA          ?XD?HAL_USB?51
+00C7E3H   00C7E3H   000001H   BYTE   OFFS..   XDATA          ?XD?HAL_USB?6
+00C7E4H   00C7E7H   000004H   ---    ---      **GAP**
+00C7E8H   00C7EFH   000008H   BYTE   OFFS..   XDATA          ?XD?HAL_USB?70
+00C7F0H   00C7F0H   000001H   BYTE   OFFS..   XDATA          ?XD?HAL_USB?25
+00C7F1H   00C7F7H   000007H   ---    ---      **GAP**
+00C7F8H   00C7F8H   000001H   BYTE   OFFS..   XDATA          ?XD?HAL_USB?23
+
+* * * * * * * * *   R E M O V E D     S E G M E N T S   * * * * * * * *
+   *DEL*:           000021H   BYTE   UNIT     CODE           ?PR?_HAL_FLASH_PAGE_ERASE?HAL_FLASH
+   *DEL*:           000025H   BYTE   UNIT     CODE           ?PR?_HAL_FLASH_BYTE_WRITE?HAL_FLASH
+   *DEL*:           00005DH   BYTE   UNIT     CODE           ?PR?_HAL_FLASH_BYTES_WRITE?HAL_FLASH
+   *DEL*:           00000AH   BYTE   UNIT     DATA           ?DT?_HAL_FLASH_BYTES_WRITE?HAL_FLASH
+   *DEL*:           000007H   BYTE   UNIT     CODE           ?PR?_HAL_FLASH_BYTE_READ?HAL_FLASH
+   *DEL*:           000024H   BYTE   UNIT     CODE           ?PR?_HAL_FLASH_BYTES_READ?HAL_FLASH
+   *DEL*:           000007H   BYTE   UNIT     DATA           ?DT?_HAL_FLASH_BYTES_READ?HAL_FLASH
+   *DEL*:           000006H   BYTE   UNIT     CODE           ?PR?HAL_USB_GET_ADDRESS?HAL_USB
+   *DEL*:           000013H   BYTE   UNIT     CODE           ?PR?HAL_USB_WAKEUP?HAL_USB
+   *DEL*:           000003H   BYTE   UNIT     CODE           ?PR?HAL_USB_RESET?HAL_USB
+   *DEL*:           000008H   BYTE   UNIT     CODE           ?PR?HAL_USB_BUS_DISCONNECT?HAL_USB
+   *DEL*:           000008H   BYTE   UNIT     CODE           ?PR?HAL_USB_BUS_CONNECT?HAL_USB
+   *DEL*:           000004H   BYTE   UNIT     CODE           ?PR?HAL_USB_SLEEP?HAL_USB
+   *DEL*:           000034H   BYTE   UNIT     CODE           ?PR?_HAL_SPI_MASTER_INIT?HAL_SPI
+   *DEL*:           00000AH   BYTE   UNIT     CODE           ?PR?_HAL_SPI_MASTER_READ_WRITE?HAL_SPI
+   *DEL*:           00002FH   BYTE   UNIT     CODE           ?PR?_HAL_NRF_SET_CRC_MODE?HAL_NRF
+   *DEL*:           000002H   BYTE   UNIT     DATA           ?DT?_HAL_NRF_SET_CRC_MODE?HAL_NRF
+   *DEL*:           000062H   BYTE   UNIT     CODE           ?PR?_HAL_NRF_SET_IRQ_MODE?HAL_NRF
+   *DEL*:           000003H   BYTE   UNIT     DATA           ?DT?_HAL_NRF_SET_IRQ_MODE?HAL_NRF
+   *DEL*:           000019H   BYTE   UNIT     CODE           ?PR?HAL_NRF_CLEAR_IRQ_FLAGS_GET_STATUS?HAL_NRF
+   *DEL*:           000001H   BYTE   UNIT     DATA           ?DT?HAL_NRF_CLEAR_IRQ_FLAGS_GET_STATUS?HAL_NRF
+   *DEL*:           000011H   BYTE   UNIT     CODE           ?PR?_HAL_NRF_CLEAR_IRQ_FLAG?HAL_NRF
+   *DEL*:           000008H   BYTE   UNIT     CODE           ?PR?HAL_NRF_GET_IRQ_FLAGS?HAL_NRF
+   *DEL*:           00005AH   BYTE   UNIT     CODE           ?PR?_HAL_NRF_OPEN_PIPE?HAL_NRF
+   *DEL*:           000004H   BYTE   UNIT     DATA           ?DT?_HAL_NRF_OPEN_PIPE?HAL_NRF
+   *DEL*:           000043H   BYTE   UNIT     CODE           ?PR?_HAL_NRF_CLOSE_PIPE?HAL_NRF
+   *DEL*:           000003H   BYTE   UNIT     DATA           ?DT?_HAL_NRF_CLOSE_PIPE?HAL_NRF
+   *DEL*:           000035H   BYTE   UNIT     CODE           ?PR?_HAL_NRF_GET_ADDRESS?HAL_NRF
+   *DEL*:           000004H   BYTE   UNIT     DATA           ?DT?_HAL_NRF_GET_ADDRESS?HAL_NRF
+   *DEL*:           000017H   BYTE   UNIT     CODE           ?PR?_HAL_NRF_SET_ADDRESS_WIDTH?HAL_NRF
+   *DEL*:           000001H   BYTE   UNIT     DATA           ?DT?_HAL_NRF_SET_ADDRESS_WIDTH?HAL_NRF
+   *DEL*:           000090H   BYTE   UNIT     CODE           ?PR?_HAL_NRF_GET_PIPE_STATUS?HAL_NRF
+   *DEL*:           000005H   BYTE   UNIT     DATA           ?DT?_HAL_NRF_GET_PIPE_STATUS?HAL_NRF
+   *DEL*:           000006H   BYTE   UNIT     CODE           ?PR?HAL_NRF_GET_AUTO_RETR_STATUS?HAL_NRF
+   *DEL*:           000016H   BYTE   UNIT     CODE           ?PR?HAL_NRF_GET_PACKET_LOST_CTR?HAL_NRF
+   *DEL*:           000037H   BYTE   UNIT     CODE           ?PR?_HAL_NRF_GET_RX_PAYLOAD_WIDTH?HAL_NRF
+   *DEL*:           000001H   BYTE   UNIT     DATA           ?DT?_HAL_NRF_GET_RX_PAYLOAD_WIDTH?HAL_NRF
+   *DEL*:           00001EH   BYTE   UNIT     CODE           ?PR?_HAL_NRF_SET_OUTPUT_POWER?HAL_NRF
+   *DEL*:           000002H   BYTE   UNIT     DATA           ?DT?_HAL_NRF_SET_OUTPUT_POWER?HAL_NRF
+   *DEL*:           00002BH   BYTE   UNIT     CODE           ?PR?_HAL_NRF_SET_DATARATE?HAL_NRF
+   *DEL*:           000002H   BYTE   UNIT     DATA           ?DT?_HAL_NRF_SET_DATARATE?HAL_NRF
+   *DEL*:           00000CH   BYTE   UNIT     CODE           ?PR?HAL_NRF_RX_FIFO_FULL?HAL_NRF
+   *DEL*:           00000BH   BYTE   UNIT     CODE           ?PR?HAL_NRF_TX_FIFO_EMPTY?HAL_NRF
+   *DEL*:           00000CH   BYTE   UNIT     CODE           ?PR?HAL_NRF_TX_FIFO_FULL?HAL_NRF
+   *DEL*:           000016H   BYTE   UNIT     CODE           ?PR?HAL_NRF_GET_TX_FIFO_STATUS?HAL_NRF
+   *DEL*:           00000AH   BYTE   UNIT     CODE           ?PR?HAL_NRF_GET_RX_FIFO_STATUS?HAL_NRF
+   *DEL*:           000006H   BYTE   UNIT     CODE           ?PR?HAL_NRF_GET_FIFO_STATUS?HAL_NRF
+   *DEL*:           00000AH   BYTE   UNIT     CODE           ?PR?HAL_NRF_GET_TRANSMIT_ATTEMPTS?HAL_NRF
+LX51 LINKER/LOCATER V4.64.0.0                                                         09/23/2013  16:52:14  PAGE 6
+
+
+   *DEL*:           00000AH   BYTE   UNIT     CODE           ?PR?HAL_NRF_GET_CARRIER_DETECT?HAL_NRF
+   *DEL*:           000001H   BYTE   UNIT     CODE           ?PR?HAL_NRF_ACTIVATE_FEATURES?HAL_NRF
+   *DEL*:           00000CH   BYTE   UNIT     CODE           ?PR?_HAL_NRF_SETUP_DYNAMIC_PAYLOAD?HAL_NRF
+   *DEL*:           000001H   BYTE   UNIT     DATA           ?DT?_HAL_NRF_SETUP_DYNAMIC_PAYLOAD?HAL_NRF
+   *DEL*:           000027H   BYTE   UNIT     CODE           ?PR?_HAL_NRF_ENABLE_DYNAMIC_PAYLOAD?HAL_NRF
+   *DEL*:           000002H   BYTE   UNIT     DATA           ?DT?_HAL_NRF_ENABLE_DYNAMIC_PAYLOAD?HAL_NRF
+   *DEL*:           000025H   BYTE   UNIT     CODE           ?PR?_HAL_NRF_ENABLE_ACK_PAYLOAD?HAL_NRF
+   *DEL*:           000002H   BYTE   UNIT     DATA           ?DT?_HAL_NRF_ENABLE_ACK_PAYLOAD?HAL_NRF
+   *DEL*:           000023H   BYTE   UNIT     CODE           ?PR?_HAL_NRF_ENABLE_DYNAMIC_ACK?HAL_NRF
+   *DEL*:           000002H   BYTE   UNIT     DATA           ?DT?_HAL_NRF_ENABLE_DYNAMIC_ACK?HAL_NRF
+   *DEL*:           000007H   BYTE   UNIT     CODE           ?PR?_HAL_NRF_WRITE_TX_PAYLOAD_NOACK?HAL_NRF
+   *DEL*:           00000AH   BYTE   UNIT     CODE           ?PR?_HAL_NRF_WRITE_ACK_PAYLOAD?HAL_NRF
+   *DEL*:           000005H   BYTE   UNIT     DATA           ?DT?_HAL_NRF_WRITE_ACK_PAYLOAD?HAL_NRF
+   *DEL*:           00000AH   BYTE   UNIT     CODE           ?PR?HAL_NRF_REUSE_TX?HAL_NRF
+   *DEL*:           000013H   BYTE   UNIT     CODE           ?PR?HAL_NRF_GET_REUSE_TX_STATUS?HAL_NRF
+   *DEL*:           000026H   BYTE   UNIT     CODE           ?PR?_HAL_NRF_SET_PLL_MODE?HAL_NRF
+   *DEL*:           000002H   BYTE   UNIT     DATA           ?DT?_HAL_NRF_SET_PLL_MODE?HAL_NRF
+   *DEL*:           000029H   BYTE   UNIT     CODE           ?PR?_HAL_NRF_ENABLE_CONTINIOUS_WAVE?HAL_NRF
+   *DEL*:           000002H   BYTE   UNIT     DATA           ?DT?_HAL_NRF_ENABLE_CONTINIOUS_WAVE?HAL_NRF
+
+
+
+OVERLAY MAP OF MODULE:   .\build\firmware (?C_STARTUP)
+
+
+FUNCTION/MODULE                                BIT_GROUP   DATA_GROUP 
+--> CALLED FUNCTION/MODULE                    START  STOP  START  STOP
+======================================================================
+?C_C51STARTUP                                 ----- -----  ----- -----
+  +--> MAIN/MAIN
+  +--> ?C_INITSEG
+
+MAIN/MAIN                                     ----- -----  ----- -----
+  +--> _?RESET_CB/MAIN
+  +--> _?RESUME_CB/MAIN
+  +--> _?SUSPEND_CB/MAIN
+  +--> _?DEVICE_REQ_CB/MAIN
+  +--> _HAL_USB_INIT/HAL_USB
+  +--> _?EP_1_IN_CB/MAIN
+  +--> _HAL_USB_ENDPOINT_CONFIG/HAL_USB
+  +--> _?EP_2_OUT_CB/MAIN
+  +--> RF_INIT/MAIN
+  +--> HAL_USB_GET_STATE/HAL_USB
+  +--> APP_PARSE_USB_OUT_PACKET/MAIN
+  +--> _HAL_NRF_SET_RF_CHANNEL/HAL_NRF
+  +--> RF_SEND_BUFFER/MAIN
+  +--> _RF_RECEIVE_MS/MAIN
+  +--> _HAL_NRF_SET_AUTO_RETR/HAL_NRF
+  +--> FORWARD_USB_TO_RF/MAIN
+  +--> _APP_SEND_USB_IN_DATA/MAIN
+
+_?RESET_CB/MAIN                               ----- -----  ----- -----
+
+_?RESUME_CB/MAIN                              ----- -----  ----- -----
+
+_?SUSPEND_CB/MAIN                             ----- -----  ----- -----
+
+_?DEVICE_REQ_CB/MAIN                          ----- -----  ----- -----
+  +--> _?HAL_USB_HID_DEVICE_REQ_PROC/HAL_USB_HID
+
+_?HAL_USB_HID_DEVICE_REQ_PROC/HAL_USB_HI+     ----- -----  ----- -----
+... D
+  +--> ?CO?USB_DESC
+
+?CO?USB_DESC                                  ----- -----  ----- -----
+LX51 LINKER/LOCATER V4.64.0.0                                                         09/23/2013  16:52:14  PAGE 7
+
+
+
+_HAL_USB_INIT/HAL_USB                         ----- -----  004FH 005BH
+  +--> ?CO?USB_DESC
+  +--> _DELAY_MS/HAL_DELAY
+
+_DELAY_MS/HAL_DELAY                           ----- -----  ----- -----
+  +--> _DELAY_US/HAL_DELAY
+
+_DELAY_US/HAL_DELAY                           ----- -----  ----- -----
+
+_?EP_1_IN_CB/MAIN                             ----- -----  ----- -----
+
+_HAL_USB_ENDPOINT_CONFIG/HAL_USB              ----- -----  004FH 0052H
+
+_?EP_2_OUT_CB/MAIN                            ----- -----  ----- -----
+
+RF_INIT/MAIN                                  ----- -----  ----- -----
+  +--> _HAL_NRF_SET_RX_PAYLOAD_WIDTH/HAL_NRF
+  +--> _HAL_NRF_SET_ADDRESS/HAL_NRF
+  +--> HAL_NRF_GET_CLEAR_IRQ_FLAGS/HAL_NRF
+  +--> HAL_NRF_FLUSH_RX/HAL_NRF
+  +--> HAL_NRF_FLUSH_TX/HAL_NRF
+  +--> _HAL_NRF_SET_POWER_MODE/HAL_NRF
+
+_HAL_NRF_SET_RX_PAYLOAD_WIDTH/HAL_NRF         ----- -----  ----- -----
+  +--> _HAL_NRF_WRITE_REG/HAL_NRF
+
+_HAL_NRF_WRITE_REG/HAL_NRF                    ----- -----  005DH 005DH
+
+_HAL_NRF_SET_ADDRESS/HAL_NRF                  ----- -----  004FH 0052H
+  +--> HAL_NRF_GET_ADDRESS_WIDTH/HAL_NRF
+  +--> _HAL_NRF_WRITE_MULTIBYTE_REG/HAL_NRF
+  +--> _HAL_NRF_WRITE_REG/HAL_NRF
+
+HAL_NRF_GET_ADDRESS_WIDTH/HAL_NRF             ----- -----  ----- -----
+  +--> _HAL_NRF_READ_REG/HAL_NRF
+
+_HAL_NRF_READ_REG/HAL_NRF                     ----- -----  ----- -----
+
+_HAL_NRF_WRITE_MULTIBYTE_REG/HAL_NRF          ----- -----  0053H 005BH
+
+HAL_NRF_GET_CLEAR_IRQ_FLAGS/HAL_NRF           ----- -----  ----- -----
+  +--> _HAL_NRF_WRITE_REG/HAL_NRF
+
+HAL_NRF_FLUSH_RX/HAL_NRF                      ----- -----  ----- -----
+  +--> _HAL_NRF_RW/HAL_NRF_HW
+
+_HAL_NRF_RW/HAL_NRF_HW                        ----- -----  ----- -----
+
+HAL_NRF_FLUSH_TX/HAL_NRF                      ----- -----  ----- -----
+  +--> _HAL_NRF_RW/HAL_NRF_HW
+
+_HAL_NRF_SET_POWER_MODE/HAL_NRF               ----- -----  004FH 0050H
+  +--> _HAL_NRF_READ_REG/HAL_NRF
+  +--> _HAL_NRF_WRITE_REG/HAL_NRF
+
+HAL_USB_GET_STATE/HAL_USB                     ----- -----  ----- -----
+
+APP_PARSE_USB_OUT_PACKET/MAIN                 ----- -----  ----- -----
+  +--> _HAL_NRF_SET_AUTO_RETR/HAL_NRF
+
+_HAL_NRF_SET_AUTO_RETR/HAL_NRF                ----- -----  004FH 004FH
+  +--> _HAL_NRF_WRITE_REG/HAL_NRF
+
+_HAL_NRF_SET_RF_CHANNEL/HAL_NRF               ----- -----  004FH 004FH
+LX51 LINKER/LOCATER V4.64.0.0                                                         09/23/2013  16:52:14  PAGE 8
+
+
+  +--> _HAL_NRF_WRITE_REG/HAL_NRF
+
+RF_SEND_BUFFER/MAIN                           ----- -----  004FH 004FH
+  +--> _HAL_NRF_SET_OPERATION_MODE/HAL_NRF
+  +--> _HAL_NRF_WRITE_TX_PAYLOAD/HAL_NRF
+
+_HAL_NRF_SET_OPERATION_MODE/HAL_NRF           ----- -----  0051H 0052H
+  +--> _HAL_NRF_READ_REG/HAL_NRF
+  +--> _HAL_NRF_WRITE_REG/HAL_NRF
+
+_HAL_NRF_WRITE_TX_PAYLOAD/HAL_NRF             ----- -----  ----- -----
+  +--> _HAL_NRF_WRITE_MULTIBYTE_REG/HAL_NRF
+
+_RF_RECEIVE_MS/MAIN                           ----- -----  004FH 0050H
+  +--> _HAL_NRF_SET_OPERATION_MODE/HAL_NRF
+  +--> _DELAY_MS/HAL_DELAY
+
+FORWARD_USB_TO_RF/MAIN                        ----- -----  ----- -----
+  +--> RF_SEND_BUFFER/MAIN
+
+_APP_SEND_USB_IN_DATA/MAIN                    ----- -----  004FH 0052H
+  +--> APP_WAIT_WHILE_USB_PENDING/MAIN
+  +--> _HAL_USB_SEND_DATA/HAL_USB
+
+APP_WAIT_WHILE_USB_PENDING/MAIN               ----- -----  ----- -----
+
+_HAL_USB_SEND_DATA/HAL_USB                    ----- -----  0053H 005CH
+
+?C_INITSEG                                    ----- -----  ----- -----
+
+*** NEW ROOT ********************************
+
+NRF_ISR/MAIN                                  ----- -----  ----- -----
+  +--> HAL_NRF_GET_CLEAR_IRQ_FLAGS/HAL_NRF
+  +--> HAL_NRF_FLUSH_TX/HAL_NRF
+  +--> HAL_NRF_RX_FIFO_EMPTY/HAL_NRF
+  +--> _HAL_NRF_READ_RX_PAYLOAD/HAL_NRF
+
+HAL_NRF_RX_FIFO_EMPTY/HAL_NRF                 ----- -----  ----- -----
+  +--> _HAL_NRF_READ_REG/HAL_NRF
+
+_HAL_NRF_READ_RX_PAYLOAD/HAL_NRF              ----- -----  ----- -----
+  +--> _HAL_NRF_READ_MULTIBYTE_REG/HAL_NRF
+
+_HAL_NRF_READ_MULTIBYTE_REG/HAL_NRF           ----- -----  005DH 0068H
+  +--> HAL_NRF_GET_ADDRESS_WIDTH/HAL_NRF
+  +--> HAL_NRF_GET_RX_DATA_SOURCE/HAL_NRF
+  +--> HAL_NRF_READ_RX_PAYLOAD_WIDTH/HAL_NRF
+  +--> _HAL_NRF_RW/HAL_NRF_HW
+
+HAL_NRF_GET_RX_DATA_SOURCE/HAL_NRF            ----- -----  ----- -----
+  +--> HAL_NRF_NOP/HAL_NRF
+
+HAL_NRF_NOP/HAL_NRF                           ----- -----  ----- -----
+  +--> _HAL_NRF_RW/HAL_NRF_HW
+
+HAL_NRF_READ_RX_PAYLOAD_WIDTH/HAL_NRF         ----- -----  ----- -----
+  +--> _HAL_NRF_READ_REG/HAL_NRF
+
+*** NEW ROOT ********************************
+
+USB_WU_ISR/HAL_USB                            ----- -----  ----- -----
+  +--> _DELAY_MS/HAL_DELAY
+
+*** NEW ROOT ********************************
+LX51 LINKER/LOCATER V4.64.0.0                                                         09/23/2013  16:52:14  PAGE 9
+
+
+
+USB_ISR/HAL_USB                               ----- -----  0069H 0070H
+  +--> ISR_SUDAV/HAL_USB
+  +--> ISR_SUSPEND/HAL_USB
+  +--> ISR_USBRESET/HAL_USB
+  +--> PACKETIZER_ISR_EP0_IN/HAL_USB
+  +--> USB_PROCESS_DEV_REQ_CB_RESPONSE/HAL_USB
+  +--> _USB_PROCESS_EP_RESPONSE/HAL_USB
+
+ISR_SUDAV/HAL_USB                             ----- -----  ----- -----
+  +--> USB_PROCESS_GET_DESCRIPTOR/HAL_USB
+  +--> USB_PROCESS_GET_STATUS/HAL_USB
+  +--> _HAL_USB_ENDPOINT_STALL/HAL_USB
+  +--> USB_PROCESS_DEV_REQ_CB_RESPONSE/HAL_USB
+
+USB_PROCESS_GET_DESCRIPTOR/HAL_USB            ----- -----  ----- -----
+  +--> _PACKETIZE/HAL_USB
+  +--> PACKETIZER_ISR_EP0_IN/HAL_USB
+  +--> USB_PROCESS_DEV_REQ_CB_RESPONSE/HAL_USB
+
+_PACKETIZE/HAL_USB                            ----- -----  ----- -----
+
+PACKETIZER_ISR_EP0_IN/HAL_USB                 ----- -----  ----- -----
+
+USB_PROCESS_DEV_REQ_CB_RESPONSE/HAL_USB       ----- -----  0071H 0074H
+  +--> _PACKETIZE/HAL_USB
+  +--> PACKETIZER_ISR_EP0_IN/HAL_USB
+
+USB_PROCESS_GET_STATUS/HAL_USB                ----- -----  0071H 0072H
+
+_HAL_USB_ENDPOINT_STALL/HAL_USB               ----- -----  0071H 0072H
+
+ISR_SUSPEND/HAL_USB                           ----- -----  ----- -----
+
+ISR_USBRESET/HAL_USB                          ----- -----  ----- -----
+
+_USB_PROCESS_EP_RESPONSE/HAL_USB              ----- -----  ----- -----
+
+
+
+PUBLIC SYMBOLS OF MODULE:  .\build\firmware (?C_STARTUP)
+
+
+      VALUE       CLASS    TYPE      PUBLIC SYMBOL NAME
+      =================================================
+*DEL*:00000000H   DATA     BYTE      ?_hal_flash_bytes_read?BYTE
+*DEL*:00000000H   DATA     BYTE      ?_hal_flash_bytes_write?BYTE
+*DEL*:00000000H   DATA     BYTE      ?_hal_nrf_write_ack_payload?BYTE
+      00000053H   DATA     BYTE      ?_hal_nrf_write_multibyte_reg?BYTE
+      0000004FH   DATA     BYTE      ?_hal_usb_init?BYTE
+      00000053H   DATA     BYTE      ?_hal_usb_send_data?BYTE
+      010005B6H   CODE     ---       ?C?ADDXBP
+      0100058AH   CODE     ---       ?C?CCASE
+      010004CCH   CODE     ---       ?C?CLDOPTR
+      010004B3H   CODE     ---       ?C?CLDPTR
+      00000000H   NUMBER   ---       ?C?CODESEG
+      0100048DH   CODE     ---       ?C?COPY
+      010004F9H   CODE     ---       ?C?CSTPTR
+      010005B0H   CODE     ---       ?C?ICALL
+      010005B4H   CODE     ---       ?C?ICALL2
+      0100061DH   CODE     ---       ?C?PLDCODE
+      010005E7H   CODE     ---       ?C?PLDIDATA
+      0100055AH   CODE     ---       ?C?PLDOPTR
+      0100060BH   CODE     ---       ?C?PLDPDATA
+      010005F9H   CODE     ---       ?C?PLDXDATA
+LX51 LINKER/LOCATER V4.64.0.0                                                         09/23/2013  16:52:14  PAGE 10
+
+
+      010005F0H   CODE     ---       ?C?PSTIDATA
+      01000614H   CODE     ---       ?C?PSTPDATA
+      0100050BH   CODE     ---       ?C?PSTPTR
+      01000602H   CODE     ---       ?C?PSTXDATA
+      010005DAH   CODE     ---       ?C?XBPOFF
+      00000000H   NUMBER   ---       ?C?XDATASEG
+      00000077H   DATA     ---       ?C_IBP
+      01001016H   CODE     ---       ?C_START
+      01000000H   CODE     NEAR LAB  ?C_STARTUP
+      00000075H   DATA     ---       ?C_XBP
+      01001586H   CODE     ---       _?ep_1_in_cb
+      01000003H   CODE     ---       _?ep_2_out_cb
+      01000066H   CODE     ---       _?hal_usb_hid_device_req_proc
+      01001344H   CODE     ---       _app_send_usb_in_data
+      01001683H   CODE     ---       _delay_ms
+      01001604H   CODE     ---       _delay_us
+*DEL*:00000000H   CODE     ---       _hal_flash_byte_read
+*DEL*:00000000H   CODE     ---       _hal_flash_byte_write
+*DEL*:00000000H   CODE     ---       _hal_flash_bytes_read
+*DEL*:00000000H   CODE     ---       _hal_flash_bytes_write
+*DEL*:00000000H   CODE     ---       _hal_flash_page_erase
+*DEL*:00000000H   CODE     ---       _hal_nrf_clear_irq_flag
+*DEL*:00000000H   CODE     ---       _hal_nrf_close_pipe
+*DEL*:00000000H   CODE     ---       _hal_nrf_enable_ack_payload
+*DEL*:00000000H   CODE     ---       _hal_nrf_enable_continious_wave
+*DEL*:00000000H   CODE     ---       _hal_nrf_enable_dynamic_ack
+*DEL*:00000000H   CODE     ---       _hal_nrf_enable_dynamic_payload
+*DEL*:00000000H   CODE     ---       _hal_nrf_get_address
+*DEL*:00000000H   CODE     ---       _hal_nrf_get_pipe_status
+*DEL*:00000000H   CODE     ---       _hal_nrf_get_rx_payload_width
+*DEL*:00000000H   CODE     ---       _hal_nrf_open_pipe
+      010009C9H   CODE     ---       _hal_nrf_read_multibyte_reg
+      01001613H   CODE     ---       _hal_nrf_read_reg
+      01001713H   CODE     ---       _hal_nrf_read_rx_payload
+      010016C3H   CODE     ---       _hal_nrf_rw
+      010013F0H   CODE     ---       _hal_nrf_set_address
+*DEL*:00000000H   CODE     ---       _hal_nrf_set_address_width
+      01001545H   CODE     ---       _hal_nrf_set_auto_retr
+*DEL*:00000000H   CODE     ---       _hal_nrf_set_crc_mode
+*DEL*:00000000H   CODE     ---       _hal_nrf_set_datarate
+*DEL*:00000000H   CODE     ---       _hal_nrf_set_irq_mode
+      010015A4H   CODE     ---       _hal_nrf_set_operation_mode
+*DEL*:00000000H   CODE     ---       _hal_nrf_set_output_power
+*DEL*:00000000H   CODE     ---       _hal_nrf_set_pll_mode
+      010015C1H   CODE     ---       _hal_nrf_set_power_mode
+      0100166EH   CODE     ---       _hal_nrf_set_rf_channel
+      010016FFH   CODE     ---       _hal_nrf_set_rx_payload_width
+*DEL*:00000000H   CODE     ---       _hal_nrf_setup_dynamic_payload
+*DEL*:00000000H   CODE     ---       _hal_nrf_write_ack_payload
+      01000F2BH   CODE     ---       _hal_nrf_write_multibyte_reg
+      010015DEH   CODE     ---       _hal_nrf_write_reg
+      01001706H   CODE     ---       _hal_nrf_write_tx_payload
+*DEL*:00000000H   CODE     ---       _hal_nrf_write_tx_payload_noack
+*DEL*:00000000H   CODE     ---       _hal_spi_master_init
+*DEL*:00000000H   CODE     ---       _hal_spi_master_read_write
+      01000E84H   CODE     ---       _hal_usb_endpoint_config
+      010013B3H   CODE     ---       _hal_usb_endpoint_stall
+      01000CF2H   CODE     ---       _hal_usb_init
+      010012C8H   CODE     ---       _hal_usb_send_data
+      010014BEH   CODE     ---       _rf_receive_ms
+      0100148FH   CODE     ---       app_parse_usb_out_packet
+      020080A6H   XDATA    BYTE      app_pending_usb_write
+      020080A5H   XDATA    BYTE      app_state
+      0200801CH   XDATA    BYTE      app_usb_out_data_ready
+      01001658H   CODE     ---       app_wait_while_usb_pending
+LX51 LINKER/LOCATER V4.64.0.0                                                         09/23/2013  16:52:14  PAGE 11
+
+
+      0200C789H   XDATA    BYTE      bin1addr
+      0200C78AH   XDATA    BYTE      bin2addr
+      0200C78BH   XDATA    BYTE      bin3addr
+      0200C78CH   XDATA    BYTE      bin4addr
+      0200C78DH   XDATA    BYTE      bin5addr
+      0200C788H   XDATA    BYTE      binstaddr
+      0200C781H   XDATA    BYTE      bout1addr
+      0200C782H   XDATA    BYTE      bout2addr
+      0200C783H   XDATA    BYTE      bout3addr
+      0200C784H   XDATA    BYTE      bout4addr
+      0200C785H   XDATA    BYTE      bout5addr
+      020080A7H   XDATA    BYTE      channel_index
+      02008018H   XDATA    ---       default_channels
+      020080A0H   XDATA    ---       default_pipe_address
+      0200C7B4H   XDATA    BYTE      ep0cs
+      0200C7DBH   XDATA    BYTE      fnaddr
+      01001642H   CODE     ---       forward_usb_to_rf
+      0000002BH   DATA     ---       g_hal_usb
+      0100174AH   CONST    ---       g_usb_conf_desc
+      01001719H   CONST    ---       g_usb_dev_desc
+      01001743H   CONST    ---       g_usb_hid_hids
+      0100172BH   CONST    ---       g_usb_hid_report_data
+      010017E5H   CONST    ---       g_usb_string_desc
+      01001773H   CONST    ---       g_usb_string_desc_1
+      0100179DH   CONST    ---       g_usb_string_desc_2
+*DEL*:00000000H   CODE     ---       hal_nrf_activate_features
+*DEL*:00000000H   CODE     ---       hal_nrf_clear_irq_flags_get_status
+      010016E1H   CODE     ---       hal_nrf_flush_rx
+      010016EBH   CODE     ---       hal_nrf_flush_tx
+      010016CDH   CODE     ---       hal_nrf_get_address_width
+*DEL*:00000000H   CODE     ---       hal_nrf_get_auto_retr_status
+*DEL*:00000000H   CODE     ---       hal_nrf_get_carrier_detect
+      0100004EH   CODE     ---       hal_nrf_get_clear_irq_flags
+*DEL*:00000000H   CODE     ---       hal_nrf_get_fifo_status
+*DEL*:00000000H   CODE     ---       hal_nrf_get_irq_flags
+*DEL*:00000000H   CODE     ---       hal_nrf_get_packet_lost_ctr
+*DEL*:00000000H   CODE     ---       hal_nrf_get_reuse_tx_status
+      010016B5H   CODE     ---       hal_nrf_get_rx_data_source
+*DEL*:00000000H   CODE     ---       hal_nrf_get_rx_fifo_status
+*DEL*:00000000H   CODE     ---       hal_nrf_get_transmit_attempts
+*DEL*:00000000H   CODE     ---       hal_nrf_get_tx_fifo_status
+      010016F5H   CODE     ---       hal_nrf_nop
+      0100170DH   CODE     ---       hal_nrf_read_rx_payload_width
+*DEL*:00000000H   CODE     ---       hal_nrf_reuse_tx
+      010016D7H   CODE     ---       hal_nrf_rx_fifo_empty
+*DEL*:00000000H   CODE     ---       hal_nrf_rx_fifo_full
+*DEL*:00000000H   CODE     ---       hal_nrf_tx_fifo_empty
+*DEL*:00000000H   CODE     ---       hal_nrf_tx_fifo_full
+*DEL*:00000000H   CODE     ---       hal_usb_bus_connect
+*DEL*:00000000H   CODE     ---       hal_usb_bus_disconnect
+*DEL*:00000000H   CODE     ---       hal_usb_get_address
+      010016A7H   CODE     ---       hal_usb_get_state
+*DEL*:00000000H   CODE     ---       hal_usb_reset
+*DEL*:00000000H   CODE     ---       hal_usb_sleep
+*DEL*:00000000H   CODE     ---       hal_usb_wakeup
+      0200C7B5H   XDATA    BYTE      in0bc
+      0200C700H   XDATA    ---       in0buf
+      0200C7B7H   XDATA    BYTE      in1bc
+      0200C680H   XDATA    ---       in1buf
+      0200C7B6H   XDATA    BYTE      in1cs
+      0200C7B9H   XDATA    BYTE      in2bc
+      0200C600H   XDATA    ---       in2buf
+      0200C7B8H   XDATA    BYTE      in2cs
+      0200C7BBH   XDATA    BYTE      in3bc
+      0200C580H   XDATA    ---       in3buf
+LX51 LINKER/LOCATER V4.64.0.0                                                         09/23/2013  16:52:14  PAGE 12
+
+
+      0200C7BAH   XDATA    BYTE      in3cs
+      0200C7BDH   XDATA    BYTE      in4bc
+      0200C500H   XDATA    ---       in4buf
+      0200C7BCH   XDATA    BYTE      in4cs
+      0200C7BFH   XDATA    BYTE      in5bc
+      0200C480H   XDATA    ---       in5buf
+      0200C7BEH   XDATA    BYTE      in5cs
+      0200C7F8H   XDATA    BYTE      in8addr
+      0200C768H   XDATA    BYTE      in8data
+      0200C7ACH   XDATA    BYTE      in_ien
+      0200C7A9H   XDATA    BYTE      in_irq
+      0200C7DEH   XDATA    BYTE      inbulkval
+      0200C7E0H   XDATA    BYTE      inisoval
+      0200C7A0H   XDATA    BYTE      isoerr
+      0200C7E3H   XDATA    BYTE      isosize
+      0200C7E2H   XDATA    BYTE      isostaddr
+      0200C7A8H   XDATA    BYTE      ivec
+      02008000H   XDATA    ---       lineBuffer
+      0100081CH   CODE     ---       main
+      010011E1H   CODE     ---       nrf_isr
+      0200C7C5H   XDATA    BYTE      out0bc
+      0200C6C0H   XDATA    ---       out0buf
+      0200C7C7H   XDATA    BYTE      out1bc
+      0200C640H   XDATA    ---       out1buf
+      0200C7C6H   XDATA    BYTE      out1cs
+      0200C7C9H   XDATA    BYTE      out2bc
+      0200C5C0H   XDATA    ---       out2buf
+      0200C7C8H   XDATA    BYTE      out2cs
+      0200C7CBH   XDATA    BYTE      out3bc
+      0200C540H   XDATA    ---       out3buf
+      0200C7CAH   XDATA    BYTE      out3cs
+      0200C7CDH   XDATA    BYTE      out4bc
+      0200C4C0H   XDATA    ---       out4buf
+      0200C7CCH   XDATA    BYTE      out4cs
+      0200C7CFH   XDATA    BYTE      out5bc
+      0200C440H   XDATA    ---       out5buf
+      0200C7CEH   XDATA    BYTE      out5cs
+      0200C7F0H   XDATA    BYTE      out8addr
+      0200C770H   XDATA    BYTE      out8bch
+      0200C771H   XDATA    BYTE      out8bcl
+      0200C760H   XDATA    BYTE      out8data
+      0200C7ADH   XDATA    BYTE      out_ien
+      0200C7AAH   XDATA    BYTE      out_irq
+      0200C7DFH   XDATA    BYTE      outbulkval
+      0200C7E1H   XDATA    BYTE      outisoval
+      0200805DH   XDATA    BYTE      packet_received
+      0200809FH   XDATA    BYTE      radio_busy
+      0200801BH   XDATA    BYTE      retry_counter
+      0200805EH   XDATA    ---       rf_in_buf
+      01001375H   CODE     ---       rf_init
+      0200807EH   XDATA    ---       rf_out_buf
+      020080A8H   XDATA    WORD      rf_ping_timer
+      0100142DH   CODE     ---       rf_send_buffer
+      0200C7E8H   XDATA    ---       setupbuf
+      0200C7D7H   XDATA    BYTE      togctl
+      0200809EH   XDATA    BYTE      transmitted
+      0200801DH   XDATA    ---       usb_in_buf
+      01000629H   CODE     ---       usb_isr
+      0200803DH   XDATA    ---       usb_out_buf
+      010010E5H   CODE     ---       usb_wu_isr
+      0200C7AFH   XDATA    BYTE      usbbav
+      0200C7D6H   XDATA    BYTE      usbcs
+      0200C7D9H   XDATA    BYTE      usbfrmh
+      0200C7D8H   XDATA    BYTE      usbfrml
+      0200C7AEH   XDATA    BYTE      usbien
+LX51 LINKER/LOCATER V4.64.0.0                                                         09/23/2013  16:52:14  PAGE 13
+
+
+      0200C7ABH   XDATA    BYTE      usbirq
+      0200C7DDH   XDATA    BYTE      usbpair
+      0200C7A2H   XDATA    BYTE      zbcout
+
+
+
+SYMBOL TABLE OF MODULE:  .\build\firmware (?C_STARTUP)
+
+      VALUE       REP       CLASS    TYPE      SYMBOL NAME
+      ====================================================
+      ---         MODULE    ---      ---       ?C_STARTUP
+      01000000H   PUBLIC    CODE     NEAR LAB  ?C_STARTUP
+
+      ---         MODULE    ---      ---       MAIN
+      020080A8H   PUBLIC    XDATA    WORD      rf_ping_timer
+      020080A7H   PUBLIC    XDATA    BYTE      channel_index
+      020080A6H   PUBLIC    XDATA    BYTE      app_pending_usb_write
+      020080A5H   PUBLIC    XDATA    BYTE      app_state
+      020080A0H   PUBLIC    XDATA    ---       default_pipe_address
+      0200809FH   PUBLIC    XDATA    BYTE      radio_busy
+      0200809EH   PUBLIC    XDATA    BYTE      transmitted
+      0200807EH   PUBLIC    XDATA    ---       rf_out_buf
+      0200805EH   PUBLIC    XDATA    ---       rf_in_buf
+      0200805DH   PUBLIC    XDATA    BYTE      packet_received
+      0200803DH   PUBLIC    XDATA    ---       usb_out_buf
+      0200801DH   PUBLIC    XDATA    ---       usb_in_buf
+      0200801CH   PUBLIC    XDATA    BYTE      app_usb_out_data_ready
+      0200801BH   PUBLIC    XDATA    BYTE      retry_counter
+      02008018H   PUBLIC    XDATA    ---       default_channels
+      02008000H   PUBLIC    XDATA    ---       lineBuffer
+      01000003H   PUBLIC    CODE     ---       _?ep_2_out_cb
+      01001586H   PUBLIC    CODE     ---       _?ep_1_in_cb
+      01001658H   PUBLIC    CODE     ---       app_wait_while_usb_pending
+      01001642H   PUBLIC    CODE     ---       forward_usb_to_rf
+      01001344H   PUBLIC    CODE     ---       _app_send_usb_in_data
+      010011E1H   PUBLIC    CODE     ---       nrf_isr
+      010014BEH   PUBLIC    CODE     ---       _rf_receive_ms
+      0100142DH   PUBLIC    CODE     ---       rf_send_buffer
+      01001375H   PUBLIC    CODE     ---       rf_init
+      0100148FH   PUBLIC    CODE     ---       app_parse_usb_out_packet
+      0100081CH   PUBLIC    CODE     ---       main
+
+      0100081CH   BLOCK     CODE     ---       LVL=0
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      0100148FH   BLOCK     CODE     ---       LVL=0
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      01001375H   BLOCK     CODE     ---       LVL=0
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      0100142DH   BLOCK     CODE     ---       LVL=0
+      01001444H   BLOCK     CODE     NEAR LAB  LVL=1
+      0000004FH   SYMBOL    DATA     VOID      count
+      ---         BLOCKEND  ---      ---       LVL=1
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      010014BEH   BLOCK     CODE     ---       LVL=0
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      010011E1H   BLOCK     CODE     ---       LVL=0
+      010011FEH   BLOCK     CODE     NEAR LAB  LVL=1
+      00000007H   SYMBOL    DATA     VOID      irq_flags
+      ---         BLOCKEND  ---      ---       LVL=1
+      ---         BLOCKEND  ---      ---       LVL=0
+LX51 LINKER/LOCATER V4.64.0.0                                                         09/23/2013  16:52:14  PAGE 14
+
+
+
+      01001332H   BLOCK     CODE     ---       LVL=0
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      01001344H   BLOCK     CODE     ---       LVL=0
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      01001642H   BLOCK     CODE     ---       LVL=0
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      01001658H   BLOCK     CODE     ---       LVL=0
+      01001658H   BLOCK     CODE     NEAR LAB  LVL=1
+      00000006H   SYMBOL    DATA     VOID      timeout
+      ---         BLOCKEND  ---      ---       LVL=1
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      01001165H   BLOCK     CODE     ---       LVL=0
+      01001177H   BLOCK     CODE     NEAR LAB  LVL=1
+      00000000H   SYMBOL    ISTK     VOID      retval
+      ---         BLOCKEND  ---      ---       LVL=1
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      01001697H   BLOCK     CODE     ---       LVL=0
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      01000048H   BLOCK     CODE     ---       LVL=0
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      01000049H   BLOCK     CODE     ---       LVL=0
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      01001586H   BLOCK     CODE     ---       LVL=0
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      01000003H   BLOCK     CODE     ---       LVL=0
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      ---         MODULE    ---      ---       USB_DESC
+      010017E5H   PUBLIC    CONST    ---       g_usb_string_desc
+      0100179DH   PUBLIC    CONST    ---       g_usb_string_desc_2
+      01001773H   PUBLIC    CONST    ---       g_usb_string_desc_1
+      0100174AH   PUBLIC    CONST    ---       g_usb_conf_desc
+      01001743H   PUBLIC    CONST    ---       g_usb_hid_hids
+      0100172BH   PUBLIC    CONST    ---       g_usb_hid_report_data
+      01001719H   PUBLIC    CONST    ---       g_usb_dev_desc
+
+      ---         MODULE    ---      ---       HAL_FLASH
+      00000006H   SYMBOL    DATA     VOID      ckcon_val
+      00000082H   SYMBOL    DATA     VOID      pb
+      00000004H   SYMBOL    DATA     VOID      ckcon_val
+      00000082H   SYMBOL    DATA     VOID      pb
+      00000006H   SYMBOL    DATA     VOID      pb
+
+      ---         MODULE    ---      ---       HAL_USB
+      0200C7D9H   PUBLIC    XDATA    BYTE      usbfrmh
+      0200C7DDH   PUBLIC    XDATA    BYTE      usbpair
+      0200C7ADH   PUBLIC    XDATA    BYTE      out_ien
+      0200C7ACH   PUBLIC    XDATA    BYTE      in_ien
+      0200C7E8H   PUBLIC    XDATA    ---       setupbuf
+      0200C7DBH   PUBLIC    XDATA    BYTE      fnaddr
+      0200C7E1H   PUBLIC    XDATA    BYTE      outisoval
+      0200C7E0H   PUBLIC    XDATA    BYTE      inisoval
+      0200C7CEH   PUBLIC    XDATA    BYTE      out5cs
+      0200C7CCH   PUBLIC    XDATA    BYTE      out4cs
+      0200C7BEH   PUBLIC    XDATA    BYTE      in5cs
+LX51 LINKER/LOCATER V4.64.0.0                                                         09/23/2013  16:52:14  PAGE 15
+
+
+      0200C7CAH   PUBLIC    XDATA    BYTE      out3cs
+      0200C7BCH   PUBLIC    XDATA    BYTE      in4cs
+      0200C7C8H   PUBLIC    XDATA    BYTE      out2cs
+      0200C7BAH   PUBLIC    XDATA    BYTE      in3cs
+      0200C7C6H   PUBLIC    XDATA    BYTE      out1cs
+      0200C7B8H   PUBLIC    XDATA    BYTE      in2cs
+      0200C7B6H   PUBLIC    XDATA    BYTE      in1cs
+      0200C7B4H   PUBLIC    XDATA    BYTE      ep0cs
+      0200C7CFH   PUBLIC    XDATA    BYTE      out5bc
+      0200C7CDH   PUBLIC    XDATA    BYTE      out4bc
+      0200C7BFH   PUBLIC    XDATA    BYTE      in5bc
+      0200C7CBH   PUBLIC    XDATA    BYTE      out3bc
+      0200C7E2H   PUBLIC    XDATA    BYTE      isostaddr
+      0200C7BDH   PUBLIC    XDATA    BYTE      in4bc
+      0200C7C9H   PUBLIC    XDATA    BYTE      out2bc
+      0200C7BBH   PUBLIC    XDATA    BYTE      in3bc
+      0200C7C7H   PUBLIC    XDATA    BYTE      out1bc
+      0200C7B9H   PUBLIC    XDATA    BYTE      in2bc
+      0200C7C5H   PUBLIC    XDATA    BYTE      out0bc
+      0200C7DFH   PUBLIC    XDATA    BYTE      outbulkval
+      0200C7B7H   PUBLIC    XDATA    BYTE      in1bc
+      0200C440H   PUBLIC    XDATA    ---       out5buf
+      0200C7B5H   PUBLIC    XDATA    BYTE      in0bc
+      0200C7DEH   PUBLIC    XDATA    BYTE      inbulkval
+      0200C4C0H   PUBLIC    XDATA    ---       out4buf
+      0200C480H   PUBLIC    XDATA    ---       in5buf
+      0200C540H   PUBLIC    XDATA    ---       out3buf
+      0200C500H   PUBLIC    XDATA    ---       in4buf
+      0200C5C0H   PUBLIC    XDATA    ---       out2buf
+      0200C580H   PUBLIC    XDATA    ---       in3buf
+      0200C640H   PUBLIC    XDATA    ---       out1buf
+      0200C600H   PUBLIC    XDATA    ---       in2buf
+      0200C6C0H   PUBLIC    XDATA    ---       out0buf
+      0200C680H   PUBLIC    XDATA    ---       in1buf
+      0200C700H   PUBLIC    XDATA    ---       in0buf
+      0200C771H   PUBLIC    XDATA    BYTE      out8bcl
+      0200C770H   PUBLIC    XDATA    BYTE      out8bch
+      0200C788H   PUBLIC    XDATA    BYTE      binstaddr
+      0200C7F0H   PUBLIC    XDATA    BYTE      out8addr
+      0200C760H   PUBLIC    XDATA    BYTE      out8data
+      0200C7F8H   PUBLIC    XDATA    BYTE      in8addr
+      0200C768H   PUBLIC    XDATA    BYTE      in8data
+      0000002BH   PUBLIC    DATA     ---       g_hal_usb
+      0200C7A8H   PUBLIC    XDATA    BYTE      ivec
+      0200C7D6H   PUBLIC    XDATA    BYTE      usbcs
+      0200C7A2H   PUBLIC    XDATA    BYTE      zbcout
+      0200C7ABH   PUBLIC    XDATA    BYTE      usbirq
+      0200C7A0H   PUBLIC    XDATA    BYTE      isoerr
+      0200C7D7H   PUBLIC    XDATA    BYTE      togctl
+      0200C785H   PUBLIC    XDATA    BYTE      bout5addr
+      0200C784H   PUBLIC    XDATA    BYTE      bout4addr
+      0200C783H   PUBLIC    XDATA    BYTE      bout3addr
+      0200C78DH   PUBLIC    XDATA    BYTE      bin5addr
+      0200C782H   PUBLIC    XDATA    BYTE      bout2addr
+      0200C78CH   PUBLIC    XDATA    BYTE      bin4addr
+      0200C781H   PUBLIC    XDATA    BYTE      bout1addr
+      0200C78BH   PUBLIC    XDATA    BYTE      bin3addr
+      0200C78AH   PUBLIC    XDATA    BYTE      bin2addr
+      0200C7E3H   PUBLIC    XDATA    BYTE      isosize
+      0200C789H   PUBLIC    XDATA    BYTE      bin1addr
+      0200C7AEH   PUBLIC    XDATA    BYTE      usbien
+      0200C7AAH   PUBLIC    XDATA    BYTE      out_irq
+      0200C7AFH   PUBLIC    XDATA    BYTE      usbbav
+      0200C7A9H   PUBLIC    XDATA    BYTE      in_irq
+      0200C7D8H   PUBLIC    XDATA    BYTE      usbfrml
+LX51 LINKER/LOCATER V4.64.0.0                                                         09/23/2013  16:52:14  PAGE 16
+
+
+      01000629H   PUBLIC    CODE     ---       usb_isr
+      010010E5H   PUBLIC    CODE     ---       usb_wu_isr
+      00000053H   PUBLIC    DATA     BYTE      ?_hal_usb_send_data?BYTE
+      010012C8H   PUBLIC    CODE     ---       _hal_usb_send_data
+      010016A7H   PUBLIC    CODE     ---       hal_usb_get_state
+      01000E84H   PUBLIC    CODE     ---       _hal_usb_endpoint_config
+      010013B3H   PUBLIC    CODE     ---       _hal_usb_endpoint_stall
+      0000004FH   PUBLIC    DATA     BYTE      ?_hal_usb_init?BYTE
+      01000CF2H   PUBLIC    CODE     ---       _hal_usb_init
+
+      01000CF2H   BLOCK     CODE     ---       LVL=0
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      010013B3H   BLOCK     CODE     ---       LVL=0
+      010013B3H   BLOCK     CODE     NEAR LAB  LVL=1
+      00000006H   SYMBOL    DATA     VOID      temp
+      00000071H   SYMBOL    DATA     VOID      cs_ptr
+      ---         BLOCKEND  ---      ---       LVL=1
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      01000E84H   BLOCK     CODE     ---       LVL=0
+      01000E8CH   BLOCK     CODE     NEAR LAB  LVL=1
+      00000082H   SYMBOL    DATA     VOID      bc_ptr
+      00000006H   SYMBOL    DATA     VOID      temp
+      00000052H   SYMBOL    DATA     VOID      stemp
+      ---         BLOCKEND  ---      ---       LVL=1
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      010016A7H   BLOCK     CODE     ---       LVL=0
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      010012C8H   BLOCK     CODE     ---       LVL=0
+      010012D0H   BLOCK     CODE     NEAR LAB  LVL=1
+      00000058H   SYMBOL    DATA     VOID      i
+      00000059H   SYMBOL    DATA     VOID      buf_ptr
+      0000005BH   SYMBOL    DATA     VOID      bc_ptr
+      ---         BLOCKEND  ---      ---       LVL=1
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      0100162BH   BLOCK     CODE     ---       LVL=0
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      0100125AH   BLOCK     CODE     ---       LVL=0
+      0100125AH   BLOCK     CODE     NEAR LAB  LVL=1
+      00000007H   SYMBOL    DATA     VOID      size
+      00000006H   SYMBOL    DATA     VOID      i
+      ---         BLOCKEND  ---      ---       LVL=1
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      0100105BH   BLOCK     CODE     ---       LVL=0
+      0100105BH   BLOCK     CODE     NEAR LAB  LVL=1
+      00000071H   SYMBOL    DATA     VOID      data_ptr
+      00000074H   SYMBOL    DATA     VOID      data_size
+      00000007H   SYMBOL    DATA     VOID      ret
+      ---         BLOCKEND  ---      ---       LVL=1
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      01000DCFH   BLOCK     CODE     ---       LVL=0
+      01000DCFH   BLOCK     CODE     NEAR LAB  LVL=1
+      00000071H   SYMBOL    DATA     VOID      ptr
+      ---         BLOCKEND  ---      ---       LVL=1
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      01000C14H   BLOCK     CODE     ---       LVL=0
+      ---         BLOCKEND  ---      ---       LVL=0
+LX51 LINKER/LOCATER V4.64.0.0                                                         09/23/2013  16:52:14  PAGE 17
+
+
+
+      01000AFBH   BLOCK     CODE     ---       LVL=0
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      01001519H   BLOCK     CODE     ---       LVL=0
+      01001519H   BLOCK     CODE     NEAR LAB  LVL=1
+      00000007H   SYMBOL    DATA     VOID      allow_remote_wu
+      ---         BLOCKEND  ---      ---       LVL=1
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      01001567H   BLOCK     CODE     ---       LVL=0
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      010010E5H   BLOCK     CODE     ---       LVL=0
+      01001102H   BLOCK     CODE     NEAR LAB  LVL=1
+      00000007H   SYMBOL    DATA     VOID      t
+      ---         BLOCKEND  ---      ---       LVL=1
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      0100145FH   BLOCK     CODE     ---       LVL=0
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      01000629H   BLOCK     CODE     ---       LVL=0
+      01000646H   BLOCK     CODE     NEAR LAB  LVL=1
+      00000069H   SYMBOL    DATA     VOID      ep
+      0000006AH   SYMBOL    DATA     VOID      ret
+      0000006BH   SYMBOL    DATA     VOID      cs_ptr
+      0000006DH   SYMBOL    DATA     VOID      buf_ptr
+      0000006FH   SYMBOL    DATA     VOID      bc_ptr
+      ---         BLOCKEND  ---      ---       LVL=1
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      ---         MODULE    ---      ---       HAL_USB_HID
+      01000066H   PUBLIC    CODE     ---       _?hal_usb_hid_device_req_proc
+
+      01000066H   BLOCK     CODE     ---       LVL=0
+      0100007AH   BLOCK     CODE     NEAR LAB  LVL=1
+      00000000H   SYMBOL    XSTK     VOID      retval
+      ---         BLOCKEND  ---      ---       LVL=1
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      ---         MODULE    ---      ---       HAL_NRF_HW
+      010016C3H   PUBLIC    CODE     ---       _hal_nrf_rw
+
+      010016C3H   BLOCK     CODE     ---       LVL=0
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      ---         MODULE    ---      ---       HAL_SPI
+      00000006H   SYMBOL    DATA     VOID      smctl
+      00000005H   SYMBOL    DATA     VOID      temp
+
+      ---         MODULE    ---      ---       HAL_NRF
+      00000053H   PUBLIC    DATA     BYTE      ?_hal_nrf_write_multibyte_reg?BYTE
+      01000F2BH   PUBLIC    CODE     ---       _hal_nrf_write_multibyte_reg
+      010009C9H   PUBLIC    CODE     ---       _hal_nrf_read_multibyte_reg
+      010015DEH   PUBLIC    CODE     ---       _hal_nrf_write_reg
+      01001613H   PUBLIC    CODE     ---       _hal_nrf_read_reg
+      010016F5H   PUBLIC    CODE     ---       hal_nrf_nop
+      010016EBH   PUBLIC    CODE     ---       hal_nrf_flush_tx
+      010016E1H   PUBLIC    CODE     ---       hal_nrf_flush_rx
+      010016B5H   PUBLIC    CODE     ---       hal_nrf_get_rx_data_source
+      01001713H   PUBLIC    CODE     ---       _hal_nrf_read_rx_payload
+      0100170DH   PUBLIC    CODE     ---       hal_nrf_read_rx_payload_width
+      01001706H   PUBLIC    CODE     ---       _hal_nrf_write_tx_payload
+      010016D7H   PUBLIC    CODE     ---       hal_nrf_rx_fifo_empty
+LX51 LINKER/LOCATER V4.64.0.0                                                         09/23/2013  16:52:14  PAGE 18
+
+
+      0100166EH   PUBLIC    CODE     ---       _hal_nrf_set_rf_channel
+      010016FFH   PUBLIC    CODE     ---       _hal_nrf_set_rx_payload_width
+      010016CDH   PUBLIC    CODE     ---       hal_nrf_get_address_width
+      01001545H   PUBLIC    CODE     ---       _hal_nrf_set_auto_retr
+      010013F0H   PUBLIC    CODE     ---       _hal_nrf_set_address
+      0100004EH   PUBLIC    CODE     ---       hal_nrf_get_clear_irq_flags
+      010015C1H   PUBLIC    CODE     ---       _hal_nrf_set_power_mode
+      010015A4H   PUBLIC    CODE     ---       _hal_nrf_set_operation_mode
+
+      010015A4H   BLOCK     CODE     ---       LVL=0
+      010015A6H   BLOCK     CODE     NEAR LAB  LVL=1
+      00000052H   SYMBOL    DATA     VOID      config
+      ---         BLOCKEND  ---      ---       LVL=1
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      010015C1H   BLOCK     CODE     ---       LVL=0
+      010015C3H   BLOCK     CODE     NEAR LAB  LVL=1
+      00000050H   SYMBOL    DATA     VOID      config
+      ---         BLOCKEND  ---      ---       LVL=1
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      0100004EH   BLOCK     CODE     ---       LVL=0
+      0100004EH   BLOCK     CODE     NEAR LAB  LVL=1
+      00000007H   SYMBOL    DATA     VOID      retval
+      ---         BLOCKEND  ---      ---       LVL=1
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      010013F0H   BLOCK     CODE     ---       LVL=0
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      01001545H   BLOCK     CODE     ---       LVL=0
+      01001547H   BLOCK     CODE     NEAR LAB  LVL=1
+      0000004FH   SYMBOL    DATA     VOID      setup_retr
+      ---         BLOCKEND  ---      ---       LVL=1
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      010016CDH   BLOCK     CODE     ---       LVL=0
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      010016FFH   BLOCK     CODE     ---       LVL=0
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      0100166EH   BLOCK     CODE     ---       LVL=0
+      0100166EH   BLOCK     CODE     NEAR LAB  LVL=1
+      0000004FH   SYMBOL    DATA     VOID      rf_ch
+      ---         BLOCKEND  ---      ---       LVL=1
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      010016D7H   BLOCK     CODE     ---       LVL=0
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      01001706H   BLOCK     CODE     ---       LVL=0
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      0100170DH   BLOCK     CODE     ---       LVL=0
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      01001713H   BLOCK     CODE     ---       LVL=0
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      010016B5H   BLOCK     CODE     ---       LVL=0
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      010016E1H   BLOCK     CODE     ---       LVL=0
+      ---         BLOCKEND  ---      ---       LVL=0
+LX51 LINKER/LOCATER V4.64.0.0                                                         09/23/2013  16:52:14  PAGE 19
+
+
+
+      010016EBH   BLOCK     CODE     ---       LVL=0
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      010016F5H   BLOCK     CODE     ---       LVL=0
+      010016F5H   BLOCK     CODE     NEAR LAB  LVL=1
+      00000007H   SYMBOL    DATA     VOID      retval
+      ---         BLOCKEND  ---      ---       LVL=1
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      01001613H   BLOCK     CODE     ---       LVL=0
+      01001613H   BLOCK     CODE     NEAR LAB  LVL=1
+      00000007H   SYMBOL    DATA     VOID      temp
+      ---         BLOCKEND  ---      ---       LVL=1
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      010015DEH   BLOCK     CODE     ---       LVL=0
+      010015DEH   BLOCK     CODE     NEAR LAB  LVL=1
+      00000007H   SYMBOL    DATA     VOID      retval
+      0000005DH   SYMBOL    DATA     VOID      dummy
+      ---         BLOCKEND  ---      ---       LVL=1
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      010009C9H   BLOCK     CODE     ---       LVL=0
+      010009D1H   BLOCK     CODE     NEAR LAB  LVL=1
+      00000061H   SYMBOL    DATA     VOID      ctr
+      00000062H   SYMBOL    DATA     VOID      length
+      00000063H   SYMBOL    DATA     VOID      memtype
+      00000064H   SYMBOL    DATA     VOID      read_byte
+      00000065H   SYMBOL    DATA     VOID      first_round
+      01000A1DH   BLOCK     CODE     NEAR LAB  LVL=2
+      00000066H   SYMBOL    DATA     VOID      buf
+      00000066H   SYMBOL    DATA     VOID      buf
+      00000066H   SYMBOL    DATA     VOID      buf
+      00000066H   SYMBOL    DATA     VOID      buf
+      ---         BLOCKEND  ---      ---       LVL=2
+      01000A4AH   BLOCK     CODE     NEAR LAB  LVL=2
+      00000066H   SYMBOL    DATA     VOID      buf
+      00000066H   SYMBOL    DATA     VOID      buf
+      00000066H   SYMBOL    DATA     VOID      buf
+      ---         BLOCKEND  ---      ---       LVL=2
+      01000A89H   BLOCK     CODE     NEAR LAB  LVL=2
+      00000066H   SYMBOL    DATA     VOID      buf
+      00000066H   SYMBOL    DATA     VOID      buf
+      ---         BLOCKEND  ---      ---       LVL=2
+      01000AB1H   BLOCK     CODE     NEAR LAB  LVL=2
+      00000066H   SYMBOL    DATA     VOID      buf
+      ---         BLOCKEND  ---      ---       LVL=2
+      ---         BLOCKEND  ---      ---       LVL=1
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      01000F2BH   BLOCK     CODE     ---       LVL=0
+      01000F31H   BLOCK     CODE     NEAR LAB  LVL=1
+      00000005H   SYMBOL    DATA     VOID      memtype
+      00000006H   SYMBOL    DATA     VOID      next
+      00000058H   SYMBOL    DATA     VOID      dummy
+      01000F3CH   BLOCK     CODE     NEAR LAB  LVL=2
+      00000059H   SYMBOL    DATA     VOID      buf
+      00000059H   SYMBOL    DATA     VOID      buf
+      00000059H   SYMBOL    DATA     VOID      buf
+      00000059H   SYMBOL    DATA     VOID      buf
+      ---         BLOCKEND  ---      ---       LVL=2
+      01000F59H   BLOCK     CODE     NEAR LAB  LVL=2
+      00000059H   SYMBOL    DATA     VOID      buf
+      00000059H   SYMBOL    DATA     VOID      buf
+LX51 LINKER/LOCATER V4.64.0.0                                                         09/23/2013  16:52:14  PAGE 20
+
+
+      00000059H   SYMBOL    DATA     VOID      buf
+      ---         BLOCKEND  ---      ---       LVL=2
+      01000F83H   BLOCK     CODE     NEAR LAB  LVL=2
+      00000059H   SYMBOL    DATA     VOID      buf
+      00000059H   SYMBOL    DATA     VOID      buf
+      ---         BLOCKEND  ---      ---       LVL=2
+      01000F9BH   BLOCK     CODE     NEAR LAB  LVL=2
+      00000059H   SYMBOL    DATA     VOID      buf
+      ---         BLOCKEND  ---      ---       LVL=2
+      ---         BLOCKEND  ---      ---       LVL=1
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      ---         MODULE    ---      ---       HAL_DELAY
+      01001683H   PUBLIC    CODE     ---       _delay_ms
+      01001604H   PUBLIC    CODE     ---       _delay_us
+
+      010015F9H   BLOCK     CODE     ---       LVL=0
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      01001604H   BLOCK     CODE     ---       LVL=0
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      01001683H   BLOCK     CODE     ---       LVL=0
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      ---         MODULE    ---      ---       ?C_INIT
+      01001016H   PUBLIC    CODE     ---       ?C_START
+
+      ---         MODULE    ---      ---       ?C?COPY
+      0100048DH   PUBLIC    CODE     ---       ?C?COPY
+
+      ---         MODULE    ---      ---       ?C?CLDPTR
+      010004B3H   PUBLIC    CODE     ---       ?C?CLDPTR
+
+      ---         MODULE    ---      ---       ?C?CLDOPTR
+      010004CCH   PUBLIC    CODE     ---       ?C?CLDOPTR
+
+      ---         MODULE    ---      ---       ?C?CSTPTR
+      010004F9H   PUBLIC    CODE     ---       ?C?CSTPTR
+
+      ---         MODULE    ---      ---       ?C?PSTPTR
+      0100050BH   PUBLIC    CODE     ---       ?C?PSTPTR
+
+      ---         MODULE    ---      ---       ?C?PLDOPTR
+      0100055AH   PUBLIC    CODE     ---       ?C?PLDOPTR
+
+      ---         MODULE    ---      ---       ?C?CCASE
+      0100058AH   PUBLIC    CODE     ---       ?C?CCASE
+
+      ---         MODULE    ---      ---       ?C?ICALL
+      010005B0H   PUBLIC    CODE     ---       ?C?ICALL
+      010005B4H   PUBLIC    CODE     ---       ?C?ICALL2
+
+      ---         MODULE    ---      ---       ?C_XBP
+      00000075H   PUBLIC    DATA     ---       ?C_XBP
+
+      ---         MODULE    ---      ---       ?C_IBP
+      00000077H   PUBLIC    DATA     ---       ?C_IBP
+
+      ---         MODULE    ---      ---       ?C?ADDXBP
+      010005B6H   PUBLIC    CODE     ---       ?C?ADDXBP
+
+      ---         MODULE    ---      ---       ?C?XBPOFF
+      010005DAH   PUBLIC    CODE     ---       ?C?XBPOFF
+
+LX51 LINKER/LOCATER V4.64.0.0                                                         09/23/2013  16:52:14  PAGE 21
+
+
+      ---         MODULE    ---      ---       ?C?PLDIDATA
+      010005E7H   PUBLIC    CODE     ---       ?C?PLDIDATA
+
+      ---         MODULE    ---      ---       ?C?PSTIDATA
+      010005F0H   PUBLIC    CODE     ---       ?C?PSTIDATA
+
+      ---         MODULE    ---      ---       ?C?PLDXDATA
+      010005F9H   PUBLIC    CODE     ---       ?C?PLDXDATA
+
+      ---         MODULE    ---      ---       ?C?PSTXDATA
+      01000602H   PUBLIC    CODE     ---       ?C?PSTXDATA
+
+      ---         MODULE    ---      ---       ?C?PLDPDATA
+      0100060BH   PUBLIC    CODE     ---       ?C?PLDPDATA
+
+      ---         MODULE    ---      ---       ?C?PSTPDATA
+      01000614H   PUBLIC    CODE     ---       ?C?PSTPDATA
+
+      ---         MODULE    ---      ---       ?C?PLDCODE
+      0100061DH   PUBLIC    CODE     ---       ?C?PLDCODE
+
+Program Size: data=122.0 xdata=632 const=210 code=5906
+LX51 RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)
