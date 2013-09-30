@@ -1,4 +1,4 @@
-C51 COMPILER V9.51   HAL_USB                                                               09/23/2013 16:52:13 PAGE 1   
+C51 COMPILER V9.51   HAL_USB                                                               09/23/2013 23:00:07 PAGE 1   
 
 
 C51 COMPILER V9.51, COMPILATION OF MODULE HAL_USB
@@ -62,7 +62,7 @@ line level    source
   51          static hal_usb_cb_endpoint_t i_endpoint_out_isr[USB_ENDPOINT_OUT_COUNT];
   52          
   53          static hal_usb_device_req req;
-C51 COMPILER V9.51   HAL_USB                                                               09/23/2013 16:52:13 PAGE 2   
+C51 COMPILER V9.51   HAL_USB                                                               09/23/2013 23:00:07 PAGE 2   
 
   54          hal_usb_t volatile g_hal_usb;
   55          static uint8_t stall_data_size0;
@@ -126,7 +126,7 @@ line level    source
  111   1        binstaddr = 0xc0;
  112   1        bin1addr = 16;
  113   1        bin2addr = 32;
-C51 COMPILER V9.51   HAL_USB                                                               09/23/2013 16:52:13 PAGE 3   
+C51 COMPILER V9.51   HAL_USB                                                               09/23/2013 23:00:07 PAGE 3   
 
  114   1        bin3addr = 48;
  115   1        bin4addr = 64;
@@ -190,7 +190,7 @@ line level    source
  173   2          if(endpoint_isr != NULL)
  174   2          {
  175   3            // Add the callback, enable the interrupt and validate the endpoint
-C51 COMPILER V9.51   HAL_USB                                                               09/23/2013 16:52:13 PAGE 4   
+C51 COMPILER V9.51   HAL_USB                                                               09/23/2013 23:00:07 PAGE 4   
 
  176   3            in_ien |= stemp; 
  177   3            inbulkval |= stemp;
@@ -254,7 +254,7 @@ line level    source
  235   1        uint8_t xdata *bc_ptr;
  236   1      
  237   1        // Calculate the buffer pointer and byte count pointer
-C51 COMPILER V9.51   HAL_USB                                                               09/23/2013 16:52:13 PAGE 5   
+C51 COMPILER V9.51   HAL_USB                                                               09/23/2013 23:00:07 PAGE 5   
 
  238   1        buf_ptr = CALCULATE_BUF_IN_PTR(ep_num);
  239   1        bc_ptr = CALCULATE_BC_IN_PTR(ep_num);
@@ -318,7 +318,7 @@ line level    source
  296   1        // Copy data to the USB-controller buffer
  297   1        for(i = 0; i < size; i++)
  298   1        {
-C51 COMPILER V9.51   HAL_USB                                                               09/23/2013 16:52:13 PAGE 6   
+C51 COMPILER V9.51   HAL_USB                                                               09/23/2013 23:00:07 PAGE 6   
 
  299   2          in0buf[i] = i_packetizer.data_ptr[i];
  300   2        }
@@ -382,7 +382,7 @@ line level    source
  358   3            in0bc = 0x02;
  359   3          }
  360   2        }
-C51 COMPILER V9.51   HAL_USB                                                               09/23/2013 16:52:13 PAGE 7   
+C51 COMPILER V9.51   HAL_USB                                                               09/23/2013 23:00:07 PAGE 7   
 
  361   1        else if(g_hal_usb.state == CONFIGURED)
  362   1        {
@@ -446,7 +446,7 @@ line level    source
  419   2            // For now we just support one configuration. The asked configuration is stored in LSB(wValue).
  420   2            packetize((uint8_t *)g_hal_usb.descs.conf,
  421   2            MIN(req.wLength, sizeof(usb_conf_desc_templ_t)));
-C51 COMPILER V9.51   HAL_USB                                                               09/23/2013 16:52:13 PAGE 8   
+C51 COMPILER V9.51   HAL_USB                                                               09/23/2013 23:00:07 PAGE 8   
 
  422   2            packetizer_isr_ep0_in();
  423   2            break;
@@ -510,7 +510,7 @@ line level    source
  481   3              usb_process_get_status();
  482   3              break;           
  483   3            case USB_REQ_CLEAR_FEATURE:
-C51 COMPILER V9.51   HAL_USB                                                               09/23/2013 16:52:13 PAGE 9   
+C51 COMPILER V9.51   HAL_USB                                                               09/23/2013 23:00:07 PAGE 9   
 
  484   3            case USB_REQ_SET_FEATURE: 
  485   3              switch(req.bmRequestType)
@@ -574,7 +574,7 @@ line level    source
  543   3            case USB_REQ_SET_CONFIGURATION:
  544   3              switch(req.wValueLsb)
  545   3              {
-C51 COMPILER V9.51   HAL_USB                                                               09/23/2013 16:52:13 PAGE 10  
+C51 COMPILER V9.51   HAL_USB                                                               09/23/2013 23:00:07 PAGE 10  
 
  546   4                case 0x00:
  547   4                  g_hal_usb.state = ADDRESSED;
@@ -638,7 +638,7 @@ line level    source
  602   2          if( ( g_hal_usb.bm_state & USB_BM_STATE_ALLOW_REMOTE_WAKEUP ) == USB_BM_STATE_ALLOW_REMOTE_WAKEUP )
  603   2          {
  604   3            allow_remote_wu = 1;
-C51 COMPILER V9.51   HAL_USB                                                               09/23/2013 16:52:13 PAGE 11  
+C51 COMPILER V9.51   HAL_USB                                                               09/23/2013 23:00:07 PAGE 11  
 
  605   3          }
  606   2        }
@@ -702,7 +702,7 @@ line level    source
                     usbcs |= 0x01;  // Turn on the resume signal on the USB bus
               #endif
  666   3            delay_ms(7); //.1.7.7 Resume: The remote wakeup device must hold the resume signaling for at 
-C51 COMPILER V9.51   HAL_USB                                                               09/23/2013 16:52:13 PAGE 12  
+C51 COMPILER V9.51   HAL_USB                                                               09/23/2013 23:00:07 PAGE 12  
 
  667   3                          // least 1 ms but for no more than 15ms
  668   3      
@@ -766,7 +766,7 @@ line level    source
  726   2          case INT_SUDAV:
  727   2            usbirq = 0x01;
  728   2            isr_sudav();
-C51 COMPILER V9.51   HAL_USB                                                               09/23/2013 16:52:13 PAGE 13  
+C51 COMPILER V9.51   HAL_USB                                                               09/23/2013 23:00:07 PAGE 13  
 
  729   2            break;
  730   2          case INT_SOF:
@@ -830,7 +830,7 @@ line level    source
  788   2              bc_ptr = CALCULATE_BC_OUT_PTR(ep);
  789   2      
  790   2              // Call registered callback
-C51 COMPILER V9.51   HAL_USB                                                               09/23/2013 16:52:13 PAGE 14  
+C51 COMPILER V9.51   HAL_USB                                                               09/23/2013 23:00:07 PAGE 14  
 
  791   2              ret = (i_endpoint_out_isr[ep - 1])(buf_ptr, bc_ptr);
  792   2              usb_process_ep_response(ret, cs_ptr, bc_ptr);

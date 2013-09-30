@@ -1,4 +1,4 @@
-LX51 LINKER/LOCATER V4.64.0.0                                                           09/23/2013  16:52:14  PAGE 1
+LX51 LINKER/LOCATER V4.64.0.0                                                           09/23/2013  23:00:08  PAGE 1
 
 
 LX51 LINKER/LOCATER V4.64.0.0, INVOKED BY:
@@ -67,7 +67,7 @@ INPUT MODULES INCLUDED:
   C:\KEIL\C51\LIB\C51S.LIB (?C?PLDXDATA)
          COMMENT TYPE 1: A51 / ASM51 Assembler
   C:\KEIL\C51\LIB\C51S.LIB (?C?PSTXDATA)
-LX51 LINKER/LOCATER V4.64.0.0                                                         09/23/2013  16:52:14  PAGE 2
+LX51 LINKER/LOCATER V4.64.0.0                                                         09/23/2013  23:00:08  PAGE 2
 
 
          COMMENT TYPE 1: A51 / ASM51 Assembler
@@ -135,7 +135,7 @@ START     STOP      LENGTH    ALIGN  RELOC    MEMORY CLASS   SEGMENT NAME
 0010E5H   001164H   000080H   BYTE   UNIT     CODE           ?PR?USB_WU_ISR?HAL_USB
 001165H   0011E0H   00007CH   BYTE   UNIT     CODE           ?PR?_?DEVICE_REQ_CB?MAIN
 0011E1H   001259H   000079H   BYTE   UNIT     CODE           ?PR?NRF_ISR?MAIN
-LX51 LINKER/LOCATER V4.64.0.0                                                         09/23/2013  16:52:14  PAGE 3
+LX51 LINKER/LOCATER V4.64.0.0                                                         09/23/2013  23:00:08  PAGE 3
 
 
 00125AH   0012C7H   00006EH   BYTE   UNIT     CODE           ?PR?PACKETIZER_ISR_EP0_IN?HAL_USB
@@ -203,7 +203,7 @@ START     STOP      LENGTH    ALIGN  RELOC    MEMORY CLASS   SEGMENT NAME
 00C680H   00C69FH   000020H   BYTE   OFFS..   XDATA          ?XD?HAL_USB?30
 00C6A0H   00C6BFH   000020H   ---    ---      **GAP**
 00C6C0H   00C6DFH   000020H   BYTE   OFFS..   XDATA          ?XD?HAL_USB?31
-LX51 LINKER/LOCATER V4.64.0.0                                                         09/23/2013  16:52:14  PAGE 4
+LX51 LINKER/LOCATER V4.64.0.0                                                         09/23/2013  23:00:08  PAGE 4
 
 
 00C6E0H   00C6FFH   000020H   ---    ---      **GAP**
@@ -271,7 +271,7 @@ START     STOP      LENGTH    ALIGN  RELOC    MEMORY CLASS   SEGMENT NAME
 00C7D7H   00C7D7H   000001H   BYTE   OFFS..   XDATA          ?XD?HAL_USB?16
 00C7D8H   00C7D8H   000001H   BYTE   OFFS..   XDATA          ?XD?HAL_USB?0
 00C7D9H   00C7D9H   000001H   BYTE   OFFS..   XDATA          ?XD?HAL_USB?74
-LX51 LINKER/LOCATER V4.64.0.0                                                         09/23/2013  16:52:14  PAGE 5
+LX51 LINKER/LOCATER V4.64.0.0                                                         09/23/2013  23:00:08  PAGE 5
 
 
 00C7DAH   00C7DAH   000001H   ---    ---      **GAP**
@@ -339,7 +339,7 @@ START     STOP      LENGTH    ALIGN  RELOC    MEMORY CLASS   SEGMENT NAME
    *DEL*:           00000AH   BYTE   UNIT     CODE           ?PR?HAL_NRF_GET_RX_FIFO_STATUS?HAL_NRF
    *DEL*:           000006H   BYTE   UNIT     CODE           ?PR?HAL_NRF_GET_FIFO_STATUS?HAL_NRF
    *DEL*:           00000AH   BYTE   UNIT     CODE           ?PR?HAL_NRF_GET_TRANSMIT_ATTEMPTS?HAL_NRF
-LX51 LINKER/LOCATER V4.64.0.0                                                         09/23/2013  16:52:14  PAGE 6
+LX51 LINKER/LOCATER V4.64.0.0                                                         09/23/2013  23:00:08  PAGE 6
 
 
    *DEL*:           00000AH   BYTE   UNIT     CODE           ?PR?HAL_NRF_GET_CARRIER_DETECT?HAL_NRF
@@ -407,7 +407,7 @@ _?HAL_USB_HID_DEVICE_REQ_PROC/HAL_USB_HI+     ----- -----  ----- -----
   +--> ?CO?USB_DESC
 
 ?CO?USB_DESC                                  ----- -----  ----- -----
-LX51 LINKER/LOCATER V4.64.0.0                                                         09/23/2013  16:52:14  PAGE 7
+LX51 LINKER/LOCATER V4.64.0.0                                                         09/23/2013  23:00:08  PAGE 7
 
 
 
@@ -475,7 +475,7 @@ _HAL_NRF_SET_AUTO_RETR/HAL_NRF                ----- -----  004FH 004FH
   +--> _HAL_NRF_WRITE_REG/HAL_NRF
 
 _HAL_NRF_SET_RF_CHANNEL/HAL_NRF               ----- -----  004FH 004FH
-LX51 LINKER/LOCATER V4.64.0.0                                                         09/23/2013  16:52:14  PAGE 8
+LX51 LINKER/LOCATER V4.64.0.0                                                         09/23/2013  23:00:08  PAGE 8
 
 
   +--> _HAL_NRF_WRITE_REG/HAL_NRF
@@ -543,7 +543,7 @@ USB_WU_ISR/HAL_USB                            ----- -----  ----- -----
   +--> _DELAY_MS/HAL_DELAY
 
 *** NEW ROOT ********************************
-LX51 LINKER/LOCATER V4.64.0.0                                                         09/23/2013  16:52:14  PAGE 9
+LX51 LINKER/LOCATER V4.64.0.0                                                         09/23/2013  23:00:08  PAGE 9
 
 
 
@@ -611,7 +611,7 @@ PUBLIC SYMBOLS OF MODULE:  .\build\firmware (?C_STARTUP)
       0100055AH   CODE     ---       ?C?PLDOPTR
       0100060BH   CODE     ---       ?C?PLDPDATA
       010005F9H   CODE     ---       ?C?PLDXDATA
-LX51 LINKER/LOCATER V4.64.0.0                                                         09/23/2013  16:52:14  PAGE 10
+LX51 LINKER/LOCATER V4.64.0.0                                                         09/23/2013  23:00:08  PAGE 10
 
 
       010005F0H   CODE     ---       ?C?PSTIDATA
@@ -679,7 +679,7 @@ PUBLIC SYMBOLS OF MODULE:  .\build\firmware (?C_STARTUP)
       020080A5H   XDATA    BYTE      app_state
       0200801CH   XDATA    BYTE      app_usb_out_data_ready
       01001658H   CODE     ---       app_wait_while_usb_pending
-LX51 LINKER/LOCATER V4.64.0.0                                                         09/23/2013  16:52:14  PAGE 11
+LX51 LINKER/LOCATER V4.64.0.0                                                         09/23/2013  23:00:08  PAGE 11
 
 
       0200C789H   XDATA    BYTE      bin1addr
@@ -747,7 +747,7 @@ PUBLIC SYMBOLS OF MODULE:  .\build\firmware (?C_STARTUP)
       0200C7B8H   XDATA    BYTE      in2cs
       0200C7BBH   XDATA    BYTE      in3bc
       0200C580H   XDATA    ---       in3buf
-LX51 LINKER/LOCATER V4.64.0.0                                                         09/23/2013  16:52:14  PAGE 12
+LX51 LINKER/LOCATER V4.64.0.0                                                         09/23/2013  23:00:08  PAGE 12
 
 
       0200C7BAH   XDATA    BYTE      in3cs
@@ -815,7 +815,7 @@ PUBLIC SYMBOLS OF MODULE:  .\build\firmware (?C_STARTUP)
       0200C7D9H   XDATA    BYTE      usbfrmh
       0200C7D8H   XDATA    BYTE      usbfrml
       0200C7AEH   XDATA    BYTE      usbien
-LX51 LINKER/LOCATER V4.64.0.0                                                         09/23/2013  16:52:14  PAGE 13
+LX51 LINKER/LOCATER V4.64.0.0                                                         09/23/2013  23:00:08  PAGE 13
 
 
       0200C7ABH   XDATA    BYTE      usbirq
@@ -883,7 +883,7 @@ SYMBOL TABLE OF MODULE:  .\build\firmware (?C_STARTUP)
       00000007H   SYMBOL    DATA     VOID      irq_flags
       ---         BLOCKEND  ---      ---       LVL=1
       ---         BLOCKEND  ---      ---       LVL=0
-LX51 LINKER/LOCATER V4.64.0.0                                                         09/23/2013  16:52:14  PAGE 14
+LX51 LINKER/LOCATER V4.64.0.0                                                         09/23/2013  23:00:08  PAGE 14
 
 
 
@@ -951,7 +951,7 @@ SYMBOL TABLE OF MODULE:  .\build\firmware (?C_STARTUP)
       0200C7CEH   PUBLIC    XDATA    BYTE      out5cs
       0200C7CCH   PUBLIC    XDATA    BYTE      out4cs
       0200C7BEH   PUBLIC    XDATA    BYTE      in5cs
-LX51 LINKER/LOCATER V4.64.0.0                                                         09/23/2013  16:52:14  PAGE 15
+LX51 LINKER/LOCATER V4.64.0.0                                                         09/23/2013  23:00:08  PAGE 15
 
 
       0200C7CAH   PUBLIC    XDATA    BYTE      out3cs
@@ -1019,7 +1019,7 @@ SYMBOL TABLE OF MODULE:  .\build\firmware (?C_STARTUP)
       0200C7AFH   PUBLIC    XDATA    BYTE      usbbav
       0200C7A9H   PUBLIC    XDATA    BYTE      in_irq
       0200C7D8H   PUBLIC    XDATA    BYTE      usbfrml
-LX51 LINKER/LOCATER V4.64.0.0                                                         09/23/2013  16:52:14  PAGE 16
+LX51 LINKER/LOCATER V4.64.0.0                                                         09/23/2013  23:00:08  PAGE 16
 
 
       01000629H   PUBLIC    CODE     ---       usb_isr
@@ -1087,7 +1087,7 @@ SYMBOL TABLE OF MODULE:  .\build\firmware (?C_STARTUP)
 
       01000C14H   BLOCK     CODE     ---       LVL=0
       ---         BLOCKEND  ---      ---       LVL=0
-LX51 LINKER/LOCATER V4.64.0.0                                                         09/23/2013  16:52:14  PAGE 17
+LX51 LINKER/LOCATER V4.64.0.0                                                         09/23/2013  23:00:08  PAGE 17
 
 
 
@@ -1155,7 +1155,7 @@ SYMBOL TABLE OF MODULE:  .\build\firmware (?C_STARTUP)
       0100170DH   PUBLIC    CODE     ---       hal_nrf_read_rx_payload_width
       01001706H   PUBLIC    CODE     ---       _hal_nrf_write_tx_payload
       010016D7H   PUBLIC    CODE     ---       hal_nrf_rx_fifo_empty
-LX51 LINKER/LOCATER V4.64.0.0                                                         09/23/2013  16:52:14  PAGE 18
+LX51 LINKER/LOCATER V4.64.0.0                                                         09/23/2013  23:00:08  PAGE 18
 
 
       0100166EH   PUBLIC    CODE     ---       _hal_nrf_set_rf_channel
@@ -1223,7 +1223,7 @@ SYMBOL TABLE OF MODULE:  .\build\firmware (?C_STARTUP)
 
       010016E1H   BLOCK     CODE     ---       LVL=0
       ---         BLOCKEND  ---      ---       LVL=0
-LX51 LINKER/LOCATER V4.64.0.0                                                         09/23/2013  16:52:14  PAGE 19
+LX51 LINKER/LOCATER V4.64.0.0                                                         09/23/2013  23:00:08  PAGE 19
 
 
 
@@ -1291,7 +1291,7 @@ SYMBOL TABLE OF MODULE:  .\build\firmware (?C_STARTUP)
       01000F59H   BLOCK     CODE     NEAR LAB  LVL=2
       00000059H   SYMBOL    DATA     VOID      buf
       00000059H   SYMBOL    DATA     VOID      buf
-LX51 LINKER/LOCATER V4.64.0.0                                                         09/23/2013  16:52:14  PAGE 20
+LX51 LINKER/LOCATER V4.64.0.0                                                         09/23/2013  23:00:08  PAGE 20
 
 
       00000059H   SYMBOL    DATA     VOID      buf
@@ -1359,7 +1359,7 @@ SYMBOL TABLE OF MODULE:  .\build\firmware (?C_STARTUP)
       ---         MODULE    ---      ---       ?C?XBPOFF
       010005DAH   PUBLIC    CODE     ---       ?C?XBPOFF
 
-LX51 LINKER/LOCATER V4.64.0.0                                                         09/23/2013  16:52:14  PAGE 21
+LX51 LINKER/LOCATER V4.64.0.0                                                         09/23/2013  23:00:08  PAGE 21
 
 
       ---         MODULE    ---      ---       ?C?PLDIDATA

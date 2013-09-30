@@ -1,4 +1,4 @@
-C51 COMPILER V9.51   MAIN                                                                  09/23/2013 16:52:12 PAGE 1   
+C51 COMPILER V9.51   MAIN                                                                  09/23/2013 23:00:07 PAGE 1   
 
 
 C51 COMPILER V9.51, COMPILATION OF MODULE MAIN
@@ -62,7 +62,7 @@ line level    source
   51          
   52          //-----------------------------------------------------------------------------
   53          // Global variables
-C51 COMPILER V9.51   MAIN                                                                  09/23/2013 16:52:12 PAGE 2   
+C51 COMPILER V9.51   MAIN                                                                  09/23/2013 23:00:07 PAGE 2   
 
   54          //-----------------------------------------------------------------------------
   55          app_states_t xdata app_state;
@@ -126,7 +126,7 @@ line level    source
  112   1      
  113   1        // Initialize RF device
  114   1        rf_init();
-C51 COMPILER V9.51   MAIN                                                                  09/23/2013 16:52:12 PAGE 3   
+C51 COMPILER V9.51   MAIN                                                                  09/23/2013 23:00:07 PAGE 3   
 
  115   1      
  116   1        // Set initial state
@@ -190,7 +190,7 @@ line level    source
  174   4              // commands to the remote device, to make sure they are still
  175   4              // connected. Remote device should respond with PONG. After sending
  176   4              // a RETRIES number of PING without getting PONG, the connection
-C51 COMPILER V9.51   MAIN                                                                  09/23/2013 16:52:12 PAGE 4   
+C51 COMPILER V9.51   MAIN                                                                  09/23/2013 23:00:07 PAGE 4   
 
  177   4              // is considered lost, and it notify the host with a NACK and enter 
  178   4              // IDLE state.
@@ -254,7 +254,7 @@ line level    source
  236   4                app_state = APP_IDLE;
  237   4                break;
  238   4                  
-C51 COMPILER V9.51   MAIN                                                                  09/23/2013 16:52:12 PAGE 5   
+C51 COMPILER V9.51   MAIN                                                                  09/23/2013 23:00:07 PAGE 5   
 
  239   4      
  240   4              // Wait for ACK or NACK and send it over USB to PC application.
@@ -318,7 +318,7 @@ line level    source
  298   2          
  299   2          case CMD_UPDATE_START:
  300   2          case CMD_UPDATE_COMPLETE:
-C51 COMPILER V9.51   MAIN                                                                  09/23/2013 16:52:12 PAGE 6   
+C51 COMPILER V9.51   MAIN                                                                  09/23/2013 23:00:07 PAGE 6   
 
  301   2          case CMD_WRITE:
  302   2          case CMD_READ:
@@ -382,7 +382,7 @@ line level    source
  360   1        {
  361   2          if(packet_received)
  362   2          {
-C51 COMPILER V9.51   MAIN                                                                  09/23/2013 16:52:12 PAGE 7   
+C51 COMPILER V9.51   MAIN                                                                  09/23/2013 23:00:07 PAGE 7   
 
  363   3            break;
  364   3          }
@@ -446,7 +446,7 @@ line level    source
  422          
  423          void app_wait_while_usb_pending()
  424          {    
-C51 COMPILER V9.51   MAIN                                                                  09/23/2013 16:52:12 PAGE 8   
+C51 COMPILER V9.51   MAIN                                                                  09/23/2013 23:00:07 PAGE 8   
 
  425   1        uint16_t timeout = 50000;   // Will equal ~ 50-100 ms timeout 
  426   1        while(timeout--)
@@ -510,7 +510,7 @@ line level    source
  483   1        app_usb_out_data_ready = true;
  484   1        //P0 = *size;
  485   1        return 0xff; // ACK
-C51 COMPILER V9.51   MAIN                                                                  09/23/2013 16:52:12 PAGE 9   
+C51 COMPILER V9.51   MAIN                                                                  09/23/2013 23:00:07 PAGE 9   
 
  486   1      }
  487          

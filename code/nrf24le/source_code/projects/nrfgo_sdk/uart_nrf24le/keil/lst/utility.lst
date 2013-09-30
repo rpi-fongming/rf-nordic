@@ -1,0 +1,350 @@
+C51 COMPILER V9.51   UTILITY                                                               10/01/2013 00:42:59 PAGE 1   
+
+
+C51 COMPILER V9.51, COMPILATION OF MODULE UTILITY
+OBJECT MODULE PLACED IN .\build\utility.obj
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE ..\src\utility.c REGFILE(.\build\uart_nrf24le1.ORC) BROWSE NOINTPROMOTE MOD
+                    -DP2 INCDIR(..\..\..\..\hal\nrf24le1;..\..\..\..\compiler\c51;..\..\..\..\compiler\common) DEBUG OBJECTEXTEND PRINT(.\lst
+                    -\utility.lst) TABS(2) OBJECT(.\build\utility.obj)
+
+line level    source
+
+   1          //----------------------------------------------------------------
+   2          //----------------------------------------------------------------
+   3          // Module name: User Utility
+   4          //
+   5          // Copyright 2008 Fong Ming as an  unpublished work. 
+   6          // All Rights Reserved.
+   7          //
+   8          // The information contained herein is confidential 
+   9          // property of Company. The user, copying, transfer or 
+  10          // disclosure of such information is prohibited except
+  11          // by express written agreement with Company.
+  12          //
+  13          // First written on 2008-09-23 by Fong Ming
+  14          //
+  15          //----------------------------------------------------------------
+  16          //----------------------------------------------------------------
+  17          
+  18          
+  19          
+  20          //----------------------------------------------------------------------------
+  21          //----------------------------------------------------------------------------
+  22          // Include section
+  23          // Add all #includes here
+  24          //----------------------------------------------------------------------------
+  25          //----------------------------------------------------------------------------
+  26          
+  27          #include "hal_types.h"
+  28          #include "utility.h"
+  29          #include "hal_uart.h"
+  30          
+  31          
+  32          //----------------------------------------------------------------------------
+  33          // Function name  : u_delay(int a)
+  34          //    returns   : void
+  35          //    arg1      : none
+  36          //    arg2      : none
+  37          // Created by   : Fong Ming
+  38          // Date created   : 2002-03-30
+  39          // Description    : return a Absolute value  
+  40          //
+  41          // 
+  42          // Affected 
+  43          // Global Variable  : none  
+  44          // Modified           
+  45          // Global Variable  : none
+  46          // Function Called  : none
+  47          //                       
+  48          //                       
+  49          // Assumption       : 
+  50          //                    
+  51          // Notes      :
+  52          //----------------------------------------------------------------------------
+  53          void u_delay(unsigned int iDelay){ 
+C51 COMPILER V9.51   UTILITY                                                               10/01/2013 00:42:59 PAGE 2   
+
+  54   1        //delay n 100us 
+  55   1        unsigned int x; 
+  56   1      
+  57   1        while(iDelay--){ 
+  58   2        x=130;    // 8MHz Clock
+  59   2        while(x--); 
+  60   2        } 
+  61   1      } 
+  62          
+  63          
+  64          //----------------------------------------------------------------------------
+  65          // Function name  : int abs(int a)
+  66          //    returns   : int
+  67          //    arg1      : int
+  68          //    arg2      : none
+  69          // Created by   : Fong Ming
+  70          // Date created   : 2002-03-30
+  71          // Description    : return a Absolute value  
+  72          //
+  73          // 
+  74          // Affected 
+  75          // Global Variable  : none  
+  76          // Modified           
+  77          // Global Variable  : none
+  78          // Function Called  : none
+  79          //                       
+  80          //                       
+  81          // Assumption       : 
+  82          //                    
+  83          // Notes      :
+  84          //----------------------------------------------------------------------------
+  85          
+  86          INT16U u_abs(INT16S a)
+  87          {
+  88   1        if(a < 0)
+  89   1          return -a;
+  90   1        return (INT16U) a;
+  91   1      }
+  92          
+  93          //----------------------------------------------------------------------------
+  94          // Function name  : INT16S sign(INT16S x)
+  95          //    returns   : 1 for Pos, -1 for Neg
+  96          //    arg1      : INT16S
+  97          //    arg2      : none
+  98          // Created by   : Fong Ming
+  99          // Date created   : 2002-03-30
+ 100          // Description    : return Sign of int
+ 101          //
+ 102          // Affected 
+ 103          // Global Variable  : none  
+ 104          // Modified           
+ 105          // Global Variable  : none
+ 106          // Function Called  : none
+ 107          //                       
+ 108          // Assumption        : 
+ 109          //                     
+ 110          // Notes          :
+ 111          //----------------------------------------------------------------------------
+ 112          
+ 113          INT16S u_sign(INT16S x) 
+ 114          {
+ 115   1        if (x<0) return (-1);
+C51 COMPILER V9.51   UTILITY                                                               10/01/2013 00:42:59 PAGE 3   
+
+ 116   1        return(1);
+ 117   1      }
+ 118          
+ 119          
+ 120          //----------------------------------------------------------------------------
+ 121          // Function name    : static INT16U asc2uint(INT8U len, INT8U *sptr)
+ 122          //   returns    : A 16 bit unsigned integer
+ 123          //    arg1      : len, number of alphanumeric character
+ 124          //          : to be converted.
+ 125          //    arg2      : sptr, pointer that points to alphanumeric string
+ 126          // Created by   : Derek Tong
+ 127          // Date created   : 16 May 2002
+ 128          // Description    : Convert alphanumeric string to hex. value
+ 129          // Notes        :
+ 130          //----------------------------------------------------------------------------
+ 131          INT16U u_asc2uint(INT8U len, INT8U *sptr)
+ 132          {
+ 133   1        INT8U i;
+ 134   1        INT16U temp;
+ 135   1      
+ 136   1        temp = u_hex2dec(*sptr++);
+ 137   1        for(i = 1; i < len; i++)
+ 138   1          temp = temp * 0x10 + u_hex2dec(*sptr++);
+ 139   1        return (temp);
+ 140   1      }
+ 141          
+ 142          //----------------------------------------------------------------------------
+ 143          // Function name  : INT8U hex2dec(INT8U c) 
+ 144          //    returns   : INT8U
+ 145          //    arg1      : INT8U
+ 146          //    arg2      : none
+ 147          // Created by   : Fong Ming
+ 148          // Date created   : 2002-03-30
+ 149          // Description    : Convert hexadecimal ASCII char. to 
+ 150          //                    hexadecimal number
+ 151          //
+ 152          // Affected 
+ 153          // Global Variable  : none  
+ 154          // Modified           
+ 155          // Global Variable  : none
+ 156          // Function Called  : none
+ 157          //                       
+ 158          // Assumption        : 
+ 159          //                     
+ 160          // Notes       :
+ 161          //----------------------------------------------------------------------------
+ 162          
+ 163          INT8U u_hex2dec(INT8U c) 
+ 164          {
+ 165   1        if ((c>='0') && (c<='9')) 
+ 166   1          {
+ 167   2          return (c-0x30);
+ 168   2        }else if ((c>='A') && (c<='F')) 
+ 169   1          {
+ 170   2          return (c-'A'+10);
+ 171   2        }else if ((c>='a') && (c<='f')) 
+ 172   1          {
+ 173   2          return (c-'a'+10);
+ 174   2        }
+ 175   1      
+ 176   1        return 0;
+ 177   1      }
+C51 COMPILER V9.51   UTILITY                                                               10/01/2013 00:42:59 PAGE 4   
+
+ 178          
+ 179          
+ 180          //----------------------------------------------------------------------------
+ 181          // Function name  : void u_putHexWord(INT16U w)
+ 182          //    returns   : none
+ 183          //    arg1      : INT16U 
+ 184          //    arg2      : none
+ 185          // Created by   : Fong Ming
+ 186          // Date created   : 2002-03-30
+ 187          // Description    : Print INT16Ueger number 
+ 188          //                     to debug UART port.
+ 189          //
+ 190          // Affected 
+ 191          // Global Variable  : none  
+ 192          // Modified           
+ 193          // Global Variable  : none
+ 194          // Function Called  : u_putHexByte
+ 195          //                       
+ 196          // Assumption       :
+ 197          //                     
+ 198          //                     
+ 199          // Notes      :
+ 200          //----------------------------------------------------------------------------
+ 201          
+ 202          void u_putHexWord(INT16U w)
+ 203          { 
+ 204   1          u_putHexByte((INT8U) (w>>8),0);
+ 205   1          u_putHexByte((INT8U) (w & 0xff),0);
+ 206   1      
+ 207   1      }
+ 208          
+ 209          
+ 210          //----------------------------------------------------------------------------
+ 211          // Function name  : void u_putHexByte(INT8U c) 
+ 212          //    returns   : none
+ 213          //    arg1      : INT8U pointer
+ 214          //    arg2      : none
+ 215          // Created by   : Fong Ming
+ 216          // Date created   : 2002-03-30
+ 217          // Description    : Print unsigned hexadecmial number 
+ 218          //                     to debug UART port.
+ 219          //
+ 220          // Affected 
+ 221          // Global Variable  : none  
+ 222          // Modified           
+ 223          // Global Variable  : none
+ 224          // Function Called  : u_putch
+ 225          //                       
+ 226          //                     
+ 227          // Notes      :
+ 228          //----------------------------------------------------------------------------
+ 229          
+ 230          void u_putHexByte(INT8U c, INT8U t) 
+ 231          {
+ 232   1        static const char STR_HEX[]="0123456789ABCDEF";
+ 233   1        u_putch(STR_HEX[(c&0xF0)>>4]);
+ 234   1        u_putch(STR_HEX[c&0x0F]);
+ 235   1      
+ 236   1          if (t != 0)
+ 237   1              u_putch(t);
+ 238   1      
+ 239   1      }
+C51 COMPILER V9.51   UTILITY                                                               10/01/2013 00:42:59 PAGE 5   
+
+ 240          
+ 241          
+ 242          
+ 243          
+ 244          
+ 245          //----------------------------------------------------------------------------
+ 246          // Function name    : void putch(INT8U abyte) 
+ 247          //    returns   : none
+ 248          //    arg1      : INT8U
+ 249          //    arg2      : none
+ 250          // Created by   : Fong Ming
+ 251          // Date created   : 2002-03-30
+ 252          // Description    : Send the specified data byte to UART
+ 253          //
+ 254          // Affected 
+ 255          // Global Variable  : none  
+ 256          // Modified           
+ 257          // Global Variable  : none
+ 258          // Function Called  : none
+ 259          //                       
+ 260          // Assumption       : TXREG = UART Transmission Registor
+ 261          //                     
+ 262          // Notes      :
+ 263          //----------------------------------------------------------------------------
+ 264          
+ 265          void u_putch(INT8U abyte) 
+ 266          {
+ 267   1      
+ 268   1        hal_uart_putchar(abyte);
+ 269   1      
+ 270   1      }
+ 271          
+ 272          
+ 273          //----------------------------------------------------------------------------
+ 274          // Function name  : void puts(const char //sptr) 
+ 275          //    returns   : none
+ 276          //    arg1      : INT8U pointer
+ 277          //    arg2      : none
+ 278          // Created by   : Fong Ming
+ 279          // Date created   : 2002-03-30
+ 280          // Description    : Put string to UART. String must 
+ 281          //                    terminated by null character
+ 282          //
+ 283          // Affected 
+ 284          // Global Variable  : none  
+ 285          // Modified           
+ 286          // Global Variable  : none
+ 287          // Function Called  : u_putch
+ 288          //                       
+ 289          // Assumption       :   
+ 290          //                     
+ 291          // Notes      :
+ 292          //----------------------------------------------------------------------------
+ 293          
+ 294          void u_puts( INT8U *sptr) 
+ 295          {
+ 296   1        while(*sptr != 0) 
+ 297   1              u_putch(*sptr++);
+ 298   1      }
+ 299          
+ 300          INT8U u_toupper(INT8U c)
+ 301          
+C51 COMPILER V9.51   UTILITY                                                               10/01/2013 00:42:59 PAGE 6   
+
+ 302          {
+ 303   1      
+ 304   1        if ((c>='a') && (c<='z'))   //convert lower case to upper case
+ 305   1          return(c-0x20);
+ 306   1        else
+ 307   1          return(c);
+ 308   1      
+ 309   1      }
+ 310          
+ 311          
+ 312          //----------------------------------------------------------------------------
+ 313          //  User Library END
+ 314          //----------------------------------------------------------------------------
+ 315          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    365    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     17      14
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

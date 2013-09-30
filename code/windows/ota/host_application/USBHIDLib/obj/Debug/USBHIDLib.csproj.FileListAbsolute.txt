@@ -4,3 +4,8 @@ T:\haal\2011\firmware_updater\host_application\USBHIDLib\bin\Debug\UsbLibrary.pd
 T:\haal\2011\firmware_updater\host_application\USBHIDLib\obj\Debug\ResolveAssemblyReference.cache
 T:\haal\2011\firmware_updater\host_application\USBHIDLib\obj\Debug\UsbLibrary.dll
 T:\haal\2011\firmware_updater\host_application\USBHIDLib\obj\Debug\UsbLibrary.pdb
+C:\working\rf\rf-nordic\code\windows\ota\host_application\USBHIDLib\bin\Debug\UsbLibrary.dll
+C:\working\rf\rf-nordic\code\windows\ota\host_application\USBHIDLib\bin\Debug\UsbLibrary.pdb
+C:\working\rf\rf-nordic\code\windows\ota\host_application\USBHIDLib\obj\Debug\ResolveAssemblyReference.cache
+C:\working\rf\rf-nordic\code\windows\ota\host_application\USBHIDLib\obj\Debug\UsbLibrary.dll
+C:\working\rf\rf-nordic\code\windows\ota\host_application\USBHIDLib\obj\Debug\UsbLibrary.pdb

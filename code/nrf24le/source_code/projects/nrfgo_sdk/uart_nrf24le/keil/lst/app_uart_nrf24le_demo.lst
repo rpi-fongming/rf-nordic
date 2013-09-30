@@ -1,0 +1,74 @@
+C51 COMPILER V9.51   APP_UART_NRF24LE_DEMO                                                 10/01/2013 00:20:27 PAGE 1   
+
+
+C51 COMPILER V9.51, COMPILATION OF MODULE APP_UART_NRF24LE_DEMO
+OBJECT MODULE PLACED IN .\build\app_uart_nrf24le_demo.obj
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE ..\src\app_uart_nrf24le_demo.c REGFILE(.\build\uart_nrf24le1.ORC) BROWSE NO
+                    -INTPROMOTE MODDP2 INCDIR(..\..\..\..\hal\nrf24le1;..\..\..\..\compiler\c51;..\..\..\..\compiler\common) DEBUG OBJECTEXTE
+                    -ND PRINT(.\lst\app_uart_nrf24le_demo.lst) TABS(2) OBJECT(.\build\app_uart_nrf24le_demo.obj)
+
+line level    source
+
+   1          /* Copyright (c) 2009 Nordic Semiconductor. All Rights Reserved.
+   2           *
+   3           * The information contained herein is confidential property of Nordic
+   4           * Semiconductor ASA.Terms and conditions of usage are described in detail
+   5           * in NORDIC SEMICONDUCTOR STANDARD SOFTWARE LICENSE AGREEMENT.
+   6           *
+   7           * Licensees are granted free, non-transferable use of the information. NO
+   8           * WARRENTY of ANY KIND is provided. This heading must NOT be removed from
+   9           * the file.
+  10           *
+  11           * $LastChangedRevision: 133 $
+  12           */
+  13          
+  14          /** @file
+  15           * @brief UART example
+  16           * @defgroup uart_example UART "Hello World" example
+  17           * @{
+  18           * @ingroup nrf_examples
+  19           *
+  20           * @brief This example writes the string "Hello World" on start-up. After this all
+  21           * characters received on the RXD input are echoed to the TXD output.
+  22           *
+  23           * The example implements the low level stdio functions putchar() and getchar() so that standard
+  24           * IO functions such as printf() and gets() can be used by the application.
+  25           *
+  26          */
+  27          
+  28          //lint -e732
+  29          //lint -e713
+  30          //lint -e640
+  31          
+  32          #include <stdio.h>
+  33          #include "nrf24le1.h"
+  34          #include "hal_uart.h"
+  35          #include "hal_clk.h"
+  36          #include "app_uart_nrf24le_demo.h"
+  37          
+  38          void app_init_hardware(void)
+  39          {
+  40   1        // Configure TXD pin as output.
+  41   1        // P0.5, P0.3 and P1.0 are configured as outputs to make the example run on
+  42   1        // either 24-pin, 32-pin or 48-pin nRF24LE1 variants.
+  43   1        P0DIR = 0xD7;
+  44   1        P1DIR = 0xFE;
+  45   1      
+  46   1      }
+  47          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =      7    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+C51 COMPILER V9.51   APP_UART_NRF24LE_DEMO                                                 10/01/2013 00:20:27 PAGE 2   
+
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

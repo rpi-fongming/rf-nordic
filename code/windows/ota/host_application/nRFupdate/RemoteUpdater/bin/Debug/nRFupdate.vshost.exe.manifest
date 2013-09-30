@@ -43,26 +43,26 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="nRFupdate.exe" size="69120">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="nRFupdate.exe" size="68608">
       <assemblyIdentity name="nRFupdate" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>DrsaaQmDHrCuBo1DqbcvYa5R2so=</dsig:DigestValue>
+        <dsig:DigestValue>xMU2gDL7cI4LEVymHSv3tEaIEBU=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
     <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="UsbLibrary.dll" size="17920">
-      <assemblyIdentity name="UsbLibrary" version="1.0.4268.20951" language="neutral" processorArchitecture="msil" />
+      <assemblyIdentity name="UsbLibrary" version="1.0.5014.40363" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>2DD9DaEnXjfsGGhS8faKBHO4WLw=</dsig:DigestValue>
+        <dsig:DigestValue>9CvbzJs8W9oCxrK9T7CFsASXj9A=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

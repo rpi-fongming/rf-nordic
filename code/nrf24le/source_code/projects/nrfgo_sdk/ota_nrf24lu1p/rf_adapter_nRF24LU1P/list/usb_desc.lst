@@ -1,4 +1,4 @@
-C51 COMPILER V9.51   USB_DESC                                                              09/23/2013 16:52:13 PAGE 1   
+C51 COMPILER V9.51   USB_DESC                                                              09/23/2013 23:00:07 PAGE 1   
 
 
 C51 COMPILER V9.51, COMPILATION OF MODULE USB_DESC
@@ -62,7 +62,7 @@ line level    source
   51            0x95, EP1_2_PACKET_SIZE,      //   REPORT_COUNT (EP1_2_PACKET_SIZE)
   52            0x09, 0x00,                   //   USAGE (Vendor Usage 1)
   53            0x81, 0x02,                   //   INPUT (Data,Var,Abs)
-C51 COMPILER V9.51   USB_DESC                                                              09/23/2013 16:52:13 PAGE 2   
+C51 COMPILER V9.51   USB_DESC                                                              09/23/2013 23:00:07 PAGE 2   
 
   54            0x09, 0x00,                   //   USAGE (Vendor Usage 1)
   55            0x91, 0x02,                   //   OUTPUT (Data,Var,Abs)
@@ -126,7 +126,7 @@ line level    source
  113            {
  114              sizeof(hal_usb_ep_desc_t),            // bLength
  115              USB_DESC_ENDPOINT,                    // bDescriptorType
-C51 COMPILER V9.51   USB_DESC                                                              09/23/2013 16:52:13 PAGE 3   
+C51 COMPILER V9.51   USB_DESC                                                              09/23/2013 23:00:07 PAGE 3   
 
  116              0x81,                                 // bEndpointAddress
  117              USB_ENDPOINT_TYPE_INTERRUPT,          // bmAttributes
@@ -190,7 +190,7 @@ line level    source
  175            ' ',00,
  176            'S',00,
  177            'e',00,
-C51 COMPILER V9.51   USB_DESC                                                              09/23/2013 16:52:13 PAGE 4   
+C51 COMPILER V9.51   USB_DESC                                                              09/23/2013 23:00:07 PAGE 4   
 
  178            'm',00,
  179            'i',00,

@@ -4,11 +4,6 @@
         <name>UsbLibrary</name>
     </assembly>
     <members>
-        <member name="T:USBHIDLib.HIDDeviceException">
-            <summary>
-            Generic HID device exception
-            </summary>
-        </member>
         <member name="T:USBHIDLib.HIDDevice">
             <summary>
             Abstract HID device : Derive your new device controller class from this
@@ -452,6 +447,11 @@
         <member name="P:USBHIDLib.UsbHidPort.SpecifiedDevice">
             <summary>
             
+            </summary>
+        </member>
+        <member name="T:USBHIDLib.HIDDeviceException">
+            <summary>
+            Generic HID device exception
             </summary>
         </member>
     </members>
