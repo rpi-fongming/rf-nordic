@@ -45,12 +45,12 @@ void main(void)
   EA = 1;
 
   // Print "Hello World" at start-up
-  u_puts("\r\Enter Main Loop!\r\n");
+//  u_puts("\r\Enter Main Loop!\r\n");
 	
 	app_main_loop();
 
 	// Print "Hello World" at start-up
-  u_puts("\r\Exit Main Loop!\r\n");
+//  u_puts("\r\Exit Main Loop!\r\n");
 
 }
 /** @} */

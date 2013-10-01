@@ -356,9 +356,9 @@
               <FilePath>..\src\main.c</FilePath>
             </File>
             <File>
-              <FileName>app_uart_nrf24le_demo.c</FileName>
+              <FileName>application.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\src\app_uart_nrf24le_demo.c</FilePath>
+              <FilePath>..\src\application.c</FilePath>
             </File>
           </Files>
         </Group>
